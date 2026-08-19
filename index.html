@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>과천시 푸드테크 연구지원센터 | 기업 신청</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --bg:#0A1626; --panel:#0F2036; --card:#122840; --card2:#16304C; --line:#1F3A58;
+  --ink:#EAF2FA; --sub:#8CA3BC; --cyan:#2AD4E8; --blue:#3D8BFD; --pink:#FF5CA8;
+  --cyan-soft:rgba(42,212,232,.12); --blue-soft:rgba(61,139,253,.14);
+  --ok:#35C48D; --danger:#FF7A7A;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;font-size:15px}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:14px}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(10,22,38,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hwrap{max-width:1100px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand .mark{width:34px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--cyan),var(--blue));display:flex;align-items:center;justify-content:center;color:#06121F;font-weight:800;font-size:11px;letter-spacing:.02em}
+.brand .t{font-weight:700;font-size:15px;letter-spacing:-.3px}
+.brand .t small{display:block;font-size:11px;color:var(--sub);font-weight:500}
+nav{display:flex;gap:4px}
+nav button{background:none;border:none;padding:8px 14px;border-radius:8px;font-size:14px;font-weight:600;color:var(--sub)}
+nav button.on{background:var(--cyan-soft);color:var(--cyan)}
+.cartbtn{position:relative;border:1px solid var(--line)!important;background:var(--panel)!important;color:var(--ink)!important}
+.cartbtn .cnt{position:absolute;top:-6px;right:-6px;background:var(--cyan);color:#06121F;border-radius:99px;font-size:11px;font-weight:700;min-width:18px;height:18px;display:none;align-items:center;justify-content:center;padding:0 4px}
+
+main{max-width:1100px;margin:0 auto;padding:28px 20px 80px}
+.page{display:none}.page.on{display:block}
+
+/* hero */
+.hero{background:linear-gradient(150deg,#0D2137 0%,#0A1B30 55%,#0E2A46 100%);border:1px solid var(--line);border-radius:18px;padding:48px 44px;margin-bottom:32px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-120px;top:-120px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(42,212,232,.16),transparent 65%)}
+.hero .eyebrow{font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--cyan);margin-bottom:14px}
+.hero .eyebrow::before{content:"";display:block;width:56px;height:4px;background:var(--cyan);border-radius:2px;margin-bottom:14px}
+.hero h1{font-size:30px;font-weight:800;letter-spacing:-.5px;line-height:1.35;margin-bottom:14px}
+.hero h1 em{font-style:normal;color:var(--cyan)}
+.hero p{font-size:15px;color:var(--sub);max-width:660px;position:relative;z-index:1}
+.hero .chain{display:flex;gap:8px;margin-top:24px;flex-wrap:wrap;position:relative;z-index:1}
+.hero .chain span{background:var(--cyan-soft);border:1px solid rgba(42,212,232,.45);color:var(--cyan);border-radius:99px;padding:5px 15px;font-size:13px;font-weight:700}
+.hero .chain .ar{background:none;border:none;padding:5px 0;color:var(--sub)}
+.hero .cta{margin-top:28px;display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+.hero .cta button{border:none;border-radius:10px;padding:12px 24px;font-size:14px;font-weight:700}
+.hero .cta .b1{background:var(--cyan);color:#06121F}
+.hero .cta .b2{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.hero .cta .b2:hover{border-color:var(--cyan);color:var(--cyan)}
+
+.sect{margin-bottom:38px}
+.sect .sec-eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.18em;color:var(--cyan);margin-bottom:4px}
+.sect h2{font-size:21px;font-weight:800;letter-spacing:-.3px;margin-bottom:6px}
+.sect .desc{color:var(--sub);font-size:14px;margin-bottom:18px}
+.grid{display:grid;gap:14px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:840px){
+  .g3,.g2{grid-template-columns:1fr}
+  .hero{padding:34px 26px}
+  .hwrap{height:auto;flex-wrap:wrap;padding:10px 14px;gap:6px}
+  .brand{gap:8px}
+  .brand .mark{width:30px;height:26px;font-size:10px}
+  .brand .t{font-size:13px;line-height:1.3}
+  .brand .t small{font-size:10px}
+  nav{width:100%;gap:4px}
+  nav button{flex:1;padding:8px 4px;font-size:12.5px;white-space:nowrap;text-align:center}
+  .cartbtn .cnt{top:-4px;right:2px}
+}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.card h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.card p{font-size:13.5px;color:var(--sub)}
+
+/* packages */
+.pkg{display:flex;flex-direction:column;transition:border-color .15s,box-shadow .15s;cursor:pointer}
+.pkg:hover{border-color:var(--cyan);box-shadow:0 8px 26px rgba(42,212,232,.12)}
+.pkg .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--cyan);background:var(--cyan-soft);border:1px solid rgba(42,212,232,.35);border-radius:6px;padding:3px 9px;margin-bottom:10px;width:fit-content}
+.pkg.best .tag{color:#06121F;background:var(--cyan);border-color:var(--cyan)}
+.pkg ul{list-style:none;margin:12px 0 16px;flex:1}
+.pkg li{font-size:13.5px;color:var(--sub);padding:4px 0 4px 18px;position:relative}
+.pkg li::before{content:"";position:absolute;left:2px;top:11px;width:7px;height:7px;border-radius:2px;background:var(--blue)}
+.pkg .stg{list-style:none;margin:12px 0 16px;flex:1;counter-reset:st}
+.pkg .stg li{font-size:13.5px;color:var(--sub);padding:5px 0 5px 30px;position:relative;counter-increment:st}
+.pkg .stg li b{color:var(--ink);font-weight:700}
+.pkg .stg li::before{content:counter(st,decimal-leading-zero);position:absolute;left:0;top:7px;font-size:11px;font-weight:800;color:var(--cyan);letter-spacing:.03em}
+.pkg .stg li::after{content:"";position:absolute;left:9px;top:28px;bottom:-3px;width:1px;background:var(--line)}
+.pkg .stg li:last-child::after{display:none}
+.pkg .apply{border:1px solid var(--cyan);background:transparent;color:var(--cyan);border-radius:9px;padding:9px 0;font-weight:700;font-size:14px;width:100%}
+.pkg .apply.sel{background:var(--cyan);color:#06121F}
+.pkg.best{border-color:rgba(42,212,232,.5);box-shadow:0 4px 20px rgba(42,212,232,.10)}
+.pkg.soon{background:var(--panel);cursor:default}
+.pkg.soon:hover{border-color:var(--line);box-shadow:none}
+.pkg.soon h3,.pkg.soon p,.pkg.soon li{color:#51677F}
+.pkg.soon li::before{background:#2A415C}
+.pkg.soon .tag{background:#15273C;border-color:#2A415C;color:#51677F}
+.pkg.soon .apply{border-color:#2A415C;background:#15273C;color:#51677F;cursor:default}
+
+/* package modal examples */
+.exh{font-size:14px;font-weight:700;margin:18px 0 8px;color:var(--cyan)}
+.exh small{font-weight:500;color:var(--sub);font-size:12px;margin-left:6px}
+.exlist{display:flex;flex-direction:column;gap:7px}
+.exitem{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--card2);border-radius:10px;padding:10px 12px;cursor:pointer;transition:border-color .12s}
+.exitem:hover{border-color:var(--cyan)}
+.exitem .ck{display:flex;align-items:center}
+.exitem .ck input{width:16px;height:16px;accent-color:var(--cyan);cursor:pointer}
+.exbody{flex:1;min-width:0}
+.exname{font-size:13.5px;font-weight:700}
+.exdesc{font-size:12.5px;color:var(--sub)}
+.exitem .more{font-size:12px;font-weight:600;color:var(--cyan);flex-shrink:0}
+.expending{background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:14px;font-size:13px;color:var(--sub)}
+.pat{display:inline-block;font-size:10.5px;font-weight:700;color:var(--pink);background:rgba(255,92,168,.12);border:1px solid rgba(255,92,168,.4);border-radius:5px;padding:1px 6px;vertical-align:1px}
+.back{border:none;background:var(--panel);border-radius:7px;padding:5px 10px;font-size:12.5px;font-weight:600;color:var(--sub);margin-bottom:10px}
+.case .flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 4px}
+.case .flow span{background:var(--blue-soft);color:#7FB2FF;border:1px solid rgba(61,139,253,.4);border-radius:7px;padding:4px 10px;font-size:12px;font-weight:600}
+.case .flow em{color:var(--sub);font-style:normal;font-size:12px}
+
+/* equip filters */
+.fbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.fbar input[type=text]{flex:1;min-width:200px;border:1px solid var(--line);border-radius:9px;padding:9px 12px;background:var(--panel);color:var(--ink)}
+.fbar input[type=text]::placeholder{color:#51677F}
+.fbar select{border:1px solid var(--line);border-radius:9px;padding:9px 10px;background:var(--panel);color:var(--ink)}
+.chiprow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:99px;padding:6px 13px;font-size:13px;font-weight:600;color:var(--sub)}
+.chip.on{background:var(--cyan);border-color:var(--cyan);color:#06121F}
+.egrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.ecard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;transition:border-color .12s,box-shadow .12s;display:flex;flex-direction:column;gap:6px}
+.ecard:hover{border-color:var(--cyan);box-shadow:0 6px 18px rgba(42,212,232,.10)}
+.ecard .nm{font-weight:700;font-size:14.5px;letter-spacing:-.2px}
+.ecard .loc{font-size:12px;color:var(--sub)}
+.badges{display:flex;gap:5px;flex-wrap:wrap}
+.bdg{font-size:11px;font-weight:600;border-radius:5px;padding:2px 7px}
+.bdg.cat{background:var(--cyan-soft);color:var(--cyan);border:1px solid rgba(42,212,232,.3)}
+.bdg.y27{background:rgba(255,176,32,.12);color:#FFC24D;border:1px solid rgba(255,176,32,.35)}
+.bdg.infra{background:#15273C;color:#7A90A8;border:1px solid #2A415C}
+.empty{color:var(--sub);text-align:center;padding:40px 0;font-size:14px}
+
+/* modal */
+.mback{position:fixed;inset:0;background:rgba(3,9,17,.72);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto}
+.mback.on{display:flex}
+.modal{background:var(--card);border:1px solid var(--line);border-radius:16px;max-width:640px;width:100%;padding:28px;position:relative}
+.modal .x{position:absolute;top:16px;right:16px;border:none;background:var(--panel);border-radius:8px;width:32px;height:32px;font-size:15px;color:var(--sub)}
+.modal h3{font-size:20px;font-weight:800;letter-spacing:-.3px;margin-bottom:4px;padding-right:36px}
+.modal .mloc{font-size:13px;color:var(--sub);margin-bottom:14px}
+.spec{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:14px 0}
+.spec div{background:var(--card2);padding:9px 12px;font-size:13px}
+.spec b{display:block;font-size:11.5px;color:var(--sub);font-weight:600;margin-bottom:1px}
+.usage h4{font-size:14px;font-weight:700;margin:16px 0 6px;color:var(--cyan)}
+.usage ol{margin-left:18px;font-size:13.5px;color:var(--ink)}
+.usage ol li{margin:3px 0}
+.usage ol li b{color:var(--cyan)}
+.usage .warn{background:rgba(255,122,122,.10);border:1px solid rgba(255,122,122,.35);border-radius:9px;padding:10px 12px;font-size:13px;color:#FFA3A3;margin-top:12px}
+.usage .note{font-size:13.5px;color:var(--sub)}
+.mact{margin-top:20px;display:flex;gap:8px}
+.mact button{flex:1;border-radius:9px;padding:11px 0;font-weight:700;font-size:14px;border:none}
+.addbtn{background:var(--cyan);color:#06121F}
+.addbtn.added{background:var(--ok);color:#06121F}
+.addbtn:disabled{background:#22374F;color:#51677F;cursor:default}
+
+/* apply form */
+.formcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px}
+.fsec{font-size:14.5px;font-weight:800;color:var(--cyan);margin:22px 0 12px;padding-top:18px;border-top:1px solid var(--line)}
+.formcard .fsec:first-child{margin-top:0;padding-top:0;border-top:none}
+.agree{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:var(--sub);cursor:pointer}
+.agree input{width:16px;height:16px;accent-color:var(--cyan);margin-top:3px;flex-shrink:0}
+.frow{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:12px}
+@media(max-width:640px){.frow{grid-template-columns:1fr}}
+.fld label{display:block;font-size:13px;font-weight:600;margin-bottom:4px}
+.fld label .req{color:var(--pink)}
+.fld input,.fld select,.fld textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 12px;background:var(--panel);color:var(--ink)}
+.fld input::placeholder,.fld textarea::placeholder{color:#51677F}
+.fld textarea{min-height:90px;resize:vertical}
+.selbox{background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
+.selbox h4{font-size:13.5px;font-weight:700;margin-bottom:8px;color:var(--cyan)}
+.selitem{background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:7px 12px;font-size:13.5px;margin-bottom:6px}
+.selitem button{border:none;background:none;color:var(--danger);font-size:12.5px;font-weight:600}
+.selempty{font-size:13px;color:var(--sub)}
+.submitrow{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.submitrow button{border-radius:10px;padding:12px 22px;font-weight:700;font-size:14px;border:none}
+.sb1{background:var(--cyan);color:#06121F}
+.sb2{background:transparent;border:1px solid var(--line)!important;color:var(--ink)}
+.result{display:none;margin-top:18px;background:var(--panel);border:1px solid rgba(42,212,232,.35);border-radius:10px;padding:16px;font-size:13.5px;white-space:pre-wrap}
+.notice{font-size:12.5px;color:var(--sub);margin-top:12px}
+footer{border-top:1px solid var(--line);background:var(--panel);padding:22px 20px;text-align:center;color:var(--sub);font-size:12.5px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <div class="brand">
+      <div class="mark">GFT</div>
+      <div class="t">과천시 푸드테크 연구지원센터<small>기업 신청 페이지</small></div>
+    </div>
+    <nav>
+      <button data-page="home" class="on"><span class="navlabel">센터 소개</span></button>
+      <button data-page="pkg"><span class="navlabel">실증 패키지</span></button>
+      <button data-page="equip"><span class="navlabel">장비 신청</span></button>
+      <button data-page="apply" class="cartbtn">신청서<span class="cnt" id="cartCnt">0</span></button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<section class="page on" id="page-home">
+  <div class="hero">
+    <div class="eyebrow">GWACHEON FOODTECH RESEARCH SUPPORT CENTER</div>
+    <h1>데이터부터 인증까지,<br><em>개인맞춤형식품 사업화</em>의 전 과정을 지원합니다</h1>
+    <p>본 센터는 개인맞춤형식품 분야 기업을 대상으로 데이터 확보, 알고리즘 설계, 제조·서비스 실증, 인증 지원의 원스톱 플랫폼을 운영합니다. 필요한 단계만 선택하거나 전 과정을 통합 지원받을 수 있습니다.</p>
+    <div class="chain">
+      <span>데이터</span><span class="ar">→</span>
+      <span>알고리즘 설계</span><span class="ar">→</span>
+      <span>실증</span><span class="ar">→</span>
+      <span>인증</span>
+    </div>
+    <div class="cta">
+      <button class="b1" onclick="go('pkg')">실증 패키지 신청</button>
+      <button class="b2" onclick="go('equip')">장비 둘러보기</button>
+    </div>
+  </div>
+
+  <div class="sect">
+    <div class="sec-eyebrow">CORE SUPPORT</div>
+    <h2>센터가 제공하는 핵심 지원</h2>
+    <p class="desc">서울대학교가 보유한 기술 자산과 센터 인프라를 결합하여 기업의 실증 전 과정을 지원합니다.</p>
+    <div class="grid g2">
+      <div class="card"><h3>식품 통합 데이터베이스 제공</h3><p>레시피 영양성분, 표준 조리법, 알레르기 정보, 식재료 데이터 등 검증된 국내 식품 통합 데이터베이스를 제공하고, 실증 데이터를 통합하여 지속 업데이트합니다.</p></div>
+      <div class="card"><h3>맞춤식이 설계 알고리즘 및 기술 컨설팅</h3><p>기보유 AI 알고리즘의 기업 맞춤 커스터마이징과 파라미터 최적화를 지원하며, 식이 평가·추천·설계·코칭 전 과정의 기술 컨설팅을 제공합니다.</p></div>
+      <div class="card"><h3>시범 조리·분석 통합 인프라</h3><p>외식·급식·가정식 전 유형의 시범 조리가 가능한 조리 인프라와 실시간 성분·물성 분석 장비를 함께 제공하여, 조리 조건별 데이터 축적과 레시피 표준화를 지원합니다.</p></div>
+      <div class="card"><h3>서비스 실증 테스트베드 및 인증 지원</h3><p>조리 로봇·스마트 모니터링 기반 서비스 검증 테스트베드와 전문 스튜디오를 운영하며, KTR·KOTITI 등 협력 인증기관 연계를 통해 인증 획득을 지원합니다.</p></div>
+    </div>
+  </div>
+
+  <div class="sect">
+    <div class="sec-eyebrow">FACILITIES</div>
+    <h2>공간 안내</h2>
+    <p class="desc">과천 지식정보타운 내 3개 거점에서 기능별 인프라를 운영합니다.</p>
+    <div class="grid g3">
+      <div class="card"><h3>프리즘스퀘어</h3><p>센터 본부. 서비스 기획 및 인증 컨설팅 공간을 운영합니다. (2027년 구축)</p></div>
+      <div class="card"><h3>케이사인 사옥</h3><p>데이터·설계 거점. 고성능 컴퓨팅 환경의 공유오피스와 웰니스 측정 장비 기반 기술 지원실을 운영합니다.</p></div>
+      <div class="card"><h3>진성에프엠</h3><p>실증 거점. 가정식·외식 솔루션 실증실, 급식 솔루션실(조리 로봇), 미디어실을 운영합니다. (2026년 12월 운영 개시)</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PACKAGES ============ -->
+<section class="page" id="page-pkg">
+  <div class="sect">
+    <div class="sec-eyebrow">PACKAGES</div>
+    <h2>실증 패키지 신청</h2>
+    <p class="desc">패키지를 선택하면 상세 지원 내용과 예시를 확인할 수 있습니다. 모듈별 신청 또는 전주기 원스톱 신청이 가능하며, 세부 범위와 기간은 신청 후 센터와 협의하여 확정합니다.</p>
+    <div class="grid g3" id="pkgGrid"></div>
+  </div>
+
+</section>
+
+<!-- ============ EQUIPMENT ============ -->
+<section class="page" id="page-equip">
+  <div class="sect">
+    <div class="sec-eyebrow">EQUIPMENT</div>
+    <h2>장비 신청</h2>
+    <p class="desc">센터 구축 장비를 확인하고 사용을 신청할 수 있습니다. 장비를 선택하면 규격과 사용 안내를 확인할 수 있습니다. 2027년 도입 예정 장비는 사전 협의 후 이용 일정이 안내됩니다.</p>
+    <div class="fbar">
+      <input type="text" id="q" placeholder="장비명 검색">
+      <select id="fBld"><option value="">전체 건물</option></select>
+      <select id="fYear"><option value="">전체 연도</option><option value="2026">2026 구축</option><option value="2027">2027 도입 예정</option></select>
+    </div>
+    <div class="chiprow" id="catChips"></div>
+    <div class="egrid" id="egrid"></div>
+    <div class="empty" id="eempty" style="display:none">검색 조건에 해당하는 장비가 없습니다.</div>
+  </div>
+</section>
+
+<!-- ============ APPLY ============ -->
+<section class="page" id="page-apply">
+  <div class="sect">
+    <div class="sec-eyebrow">APPLICATION</div>
+    <h2>이용 신청서 작성</h2>
+    <p class="desc">작성하신 내용은 정식 이용 신청서로 문서화되어 센터에 접수·보관되며, 제출 후 신청서(Word)를 내려받아 보관하실 수 있습니다.</p>
+
+    <div class="formcard">
+      <h4 class="fsec">1. 신청 내용</h4>
+      <div class="fld" style="margin-bottom:12px"><label>실증 과제명 <span class="req">*</span></label><input id="fTitle" placeholder="예: 맞춤형 도시락 레시피 표준화 및 조리 로봇 적용 실증"></div>
+      <div class="selbox">
+        <h4>선택한 실증 패키지</h4>
+        <div id="selPkg" class="selempty">선택된 패키지가 없습니다. 실증 패키지 탭에서 선택할 수 있습니다.</div>
+      </div>
+      <div class="selbox">
+        <h4>선택한 장비</h4>
+        <div id="selEquip" class="selempty">선택된 장비가 없습니다. 장비 신청 탭에서 담을 수 있습니다.</div>
+      </div>
+      <div class="frow">
+        <div class="fld"><label>희망 이용 기간</label><input id="fPeriod" placeholder="예: 2026년 12월 ~ 2027년 2월"></div>
+        <div class="fld"><label>희망 이용 형태</label>
+          <select id="fUseType"><option>정기 이용 (주 1회 이상)</option><option>수시 이용</option><option>단기 집중 이용</option><option>협의 후 결정</option></select>
+        </div>
+      </div>
+
+      <h4 class="fsec">2. 기업 정보</h4>
+      <div class="frow">
+        <div class="fld"><label>기업명 <span class="req">*</span></label><input id="fCompany"></div>
+        <div class="fld"><label>대표자명 <span class="req">*</span></label><input id="fCeo"></div>
+      </div>
+      <div class="frow">
+        <div class="fld"><label>사업자등록번호 <span class="req">*</span></label><input id="fBizNo" placeholder="000-00-00000"></div>
+        <div class="fld"><label>기업 유형</label>
+          <select id="fType"><option>스타트업</option><option>중소기업</option><option>중견·대기업</option><option>대학·연구기관</option><option>기타</option></select>
+        </div>
+      </div>
+      <div class="fld" style="margin-bottom:12px"><label>소재지(주소) <span class="req">*</span></label><input id="fAddr"></div>
+      <div class="frow">
+        <div class="fld"><label>업종 및 주요 제품·서비스 <span class="req">*</span></label><input id="fBizDesc" placeholder="예: 맞춤형 건강 도시락 제조·구독 서비스"></div>
+        <div class="fld"><label>홈페이지 (선택)</label><input id="fWeb" placeholder="https://"></div>
+      </div>
+
+      <h4 class="fsec">3. 담당자 정보</h4>
+      <div class="frow">
+        <div class="fld"><label>담당자명 <span class="req">*</span></label><input id="fName"></div>
+        <div class="fld"><label>부서 / 직책</label><input id="fDept" placeholder="예: 연구개발팀 / 팀장"></div>
+      </div>
+      <div class="frow">
+        <div class="fld"><label>연락처 <span class="req">*</span></label><input id="fPhone" placeholder="010-0000-0000"></div>
+        <div class="fld"><label>이메일 <span class="req">*</span></label><input id="fEmail" type="email"></div>
+      </div>
+
+      <h4 class="fsec">4. 실증 계획</h4>
+      <div class="fld" style="margin-bottom:12px"><label>실증하고자 하는 기술·서비스 개요 <span class="req">*</span></label>
+        <textarea id="fDesc" placeholder="실증 대상 기술·제품·서비스의 개요와 현재 개발 단계를 기술하여 주십시오."></textarea>
+      </div>
+      <div class="fld" style="margin-bottom:12px"><label>실증 목표 및 기대 성과 <span class="req">*</span></label>
+        <textarea id="fGoal" placeholder="센터 이용을 통해 달성하고자 하는 목표와 기대 성과를 기술하여 주십시오. (예: 레시피 표준화 완료, 시제품 3종 개발, 인증 획득 등)"></textarea>
+      </div>
+      <div class="fld" style="margin-bottom:12px"><label>보유 데이터·기술 현황 (선택)</label>
+        <textarea id="fAssets" placeholder="보유 중인 데이터, 특허, 자체 기술 등이 있다면 기술하여 주십시오."></textarea>
+      </div>
+      <div class="fld" style="margin-bottom:12px"><label>센터에 요청하는 지원 사항 (선택)</label>
+        <textarea id="fRequest" placeholder="장비·데이터·컨설팅 등 센터에 특별히 요청하고자 하는 지원이 있다면 기술하여 주십시오."></textarea>
+      </div>
+
+      <h4 class="fsec">5. 동의</h4>
+      <label class="agree"><input type="checkbox" id="fAgree"> <span>신청서 접수 및 이용 상담을 위한 개인정보(성명, 연락처, 이메일) 수집·이용에 동의합니다. <span class="req">*</span></span></label>
+
+      <div class="submitrow">
+        <button class="sb1" onclick="submitForm(true)">신청서 제출</button>
+        <button class="sb2" onclick="submitForm(false)">신청 내용 미리보기</button>
+        <button class="sb2" id="docBtn" style="display:none" onclick="downloadDoc()">신청서 다운로드 (Word)</button>
+      </div>
+      <div class="result" id="result"></div>
+      <p class="notice">제출 시 신청 내용이 센터에 접수되고 담당자 이메일로 전달됩니다. 접수 후 담당자가 3영업일 이내 연락드립니다.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- equipment modal -->
+<div class="mback" id="mback" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalBody"></div>
+</div>
+
+<footer>
+  과천시 푸드테크 연구지원센터 · 농림축산식품부 지정 · 서울대학교 산학협력단 운영<br>
+  경기도 과천시 지식정보타운 (프리즘스퀘어 · 케이사인 사옥 · 진성에프엠)
+</footer>
+
+<script>
+const EQUIP = [{"name": "모니터", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(A) DB 저장", "cat": "컴퓨팅·데이터 인프라", "year": "2026", "qty": 8, "price": "₩281,511", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "서버", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(A) DB 저장", "cat": "컴퓨팅·데이터 인프라", "year": "2026", "qty": 2, "price": "₩5,529,700", "w": "435", "dp": "535", "h": "43", "power": "0.071", "volt": "220", "water": "", "drain": "-", "vent": "△"}, {"name": "서버랙", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(A) DB 저장", "cat": "컴퓨팅·데이터 인프라", "year": "2026", "qty": 1, "price": "₩1,003,380", "w": "1200", "dp": "1000", "h": "600", "power": "0", "volt": "0", "water": "", "drain": "-", "vent": "-"}, {"name": "워크스테이션", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(A) DB 저장", "cat": "컴퓨팅·데이터 인프라", "year": "2026", "qty": 1, "price": "₩20,811,780", "w": "604", "dp": "240", "h": "566", "power": "2", "volt": "230", "water": "", "drain": "-", "vent": "△"}, {"name": "고성능 컴퓨터", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(B) 알고리즘 설계", "cat": "컴퓨팅·데이터 인프라", "year": "2026", "qty": 2, "price": "₩6,882,060", "w": "230", "dp": "491", "h": "468", "power": "1", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "전자칠판_회의용", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(E) 회의실", "cat": "영상·콘텐츠 장비", "year": "2026", "qty": 1, "price": "₩3,719,980", "w": "1717", "dp": "1032", "h": "83.7", "power": "0.4", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "화상회의 시스템", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(E) 회의실", "cat": "영상·콘텐츠 장비", "year": "2026", "qty": 1, "price": "₩3,468,630", "w": "348", "dp": "251", "h": "308", "power": "0", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "광파오븐", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(F) 라운지", "cat": "가열·조리 장비", "year": "2026", "qty": 1, "price": "₩1,430,000", "w": "595", "dp": "469", "h": "459", "power": "2800", "volt": "220", "water": "-", "drain": "-", "vent": "- (상부장으로 할 경우 필요 O/하부장으로 할 경우 필요X )"}, {"name": "사이니지 (홍보영상 재생용)", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(F) 라운지", "cat": "영상·콘텐츠 장비", "year": "2026", "qty": 1, "price": "₩1,347,230", "w": "1455", "dp": "841", "h": "46.3", "power": "0.204", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "스마트 냉장고", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(F) 라운지", "cat": "보관·위생 설비", "year": "2026", "qty": 1, "price": "₩3,300,000", "w": "912", "dp": "697", "h": "1853", "power": "56", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "자동 식기 세척 시스템_가정용", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(F) 라운지", "cat": "보관·위생 설비", "year": "2026", "qty": 1, "price": "₩1,210,000", "w": "595", "dp": "815", "h": "572", "power": "2050", "volt": "220", "water": "냉수/온수", "drain": "O", "vent": "-"}, {"name": "후드일체형 인덕션렌지", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(F) 라운지", "cat": "가열·조리 장비", "year": "2026", "qty": 2, "price": "₩2,640,000", "w": "800", "dp": "520", "h": "0", "power": "7600", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "체성분 측정기", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(B) 뷰티존", "cat": "웰니스 측정 장비", "year": "2026", "qty": 2, "price": "₩6,535,100", "w": "526", "dp": "854", "h": "1175", "power": "0.0408", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "1조 세정 캐비닛", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 9, "price": "₩392,106", "w": "600", "dp": "700", "h": "850", "power": "0", "volt": "0", "water": "냉수/온수", "drain": "O", "vent": "-"}, {"name": "1조 세정 캐비닛 (대)", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 2, "price": "₩633,402", "w": "1200", "dp": "700", "h": "850", "power": "0", "volt": "0", "water": "냉수/온수", "drain": "O", "vent": "-"}, {"name": "2조 세정 캐비닛", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 2, "price": "₩623,348", "w": "1200", "dp": "700", "h": "850", "power": "0", "volt": "0", "water": "냉수/온수", "drain": "O", "vent": "-"}, {"name": "냉장테이블", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "보관·위생 설비", "year": "2026", "qty": 12, "price": "₩2,250,000", "w": "1200", "dp": "700", "h": "850", "power": "660", "volt": "220", "water": "-", "drain": "O (물 빠지는 배수선 필요)", "vent": "-"}, {"name": "다단식선반_대", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 3, "price": "₩645,165", "w": "1500", "dp": "600", "h": "2100", "power": "0", "volt": "0", "water": "-", "drain": "-", "vent": "-"}, {"name": "상업용 조리대 1500", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 4, "price": "₩834,482", "w": "1500", "dp": "600", "h": "850", "power": "0", "volt": "0", "water": "-", "drain": "-", "vent": "-"}, {"name": "실험대 1200", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 9, "price": "₩662,016", "w": "1200", "dp": "750", "h": "1050", "power": "0", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "이중배기후드/휠타/등", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 8, "price": "₩3,483,711", "w": "1800", "dp": "1500", "h": "550", "power": "0", "volt": "0", "water": "-", "drain": "-", "vent": "O"}, {"name": "인덕션렌지2구", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "가열·조리 장비", "year": "2026", "qty": 8, "price": "₩3,465,000", "w": "800", "dp": "700", "h": "800", "power": "10200", "volt": "220, 380", "water": "-", "drain": "-", "vent": "-(선택사항)"}, {"name": "캐비넷 벽 찬장", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 12, "price": "₩341,836", "w": "1500", "dp": "350", "h": "600", "power": "0", "volt": "0", "water": "-", "drain": "-", "vent": "-"}, {"name": "1조 세정 캐비닛 (대)", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 2, "price": "₩633,402", "w": "1200", "dp": "700", "h": "850", "power": "0", "volt": "0", "water": "냉수/온수", "drain": "O", "vent": "-"}, {"name": "2조 세정 캐비닛", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 2, "price": "₩623,348", "w": "1200", "dp": "700", "h": "850", "power": "0", "volt": "0", "water": "냉수/온수", "drain": "O", "vent": "-"}, {"name": "냉장테이블", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(A) 기본 장비", "cat": "보관·위생 설비", "year": "2026", "qty": 4, "price": "₩2,250,000", "w": "1200", "dp": "700", "h": "850", "power": "660", "volt": "220", "water": "-", "drain": "O (물 빠지는 배수선 필요)", "vent": "-"}, {"name": "이중배기후드/휠타/등", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 6, "price": "₩3,483,711", "w": "1800", "dp": "1500", "h": "550", "power": "0", "volt": "0", "water": "-", "drain": "-", "vent": "O"}, {"name": "초음파 세척기", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(A) 기본 장비", "cat": "스마트 조리 로봇", "year": "2026", "qty": 2, "price": "₩4,510,000", "w": "1000", "dp": "800", "h": "1000", "power": "2", "volt": "1Ø220V", "water": "", "drain": "O", "vent": "-"}, {"name": "초음파 튀김기", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(B) 스마트 조리", "cat": "스마트 조리 로봇", "year": "2026", "qty": 2, "price": "₩4,180,000", "w": "600", "dp": "800", "h": "1000", "power": "9", "volt": "3Ø380V", "water": "-", "drain": "-", "vent": "O"}, {"name": "국탕 조리 로봇", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(B) 스마트 조리", "cat": "스마트 조리 로봇", "year": "2026", "qty": 1, "price": "₩176,000,000", "w": "3500", "dp": "3000", "h": "2000", "power": "35", "volt": "1Ø220V 3Ø4W380V 1Ø220V", "water": "", "drain": "O", "vent": "O"}, {"name": "튀김용 조리 로봇", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(B) 스마트 조리", "cat": "스마트 조리 로봇", "year": "2026", "qty": 2, "price": "₩66,000,000", "w": "1500", "dp": "2000", "h": "1800", "power": "17", "volt": "1Ø220V  1Ø220V  1Ø220V", "water": "", "drain": "O", "vent": "O"}, {"name": "올인원 스튜디오", "building_s": "진성 FM", "space_s": "미디어실", "purpose": "(A) 올인원 스튜디오", "cat": "영상·콘텐츠 장비", "year": "2026", "qty": 1, "price": "₩30,019,000", "w": "4000", "dp": "0", "h": "0", "power": "1", "volt": "가능", "water": "-", "drain": "-", "vent": "-"}, {"name": "식탁", "building_s": "진성 FM", "space_s": "미디어실", "purpose": "(B) 시음실", "cat": "기반 설비", "year": "2026", "qty": 1, "price": "₩2,392,852", "w": "2100", "dp": "1000", "h": "740", "power": "0", "volt": "-", "water": "-", "drain": "-", "vent": "-"}, {"name": "의자", "building_s": "진성 FM", "space_s": "미디어실", "purpose": "(B) 시음실", "cat": "기반 설비", "year": "2026", "qty": 8, "price": "₩450,419", "w": "550", "dp": "525", "h": "1055", "power": "0", "volt": "0", "water": "-", "drain": "-", "vent": "-"}, {"name": "실험대 1500", "building_s": "진성 FM", "space_s": "미디어실", "purpose": "(C) 포장 장비", "cat": "기반 설비", "year": "2026", "qty": 4, "price": "₩861,527", "w": "1500", "dp": "750", "h": "1050", "power": "0", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "실험대 1500", "building_s": "진성 FM", "space_s": "미디어실", "purpose": "(D) 레시피 분석", "cat": "기반 설비", "year": "2026", "qty": 6, "price": "₩861,527", "w": "1500", "dp": "750", "h": "1050", "power": "0", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "상업용 조리대 1500", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(D) 보관/세척", "cat": "기반 설비", "year": "2026", "qty": 4, "price": "₩834,482", "w": "1500", "dp": "600", "h": "850", "power": "0", "volt": "0", "water": "-", "drain": "-", "vent": "-"}, {"name": "고성능 컴퓨터", "building_s": "프리즘스퀘어", "space_s": "디자인실", "purpose": "(A) 서비스 기획", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 4, "price": "₩6,702,097", "w": "230", "dp": "491", "h": "468", "power": "1", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "모니터", "building_s": "프리즘스퀘어", "space_s": "디자인실", "purpose": "(A) 서비스 기획", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 8, "price": "₩281,512", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "모니터", "building_s": "프리즘스퀘어", "space_s": "디자인실", "purpose": "(B) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 10, "price": "₩281,512", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "사무용 컴퓨터", "building_s": "프리즘스퀘어", "space_s": "디자인실", "purpose": "(B) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 5, "price": "₩2,650,737", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "모니터", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(B) 알고리즘 설계", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 8, "price": "₩281,512", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "워크스테이션", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(B) 알고리즘 설계", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 3, "price": "₩20,811,780", "w": "604", "dp": "240", "h": "566", "power": "2", "volt": "230", "water": "", "drain": "-", "vent": "△"}, {"name": "GPU", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(B) 알고리즘 설계", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 1, "price": "₩12,700,000", "w": "110", "dp": "266", "h": "내부", "power": "0.3", "volt": "0", "water": "", "drain": "-", "vent": "△"}, {"name": "노트북", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(C) 프로젝트 기획", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 8, "price": "₩3,016,200", "w": "휴대용", "dp": "휴대용", "h": "휴대용", "power": "배터리", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "전자칠판_사무실", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(C) 프로젝트 기획", "cat": "영상·콘텐츠 장비", "year": "2027", "qty": 4, "price": "₩3,680,000", "w": "1709", "dp": "1031", "h": "100", "power": "0.365", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "프리젠터", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(C) 프로젝트 기획", "cat": "영상·콘텐츠 장비", "year": "2027", "qty": 4, "price": "₩170,000", "w": "휴대용", "dp": "휴대용", "h": "휴대용", "power": "휴대용", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "화상회의 시스템", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(C) 프로젝트 기획", "cat": "영상·콘텐츠 장비", "year": "2027", "qty": 4, "price": "₩3,468,630", "w": "348", "dp": "251", "h": "308", "power": "0", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "고성능 컴퓨터 (시험·인증 연계 및 사업화·R&D)", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 1, "price": "₩98,770,000", "w": "230", "dp": "491", "h": "468", "power": "1", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "고성능 컴퓨터 (실증 기반 시험·검증)", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 1, "price": "₩25,300,000", "w": "230", "dp": "491", "h": "468", "power": "1", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "고성능 컴퓨터 (표준·시험기반구축)", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 1, "price": "₩25,000,000", "w": "230", "dp": "491", "h": "468", "power": "1", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "네트워크 장치(스위치)", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 1, "price": "₩709,812", "w": "440", "dp": "200", "h": "44", "power": "0.37", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "모니터", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 6, "price": "₩281,512", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "보안장비(방화벽)", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 1, "price": "₩4,976,730", "w": "430", "dp": "88", "h": "562", "power": "0.03", "volt": "12", "water": "", "drain": "-", "vent": "-"}, {"name": "서버", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 2, "price": "₩5,529,700", "w": "435", "dp": "535", "h": "43", "power": "0.071", "volt": "220", "water": "", "drain": "-", "vent": "△"}, {"name": "GPU", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 1, "price": "₩12,700,000", "w": "110", "dp": "266", "h": "내부", "power": "0.3", "volt": "0", "water": "", "drain": "-", "vent": "△"}, {"name": "가정용 혈압계", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(A) 웨어러블존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 2, "price": "₩1,216,534", "w": "105", "dp": "85", "h": "152", "power": "0.03", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "스마트 링", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(A) 웨어러블존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 100, "price": "₩499,400", "w": "휴대용", "dp": "휴대용", "h": "휴대용", "power": "0", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "스마트 워치", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(A) 웨어러블존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 100, "price": "₩389,500", "w": "휴대용", "dp": "휴대용", "h": "휴대용", "power": "0", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "연속혈당 측정기", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(A) 웨어러블존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 100, "price": "₩104,500", "w": "휴대용", "dp": "휴대용", "h": "휴대용", "power": "0", "volt": "0", "water": "", "drain": "-", "vent": "-"}, {"name": "두피진단시스템", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(B) 뷰티존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 2, "price": "₩3,300,000", "w": "500", "dp": "300", "h": "300", "power": "0.1", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "모니터", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(B) 뷰티존", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 2, "price": "₩281,512", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "사무용 컴퓨터", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(B) 뷰티존", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 2, "price": "₩2,650,737", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "피부/헤어 듀얼솔루션", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(B) 뷰티존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 2, "price": "₩4,550,000", "w": "85", "dp": "19", "h": "170", "power": "0", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "피부진단기", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(B) 뷰티존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 2, "price": "₩8,800,000", "w": "302", "dp": "369", "h": "480", "power": "0.06", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "근골격통합검진시스템_6100", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(C) 메디존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 1, "price": "₩19,906,920", "w": "4500", "dp": "1300", "h": "1200", "power": "0.3", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "근골격통합검진시스템_9100", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(C) 메디존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 1, "price": "₩22,118,800", "w": "1500", "dp": "3000", "h": "2120", "power": "0.3", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "근골격통합검진시스템용 트레드밀", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(C) 메디존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 1, "price": "₩1,990,692", "w": "시스템 통합", "dp": "시스템 통합", "h": "시스템 통합", "power": "0.93", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "뇌파측정 웨어러블 기기", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(C) 메디존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 2, "price": "₩9,852,920", "w": "휴대용", "dp": "휴대용", "h": "휴대용", "power": "배터리", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "바이탈 트래커", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(C) 메디존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 2, "price": "₩8,800,000", "w": "350", "dp": "500", "h": "1700", "power": "0.3", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "스트레스 측정기", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(C) 메디존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 2, "price": "₩6,434,560", "w": "330", "dp": "140", "h": "310", "power": "0.024", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "스마트 음식물 처리기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩13,070,200", "w": "650", "dp": "980", "h": "930", "power": "1000", "volt": "220", "water": "냉수", "drain": "O", "vent": "-"}, {"name": "자동 식기 세척 시스템_업소용", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "보관·위생 설비", "year": "2027", "qty": 2, "price": "₩7,078,016", "w": "900", "dp": "700", "h": "850", "power": "1440", "volt": "220", "water": "온수", "drain": "O", "vent": "-"}, {"name": "전기식기소독장", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "보관·위생 설비", "year": "2027", "qty": 1, "price": "₩5,670,456", "w": "1800", "dp": "750", "h": "1950", "power": "6100", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "제빙기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "가열·조리 장비", "year": "2027", "qty": 1, "price": "₩3,921,060", "w": "560", "dp": "825", "h": "1925", "power": "1221", "volt": "220", "water": "냉수", "drain": "O", "vent": "-"}, {"name": "칼도마소독기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "보관·위생 설비", "year": "2027", "qty": 1, "price": "₩3,669,710", "w": "1000", "dp": "600", "h": "1900", "power": "3000", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "교반기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩1,759,500", "w": "340", "dp": "460", "h": "520", "power": "650", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "다기능 조리기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "가열·조리 장비", "year": "2027", "qty": 2, "price": "₩6,311,000", "w": "256", "dp": "405", "h": "122", "power": "최대 2000", "volt": "220-240", "water": "-", "drain": "- (직접 세척)", "vent": "-"}, {"name": "블렌더/믹서기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "절단·혼합·전처리", "year": "2027", "qty": 7, "price": "₩2,250,000", "w": "224", "dp": "249", "h": "457", "power": "1.5", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "야채절단기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩10,893,509", "w": "676", "dp": "426", "h": "562", "power": "600", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "저울", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "분석 장비", "year": "2027", "qty": 13, "price": "₩250,000", "w": "266", "dp": "280", "h": "146", "power": "0", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "전기믹서기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩150,000", "w": "250", "dp": "270", "h": "390", "power": "320", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "정밀저울", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "분석 장비", "year": "2027", "qty": 13, "price": "₩486,000", "w": "190", "dp": "218", "h": "53", "power": "0.4", "volt": "배터리/220", "water": "-", "drain": "-", "vent": "-"}, {"name": "제면기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "가열·조리 장비", "year": "2027", "qty": 2, "price": "₩1,100,000", "w": "500", "dp": "600", "h": "380", "power": "500", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "착즙기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩2,290,000", "w": "185", "dp": "265", "h": "512", "power": "200", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "푸드프로세서", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩728,900", "w": "385", "dp": "345", "h": "280", "power": "1200", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "3D 프린터", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(B) 가열/조리", "cat": "3D 푸드프린팅", "year": "2027", "qty": 3, "price": "₩77,000,000", "w": "700", "dp": "700", "h": "630", "power": "1300", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "건조기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(B) 가열/조리", "cat": "가열·조리 장비", "year": "2027", "qty": 2, "price": "₩249,000", "w": "331", "dp": "403", "h": "355", "power": "850", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "데크오븐", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(B) 가열/조리", "cat": "가열·조리 장비", "year": "2027", "qty": 2, "price": "₩7,942,660", "w": "1640", "dp": "830", "h": "1900", "power": "19,000", "volt": "220", "water": "-", "drain": "-", "vent": "- (환기구/환풍설비 권장)"}, {"name": "저당 밥솥", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(B) 가열/조리", "cat": "가열·조리 장비", "year": "2027", "qty": 2, "price": "₩748,000", "w": "271", "dp": "371", "h": "253", "power": "1090", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "콤비스팀 오븐", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(B) 가열/조리", "cat": "가열·조리 장비", "year": "2027", "qty": 2, "price": "₩37,646,198", "w": "1114", "dp": "1110", "h": "1890", "power": "64600", "volt": "단상AC223, 220 무관", "water": "냉수", "drain": "O (25A  회색 드린호수관)", "vent": "- (가능하면 후드 설치)"}, {"name": "Bespoke 큐커 오븐 32L", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(B) 가열/조리", "cat": "가열·조리 장비", "year": "2027", "qty": 2, "price": "₩499,000", "w": "528", "dp": "481", "h": "404", "power": "2500", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "고속 유화기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(C) 절단/혼합", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩4,304,410", "w": "250", "dp": "314", "h": "454", "power": "200", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "고압균질기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(C) 절단/혼합", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩75,240,000", "w": "620", "dp": "615", "h": "1102", "power": "2200", "volt": "380", "water": "냉수", "drain": "O", "vent": "-"}];
+const GUIDES = {"스마트 조리 로봇": {"용도": "급식·외식 환경에서의 자동 조리 공정 실증 및 레시피 표준화", "절차": ["센터 담당자와 사전 협의 후 조리 레시피(투입량·온도·시간)를 로봇 공정 데이터로 변환", "담당 인력 입회 하에 시운전 및 안전 점검 실시", "실증 조리 진행 및 공정 데이터(온도·시간·투입량) 자동 기록", "조리 완료 후 세척·위생 관리 절차 수행"], "주의": "조리 로봇은 반드시 센터 담당 인력 입회 하에 운영하며, 사전 안전 교육 이수가 필수임. 3상 380V 전원 및 급배수·배기 설비와 연동되어 있어 임의 이동·설정 변경이 불가함."}, "가열·조리 장비": {"용도": "맞춤형 레시피 시범 조리 및 온도·시간·가열 방식별 조리 조건 실증", "절차": ["장비 예약 후 사용 전 상태 점검(전원·급배수·배기)", "레시피 조건(온도·시간·모드) 설정 및 조리 진행", "조리 조건과 결과를 실증 기록지(또는 센터 데이터 시스템)에 기록", "사용 후 내부 세척 및 전원 차단"], "주의": "고온·고전력 장비로 사용 중 자리 이탈을 금하며, 화상 방지 보호구를 착용함. 배기 후드 가동 상태를 확인한 후 사용함."}, "절단·혼합·전처리": {"용도": "식재료 전처리 및 물성 제어(분쇄·혼합·유화·균질) 공정 실증", "절차": ["안전 커버·부속 장착 상태 확인 후 전원 연결", "재료 투입량을 정격 용량 이내로 투입", "목적에 맞는 속도·시간 설정 후 가동", "사용 직후 분해 세척 및 건조"], "주의": "회전체·칼날 장비로 가동 중 개구부에 손을 넣지 않으며, 세척 시 반드시 전원을 분리함."}, "분석 장비": {"용도": "조리 전후 시료의 성분·물성·품질 지표 측정 및 레시피 최적화 데이터 확보", "절차": ["사용 전 교정(캘리브레이션) 상태 확인", "시료 전처리 후 규격에 맞게 장착·측정", "측정값을 센터 데이터 시스템에 기록", "측정부 세척 및 표준 상태로 복귀"], "주의": "정밀 장비로 초기 사용 시 센터 담당자의 교육 후 사용하며, 교정 주기와 시료 규격을 준수함."}, "웰니스 측정 장비": {"용도": "헬스케어 데이터 수집 실증(대상자 신체·생체 지표 측정) 및 서비스 검증", "절차": ["측정 대상자 동의 및 개인정보 처리 절차 확인", "장비별 표준 측정 프로토콜에 따라 측정", "측정 데이터의 익명화·보안 처리 후 저장", "웨어러블 기기는 반납 시 초기화 및 소독"], "주의": "대상자 데이터 수집 시 사전 동의와 개인정보 보호 절차 준수가 필수이며, 의료행위 목적으로 사용할 수 없음."}, "컴퓨팅·데이터 인프라": {"용도": "맞춤식이 알고리즘 개발·학습, 데이터 분석 및 DB 구축", "절차": ["계정 발급 및 보안 서약 후 접속 권한 부여", "할당된 컴퓨팅 자원(GPU·스토리지) 범위 내 작업 수행", "산출물은 지정 저장소에 보관", "사용 종료 시 세션 종료 및 자원 반납"], "주의": "센터 보안 정책에 따라 외부 저장매체 반출 및 무단 소프트웨어 설치가 제한됨."}, "영상·콘텐츠 장비": {"용도": "제품·서비스 홍보 콘텐츠 제작, 투자 피칭 자료 제작 및 회의·발표 지원", "절차": ["미디어실·회의실 예약 후 장비 세팅 지원 요청", "촬영·회의 진행", "산출 파일 백업 후 장비 원위치", "조명·전원 차단 확인"], "주의": "스튜디오 장비는 센터 담당자의 세팅 지원 하에 사용하며, 구조물 임의 변경을 금함."}, "보관·위생 설비": {"용도": "식재료·시제품 보관 및 조리 위생 관리", "절차": ["보관물품 라벨링(기업명·내용물·일자) 후 지정 구역에 보관", "설정 온도 임의 변경 금지", "세척·소독 장비는 표준 운전 조건으로 사용", "보관 기간 종료 시 자진 수거"], "주의": "공용 설비로 장기 방치 물품은 위생 규정에 따라 폐기될 수 있음."}, "3D 푸드프린팅": {"용도": "맞춤형 식품 조형·시제품 제작 실증", "절차": ["식용 소재(카트리지) 규격 및 물성 적합성 사전 확인", "디자인 파일 업로드 및 출력 조건 설정", "출력 진행 및 결과물 품질 확인", "노즐·베드 세척 및 소재 보관"], "주의": "지정된 식용 소재만 사용 가능하며, 최초 사용 시 센터 교육 이수가 필요함."}, "기반 설비": {"용도": "실증 공간 공용 기반 설비(작업대·수납·급배기 등)", "절차": ["실증 공간 예약 시 함께 제공되어 별도 신청 없이 사용", "사용 후 정리·세척 상태 유지"], "주의": "공용 설비로 임의 이동·개조를 금함."}};
+const CENTER_EMAIL = "snupfm@gmail.com"; // 접수 실패 시 대체 이메일
+const API_URL = "https://gwacheon-apply-api.snupfm.workers.dev";
+// 구글 시트 '웹에 게시' CSV 링크 목록. 각 링크의 머리글을 보고 장비/실증예시 탭을 자동 판별.
+const SHEET_CSV_URLS = [
+ "https://docs.google.com/spreadsheets/d/e/2PACX-1vS09WsQ4wSlgGLmrWQdtJfbsygyJgLIqJn4greBzs4-61eLYrrAK3lyOXgStBxgKQ/pub?gid=613778283&single=true&output=csv",
+ "https://docs.google.com/spreadsheets/d/e/2PACX-1vS09WsQ4wSlgGLmrWQdtJfbsygyJgLIqJn4greBzs4-61eLYrrAK3lyOXgStBxgKQ/pub?gid=1503891182&single=true&output=csv",
+ "https://docs.google.com/spreadsheets/d/e/2PACX-1vS09WsQ4wSlgGLmrWQdtJfbsygyJgLIqJn4greBzs4-61eLYrrAK3lyOXgStBxgKQ/pub?gid=1093290834&single=true&output=csv"
+];
+
+const PKGS = [
+ {id:"onestop", tag:"원스톱", best:true, name:"전주기 원스톱 패키지",
+  desc:"데이터-설계-실증-인증 전 과정을 통합 지원하는 패키지",
+  items:["식품 통합 DB 제공 및 데이터 수집 프로토콜 설계","맞춤식이 알고리즘 커스터마이징 및 기술 컨설팅","시범 조리·분석·서비스 실증 테스트베드 이용","협력 인증기관 연계 인증 획득 지원"]},
+ {id:"data", tag:"데이터", name:"기반 데이터 패키지",
+  desc:"검증된 데이터베이스 제공과 자체 데이터 수집 체계 구축 지원",
+  items:["레시피·영양성분·식재료 통합 DB 제공","웰니스 측정 장비 기반 헬스케어 데이터 수집","조리·분석 장비 기반 레시피 특성 데이터 수집","서비스 형태별 데이터 수집 프로토콜 설계"]},
+ {id:"algo", tag:"설계", name:"알고리즘 설계 패키지",
+  desc:"AI 기반 맞춤식이 설계 알고리즘 개발·고도화 지원",
+  items:["기보유 알고리즘 제공 및 파라미터 최적화","워크스테이션·GPU 서버 등 AI 개발 환경 제공","식이 평가·추천·설계·코칭 기술 컨설팅","실증 데이터 기반 반복 개선 사이클 운영"]},
+ {id:"cook", tag:"제품 실증", name:"제품 실증 패키지",
+  desc:"제품 기획부터 제조·분석까지 단계별 실증 지원",
+  stages:[
+   {t:"제품 기획", d:"데이터·시장 분석 기반 제품 콘셉트 및 라인업 기획"},
+   {t:"소재 발굴·검증", d:"기능성 원료·소재 탐색 및 성분·물성 분석 기반 검증"},
+   {t:"제품 제조", d:"시범 조리, 조리 로봇·3D 푸드프린팅 활용 시제품 제작 및 레시피 표준화"},
+   {t:"분석·피드백", d:"실시간 성분·물성 분석과 조리 조건 데이터 축적을 통한 제품 최적화"}
+  ]},
+ {id:"service", tag:"서비스 실증", name:"서비스 실증 패키지",
+  desc:"추천부터 설계·구독 제공까지 서비스 전 단계 실증 지원",
+  stages:[
+   {t:"추천", d:"개인 데이터 기반 맞춤 식품·식단 추천 서비스 성능 검증"},
+   {t:"설계", d:"알고리즘 기반 맞춤 식이·식단 설계 서비스 실증"},
+   {t:"구독·제공", d:"구독·배송·급식 등 제공 체계 통합 검증 (주문-조리-제공-피드백 테스트베드)"},
+   {t:"콘텐츠·확산", d:"전문 스튜디오 기반 홍보·투자 피칭 콘텐츠 제작 지원"}
+  ]},
+ {id:"cert", tag:"인증", soon:true, name:"인증 지원 패키지",
+  desc:"제품·서비스 인증 획득을 위한 사전 검토와 기관 연계",
+  items:["인증 평가 전 성능 사전 검토","KTR·KOTITI 등 협력 인증기관 직접 연계","비의료 건강관리서비스·SW 품질·데이터 보안 인증 지원","센터 자체 인증 제도 연계(개발 예정)"]}
+];
+
+const ALGOS = [
+ {n:"식습관 군집분석", k:"K-Means 클러스터링",
+  d:"국민건강영양조사 기반 식이 패턴을 유형화하고 사용자의 식습관 유형을 진단합니다.",
+  goal:"국민건강영양조사 데이터를 이용해 식이 패턴을 유형화하고, 신규 사용자의 식습관이 어떤 유형에 속하는지 진단합니다.",
+  how:["식사 시간대 비율, 음식군(14종) 섭취 비율, 영양소 섭취 비율의 세 축에서 각각 군집분석 수행 (최적 군집 수 자동 결정)","사용자 식이 데이터를 학습된 군집 중심에 매칭하여 유형 판별","레이더 차트로 군집별 패턴 시각화"],
+  out:"시간대·음식군·영양소 군집 결과와 패턴 설명, BMI·혈압·당화혈색소 등 건강지표 기반 개선 권고"},
+ {n:"다중목적 식단 최적화", k:"SPEA2 진화연산",
+  d:"영양·비용·조화·다양성을 동시 고려한 주간 식단을 자동 설계합니다.",
+  goal:"영양 기준 충족, 식재료 비용, 메뉴 간 조화, 반복 없는 다양성을 동시에 만족하는 일주일 치 식단을 자동 생성합니다.",
+  how:["식재료-메뉴-식사-일일식단-주간식단의 계층 데이터 모델 기반","영양 적합도, 비용, 메뉴 조화도(과거 식단 데이터 기반), 다양성의 4가지 목적함수 평가","SPEA2 진화 알고리즘 기반 다중목적 최적화"],
+  out:"파레토 최적 주간 식단 후보군"},
+ {n:"NutriGraphNet 음식 추천", k:"그래프 신경망(GAT)", pat:true,
+  d:"상호작용 데이터가 적어도 보조 그래프 구조로 건강 인식형 음식 추천 성능을 유지합니다.",
+  goal:"사용자-음식 상호작용 데이터가 희소한 초기 서비스에서도, 식재료·음식 유사도와 식사 시점 등 보조 그래프 구조를 활용해 건강을 고려한 추천 성능을 유지합니다.",
+  how:["국민건강영양조사 기반 이종 그래프(NutriGraph-KR) 구축","Heterogeneous GAT 인코더 기반 사용자-음식 선호 점수 예측","건강 제약을 손실 함수에 반영하여 추천-건강 트레이드오프 조절 가능"],
+  out:"건강 인식형 음식 추천 결과. 상호작용 데이터 10% 밀도에서 베이스라인 대비 45% 우수한 성능(HR@10 기준) 검증. 논문화 및 특허 출원 진행"},
+ {n:"선호도 반영 한 끼 식단 추천", k:"GNN + 다중목적 최적화",
+  d:"개인 선호·식이력과 보유 식재료를 반영해 한 끼 식단을 구성합니다.",
+  goal:"영양 기준, 보유 식재료, 과거 식이력 기반 개인 선호도를 동시에 반영해 한 끼 식단을 구성합니다.",
+  how:["그래프 신경망 기반 사용자-음식 선호도 예측","개인 에너지필요량(EER) 계산","영양·보유 식재료 활용도·선호도를 목적함수로 하는 다중목적 유전 알고리즘 탐색"],
+  out:"최적 한 끼 식단과 보유·부족 식재료 목록"},
+ {n:"표준 영양 기준 식품 스코어링", k:"EER 기반 규칙 스코어링",
+  d:"공인 영양 기준 기반으로 학습 데이터 없이 맞춤 식품 랭킹을 제공합니다.",
+  goal:"별도의 학습 데이터 없이 공인된 영양 기준에 기반해 개인 맞춤 식품·메뉴 랭킹을 제공합니다.",
+  how:["나이·성별·신장·체중·활동량 기반 에너지필요량(EER) 산출 및 체중 변화에 따른 동적 갱신","끼니별 탄수화물·단백질·지방·식이섬유·나트륨 기준 산출","식약처 통합식품영양성분정보 기반 영양 적합도·에너지밀도·포만감 지수 산출 및 체중 목표별 가중 결합"],
+  out:"간식·본식·반찬 카테고리별 상위 추천 식품 리스트와 세부 점수"},
+ {n:"채식 유형 필터링", k:"원재료 매칭 규칙",
+  d:"비건·락토·오보 등 7가지 채식 유형별 섭취 가능 식품을 판별합니다.",
+  goal:"가공식품의 원재료명을 분석해 비건, 락토, 오보, 락토오보, 페스코, 폴로, 세미의 7가지 채식 유형별 섭취 가능 여부를 판별합니다.",
+  how:["식약처 가공식품 원재료 정보와 행정표준코드의 원재료별 채식유형 적합성 코드 매칭","식품별로 각 채식 유형에 부적합한 원재료 추출"],
+  out:"채식 유형별 섭취 가능 식품 목록과 부적합 사유(원재료명)"},
+ {n:"질환 특화 상담 챗봇", k:"RAG 질의응답",
+  d:"질환별 식이관리·진료지침 문서 기반의 대화형 상담을 제공합니다.",
+  goal:"질환자를 위한 환자용 정보, 식이관리, 진료지침, 보험·복지 문서를 기반으로 질의응답을 제공합니다. (신장질환 특화 모델 보유)",
+  how:["문서 청크 분할 및 벡터DB 구축 기반 검색 증강 생성(RAG) 파이프라인","대화 맥락을 유지하며 관련 문서 검색 후 답변 생성","문서 변경 시 벡터DB 자동 재생성"],
+  out:"근거 문서 출처를 포함한 대화형 답변"}
+];
+
+const CASES = [
+ {who:"맞춤 도시락 구독 서비스", flow:["센터 DB·식단 설계 알고리즘","맞춤 도시락 제조","정기 구독 유통"],
+  d:"식이 데이터베이스와 식단 설계 알고리즘으로 목적별(다이어트 등) 식단을 설계하고, 제조 기업이 맞춤 도시락을 생산하여 유통 채널의 정기 구독 서비스로 제공하는 구조입니다.",
+  detail:["센터: 영양 기준 산출, 식단 구성 설정, 맞춤형 식단 설계 지원","기업(제조): 설계된 식단 기반 맞춤 도시락 제조","기업(유통): 정기 구독 서비스 연계 판매"]},
+ {who:"산모 대상 맞춤 식이 프로그램", flow:["건강·선호 정보 수집","체질 유형 분류·맞춤 식품 점수","다이어트 프로그램 제공"],
+  d:"기업이 수집한 산모의 건강·선호 정보를 기반으로 체질 유형과 맞춤 식품 점수를 도출하고, 출산 후 관리 프로그램으로 제공하는 구조입니다.",
+  detail:["기업: 소비자 건강 정보(체중·허리둘레 등)와 선호 정보(선호식품·알레르기) 수집","센터: 체질 유형 분류, 감량 단계별 맞춤 식이 기준 도출, 맞춤 식품 점수 산출 및 알레르기·기호도·기저 질환 필터링","서비스: 개인 맞춤 주간 식단표, 주간 장보기 정기배송, 식이 평가 보고서"]},
+ {who:"검진 데이터 기반 라이프 코칭", flow:["건강검진·생활습관 데이터","맞춤 영양·식생활 관리 알고리즘","메신저 기반 코칭 서비스"],
+  d:"검진기관의 건강 데이터와 플랫폼의 생활습관 데이터를 결합해 맞춤형 영양·식생활 관리 알고리즘을 설계하고, 메신저 기반 서비스로 제공하는 구조입니다.",
+  detail:["기업: 건강 검진 데이터와 생활 습관 데이터(자동 기록) 수집","센터: 데이터 수집·분석, 맞춤 건강 목표 설정, 맞춤 영양·식생활 관리 알고리즘 설계","서비스: 메신저 기반 맞춤 식품 추천, 라이프 코칭"]},
+ {who:"고령자 맞춤 급식·배송 체계", flow:["웨어러블 건강 데이터","맞춤 식이 설계·가전 연동","맞춤 도시락 제조·급식 제공"],
+  d:"웨어러블 기기로 수집한 건강 데이터를 기반으로 맞춤형 식이를 설계하고, 고령자용 맞춤 도시락·식자재를 제조하여 자택 정기 배송 또는 요양시설 급식으로 제공하는 구조입니다.",
+  detail:["기업: 웨어러블 디바이스 기반 건강 데이터 실시간 수집, AI 가전제품 연동","센터: 건강 데이터·보유 식재료 기반 개인 맞춤형 영양 설계 (식이 추천·설계 알고리즘)","서비스: 고령자용 맞춤 도시락·간식·식자재 제조, 독거노인 자택 정기 배송 및 요양병원 급식 제공"]},
+ {who:"주문 데이터 기반 식이 평가·추천", flow:["식재료·배달 음식 주문 기록","식이 패턴 점수·질환 위험도 도출","건강 개선 맞춤 추천"],
+  d:"커머스·배달 플랫폼의 주문 기록을 기반으로 주요 식이 패턴 점수와 질환 위험도를 도출하고, 상호보완적 맞춤 추천 서비스를 제공하는 구조입니다.",
+  detail:["기업: 사용자 주문 식재료·배달 음식 기록 제공","센터: 주요 식이 패턴 점수(DASH, AHEI 등) 및 식이 패턴 기반 질환 위험도 도출","서비스: 건강 개선 또는 최적 궁합 관점의 맞춤 식재료·음식 추천"]}
+];
+
+let state = { pkgs:new Set(), algos:new Set(), cart:new Map(), cat:"", q:"", bld:"", year:"" };
+
+/* nav */
+function go(p){
+  document.querySelectorAll(".page").forEach(e=>e.classList.remove("on"));
+  document.getElementById("page-"+p).classList.add("on");
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.page===p));
+  window.scrollTo({top:0});
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>go(b.dataset.page));
+
+/* packages */
+function renderPkgs(){
+  document.getElementById("pkgGrid").innerHTML = PKGS.map(p=>`
+    <div class="card pkg ${p.best?"best":""} ${p.soon?"soon":""}" ${p.soon?"":`onclick="openPkg('${p.id}')"`}>
+      <span class="tag">${p.soon?"준비중":p.tag}</span>
+      <h3>${p.name}</h3>
+      <p>${p.desc}</p>
+      ${p.stages
+        ?`<ul class="stg">${p.stages.map(s=>`<li><b>${s.t}</b> · ${s.d}</li>`).join("")}</ul>`
+        :`<ul>${p.items.map(i=>`<li>${i}</li>`).join("")}</ul>`}
+      ${p.soon
+        ?`<button class="apply" disabled>준비중</button>`
+        :`<button class="apply ${state.pkgs.has(p.id)?"sel":""}" onclick="event.stopPropagation();togglePkg('${p.id}')">${state.pkgs.has(p.id)?"선택됨 · 해제":"이 패키지 신청"}</button>`}
+    </div>`).join("");
+  renderSel();
+}
+function togglePkg(id){ state.pkgs.has(id)?state.pkgs.delete(id):state.pkgs.add(id); renderPkgs(); updateCnt();
+  const m=document.getElementById("mback");
+  if(m.classList.contains("on")&&m.dataset.kind==="pkg") openPkg(id,true);
+}
+
+/* ---- package modal ---- */
+function openPkg(id, keep){
+  const p=PKGS.find(x=>x.id===id); if(!p) return;
+  let exHtml="";
+  if(id==="algo"){
+    exHtml=`<h4 class="exh">예시 알고리즘 모듈 <small>클릭 시 상세보기 · 체크 시 신청서에 포함</small></h4>
+      <div class="exlist">`+ALGOS.map((a,i)=>`
+        <div class="exitem" onclick="openAlgoDetail(${i})">
+          <label class="ck" onclick="event.stopPropagation()">
+            <input type="checkbox" ${state.algos.has(a.n)?"checked":""} onchange="toggleAlgo('${a.n.replace(/'/g,"\'")}')">
+          </label>
+          <div class="exbody">
+            <div class="exname">${a.n} ${a.pat?'<span class="pat">특허 출원</span>':""}</div>
+            <div class="exdesc">${a.k} · ${a.d}</div>
+          </div>
+          <span class="more">상세</span>
+        </div>`).join("")+`</div>`;
+  }else if(id==="service"){
+    exHtml=`<h4 class="exh">실증 시나리오 예시 <small>클릭 시 상세보기</small></h4>
+      <div class="exlist">`+CASES.map((c,i)=>`
+        <div class="exitem" onclick="openCaseDetail(${i})">
+          <div class="exbody">
+            <div class="exname">${c.who}</div>
+            <div class="exdesc">${c.flow.join(" → ")}</div>
+          </div>
+          <span class="more">상세</span>
+        </div>`).join("")+`</div>`;
+  }else{
+    exHtml=`<h4 class="exh">활용 예시</h4><div class="expending">활용 예시 자료를 준비 중입니다. 신청 시 센터 담당자가 기업 상황에 맞는 지원 범위를 안내해 드립니다.</div>`;
+  }
+  const sel=state.pkgs.has(id);
+  document.getElementById("modalBody").innerHTML=`
+    <button class="x" onclick="closeModal()">✕</button>
+    <h3>${p.name}</h3>
+    <div class="mloc">${p.desc}</div>
+    <div class="usage">
+      <h4>지원 내용</h4>
+      ${p.stages
+        ?`<ol>${p.stages.map(s=>`<li><b>${s.t}</b> — ${s.d}</li>`).join("")}</ol>`
+        :`<ol>${p.items.map(i=>`<li>${i}</li>`).join("")}</ol>`}
+      ${exHtml}
+    </div>
+    <div class="mact">
+      <button class="addbtn ${sel?"added":""}" onclick="togglePkg('${p.id}')">${sel?"패키지 선택됨 · 해제":"이 패키지 신청"}</button>
+    </div>`;
+  const m=document.getElementById("mback");
+  m.dataset.kind="pkg"; m.dataset.pid=id;
+  m.classList.add("on"); document.body.style.overflow="hidden";
+}
+function toggleAlgo(name){
+  state.algos.has(name)?state.algos.delete(name):state.algos.add(name);
+  if(state.algos.size) state.pkgs.add("algo"); /* 알고리즘 선택 시 패키지 자동 포함 */
+  renderPkgs(); updateCnt();
+}
+function openAlgoDetail(i){
+  const a=ALGOS[i]; const sel=state.algos.has(a.n);
+  document.getElementById("modalBody").innerHTML=`
+    <button class="x" onclick="closeModal()">✕</button>
+    <button class="back" onclick="openPkg('algo')">← 알고리즘 설계 패키지</button>
+    <h3>${a.n}</h3>
+    <div class="mloc">${a.k}${a.pat?" · 논문화 및 특허 출원 진행":""}</div>
+    <div class="usage">
+      <h4>목적</h4><p class="note">${a.goal}</p>
+      <h4>방법</h4><ol>${a.how.map(s=>`<li>${s}</li>`).join("")}</ol>
+      <h4>제공 산출물</h4><p class="note">${a.out}</p>
+    </div>
+    <div class="mact">
+      <button class="addbtn ${sel?"added":""}" id="algoBtn" onclick="toggleAlgo('${a.n.replace(/'/g,"\'")}');openAlgoDetail(${i})">${sel?"신청서에 포함됨 · 해제":"이 알고리즘 신청서에 포함"}</button>
+    </div>`;
+  document.getElementById("mback").classList.add("on");
+  document.body.style.overflow="hidden";
+}
+function openCaseDetail(i){
+  const c=CASES[i];
+  document.getElementById("modalBody").innerHTML=`
+    <button class="x" onclick="closeModal()">✕</button>
+    <button class="back" onclick="openPkg('service')">← 서비스 실증 패키지</button>
+    <h3>${c.who}</h3>
+    <div class="case" style="margin-top:6px"><div class="flow">${c.flow.map((f,j)=>(j?"<em>→</em>":"")+`<span>${f}</span>`).join("")}</div></div>
+    <div class="usage">
+      <h4>개요</h4><p class="note">${c.d}</p>
+      <h4>역할 구조</h4><ol>${c.detail.map(s=>`<li>${s}</li>`).join("")}</ol>
+    </div>
+    <div class="mact">
+      <button class="addbtn" onclick="closeModal();go('apply')">유사한 실증 상담 신청</button>
+    </div>`;
+  document.getElementById("mback").classList.add("on");
+  document.body.style.overflow="hidden";
+}
+
+
+/* equipment */
+function getCats(){return [...new Set(EQUIP.map(e=>e.cat))];}
+let filtersBound=false;
+function initFilters(){
+  const blds=[...new Set(EQUIP.map(e=>e.building_s))];
+  document.getElementById("fBld").innerHTML = `<option value="">전체 건물</option>`+blds.map(b=>`<option>${b}</option>`).join("");
+  document.getElementById("catChips").innerHTML =
+    `<button class="chip on" data-c="">전체</button>`+getCats().map(c=>`<button class="chip" data-c="${c}">${c}</button>`).join("");
+  document.querySelectorAll(".chip").forEach(ch=>ch.onclick=()=>{
+    state.cat=ch.dataset.c;
+    document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===ch));
+    renderEquip();
+  });
+  if(!filtersBound){
+    filtersBound=true;
+    document.getElementById("q").oninput=e=>{state.q=e.target.value.trim();renderEquip()};
+    document.getElementById("fBld").onchange=e=>{state.bld=e.target.value;renderEquip()};
+    document.getElementById("fYear").onchange=e=>{state.year=e.target.value;renderEquip()};
+  }
+}
+function filtered(){
+  return EQUIP.filter(e=>
+    (!state.cat||e.cat===state.cat)&&
+    (!state.bld||e.building_s===state.bld)&&
+    (!state.year||e.year===state.year)&&
+    (!state.q||e.name.includes(state.q))
+  );
+}
+function eid(e){return e.name+"|"+e.building_s+"|"+e.space_s+"|"+e.purpose;}
+function renderEquip(){
+  const list=filtered();
+  document.getElementById("eempty").style.display=list.length?"none":"block";
+  document.getElementById("egrid").innerHTML=list.map((e,i)=>`
+    <div class="ecard" onclick="openModal('${encodeURIComponent(eid(e))}')">
+      <div class="badges">
+        <span class="bdg ${e.cat==="기반 설비"?"infra":"cat"}">${e.cat}</span>
+        ${e.year==="2027"?'<span class="bdg y27">2027 도입 예정</span>':""}
+      </div>
+      <div class="nm">${e.name}</div>
+      <div class="loc">${e.building_s} · ${e.space_s} · ${e.qty}대</div>
+    </div>`).join("");
+}
+
+/* modal */
+function openModal(key){
+  const k=decodeURIComponent(key);
+  const e=EQUIP.find(x=>eid(x)===k); if(!e)return;
+  const g=GUIDES[e.cat]||{"용도":e.purpose||"센터 실증 지원 장비","절차":["센터 담당자와 사전 협의 후 예약","담당자 안내에 따른 사용 및 데이터 기록","사용 후 정리 및 상태 확인"],"주의":"최초 사용 시 센터 담당자의 교육 후 사용함."};
+  const dim=[e.w,e.dp,e.h].some(v=>v&&v!=="0")?`${e.w} × ${e.dp} × ${e.h} mm`:"-";
+  const infra=e.cat==="기반 설비";
+  const inCart=state.cart.has(k);
+  const specs=[
+    ["설치 위치",`${e.building_s} · ${e.space_s}`],["수량",e.qty+"대"],
+    ["규격(가로×세로×높이)",dim],["전압",e.volt&&e.volt!=="0"?e.volt+"V":"-"],
+    ["급수",e.water||"-"],["배수 / 배기",`${e.drain||"-"} / ${e.vent||"-"}`],
+    ["이용 가능 시기",e.year==="2026"?"2026년 구축 (12월 운영 개시)":"2027년 도입 예정 (사전 협의)"],
+    ["구분",e.purpose||"-"]
+  ];
+  document.getElementById("modalBody").innerHTML=`
+    <button class="x" onclick="closeModal()">✕</button>
+    <h3>${e.name}</h3>
+    <div class="mloc">${e.cat}${e.year==="2027"?" · 2027년 도입 예정":""}</div>
+    <div class="spec">${specs.map(s=>`<div><b>${s[0]}</b>${s[1]}</div>`).join("")}</div>
+    <div class="usage">
+      <h4>용도</h4><p class="note">${g["용도"]}</p>
+      <h4>기본 사용 절차</h4>
+      <ol>${g["절차"].map(s=>`<li>${s}</li>`).join("")}</ol>
+      <div class="warn">${g["주의"]}</div>
+    </div>
+    <div class="mact">
+      ${infra
+        ?`<button class="addbtn" disabled>공용 기반 설비 · 별도 신청 불필요</button>`
+        :`<button class="addbtn ${inCart?"added":""}" id="mAdd" onclick="toggleCart('${encodeURIComponent(k)}')">${inCart?"신청 목록에 담김 · 해제":"신청 목록에 담기"}</button>`}
+    </div>`;
+  document.getElementById("mback").classList.add("on");
+  document.body.style.overflow="hidden";
+}
+function closeModal(){const m=document.getElementById("mback");m.classList.remove("on");delete m.dataset.kind;document.body.style.overflow="";}
+function toggleCart(key){
+  const k=decodeURIComponent(key);
+  const e=EQUIP.find(x=>eid(x)===k);
+  state.cart.has(k)?state.cart.delete(k):state.cart.set(k,e);
+  updateCnt(); renderSel();
+  const b=document.getElementById("mAdd");
+  if(b){b.classList.toggle("added",state.cart.has(k));b.textContent=state.cart.has(k)?"신청 목록에 담김 · 해제":"신청 목록에 담기";}
+}
+function updateCnt(){
+  const n=state.cart.size+state.pkgs.size;
+  const c=document.getElementById("cartCnt");
+  c.style.display=n?"flex":"none"; c.textContent=n;
+}
+
+/* apply page */
+function renderSel(){
+  const sp=document.getElementById("selPkg");
+  if(state.pkgs.size){
+    sp.className="";
+    sp.innerHTML=[...state.pkgs].map(id=>{const p=PKGS.find(x=>x.id===id);
+      const extra=(id==="algo"&&state.algos.size)?`<div style="font-size:12px;color:var(--sub);margin:2px 0 0 2px">선택 알고리즘: ${[...state.algos].join(", ")}</div>`:"";
+      return `<div class="selitem" style="display:block"><div style="display:flex;justify-content:space-between;align-items:center"><span>${p.name}</span><button onclick="togglePkg('${id}')">삭제</button></div>${extra}</div>`}).join("");
+  }else{sp.className="selempty";sp.textContent="선택된 패키지가 없습니다. 실증 패키지 탭에서 선택할 수 있습니다.";}
+  const se=document.getElementById("selEquip");
+  if(state.cart.size){
+    se.className="";
+    se.innerHTML=[...state.cart.entries()].map(([k,e])=>
+      `<div class="selitem"><span>${e.name} <small style="color:var(--sub)">(${e.building_s} · ${e.space_s})</small></span><button onclick="toggleCart('${encodeURIComponent(k)}')">삭제</button></div>`).join("");
+  }else{se.className="selempty";se.textContent="선택된 장비가 없습니다. 장비 신청 탭에서 담을 수 있습니다.";}
+}
+let lastDoc = null;
+
+function collect(){
+  const v=id=>document.getElementById(id).value.trim();
+  return {
+    title:v("fTitle"), company:v("fCompany"), ceo:v("fCeo"), bizno:v("fBizNo"), type:v("fType"),
+    addr:v("fAddr"), bizdesc:v("fBizDesc"), web:v("fWeb"),
+    name:v("fName"), dept:v("fDept"), phone:v("fPhone"), email:v("fEmail"),
+    period:v("fPeriod")||"협의", usetype:v("fUseType"),
+    desc:v("fDesc"), goal:v("fGoal"), assets:v("fAssets"), request:v("fRequest"),
+    agree:document.getElementById("fAgree").checked,
+    packages:[...state.pkgs].map(id=>PKGS.find(x=>x.id===id).name),
+    algorithms:[...state.algos],
+    equipment:[...state.cart.values()].map(e=>({name:e.name,building:e.building_s,space:e.space_s,year:e.year}))
+  };
+}
+
+function summaryText(d){
+  const pkgTxt=d.packages.length?d.packages.map(n=>{
+    let t="- "+n;
+    if(n.includes("알고리즘")&&d.algorithms.length) t+="\n  · 관심 알고리즘: "+d.algorithms.join(", ");
+    return t;}).join("\n"):"- 없음";
+  const eqTxt=d.equipment.length?d.equipment.map(e=>`- ${e.name} (${e.building} · ${e.space}${e.year==="2027"?", 2027 도입 예정":""})`).join("\n"):"- 없음";
+  return `[과천시 푸드테크 연구지원센터 이용 신청서]
+
+1. 신청 내용
+- 실증 과제명: ${d.title}
+- 신청 실증 패키지:
+${pkgTxt}
+- 신청 장비:
+${eqTxt}
+- 희망 이용 기간: ${d.period}
+- 희망 이용 형태: ${d.usetype}
+
+2. 기업 정보
+- 기업명: ${d.company}
+- 대표자명: ${d.ceo}
+- 사업자등록번호: ${d.bizno}
+- 기업 유형: ${d.type}
+- 소재지: ${d.addr}
+- 업종 및 주요 제품·서비스: ${d.bizdesc}
+- 홈페이지: ${d.web||"-"}
+
+3. 담당자 정보
+- 담당자명: ${d.name}
+- 부서/직책: ${d.dept||"-"}
+- 연락처: ${d.phone}
+- 이메일: ${d.email}
+
+4. 실증 계획
+[기술·서비스 개요]
+${d.desc}
+
+[실증 목표 및 기대 성과]
+${d.goal}
+
+[보유 데이터·기술 현황]
+${d.assets||"-"}
+
+[센터에 요청하는 지원 사항]
+${d.request||"-"}
+
+5. 개인정보 수집·이용 동의: 동의함
+작성일: ${new Date().toLocaleDateString("ko-KR")}`;
+}
+
+function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br>");}
+
+function docHtml(d){
+  const t=new Date();
+  const pkgList=d.packages.length?d.packages.map(n=>{
+    let x="ㅇ "+esc(n);
+    if(n.includes("알고리즘")&&d.algorithms.length) x+=`<br>&nbsp;&nbsp;&nbsp;- 관심 알고리즘: ${esc(d.algorithms.join(", "))}`;
+    return x;}).join("<br>"):"ㅇ 해당 없음";
+  const eqList=d.equipment.length?d.equipment.map(e=>`ㅇ ${esc(e.name)} (${esc(e.building)} · ${esc(e.space)}${e.year==="2027"?", 2027 도입 예정":""})`).join("<br>"):"ㅇ 해당 없음";
+  const H='style="background:#EFEFEF;border:1px solid #000;padding:6pt;font-weight:bold;text-align:center;vertical-align:middle"';
+  const C='style="border:1px solid #000;padding:6pt;vertical-align:middle"';
+  const CT='style="border:1px solid #000;padding:6pt;vertical-align:top"';
+  const CC='style="border:1px solid #000;padding:8pt;text-align:center;vertical-align:middle"';
+  return `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><title>이용신청서</title>
+<style>body{font-family:"Malgun Gothic","맑은 고딕",sans-serif;font-size:10pt;line-height:1.55} table{border-collapse:collapse;width:100%;table-layout:fixed}</style></head><body>
+<table>
+<tr><td colspan="4" style="border:1px solid #000;padding:12pt;text-align:center;font-size:15pt;font-weight:bold">과천시 푸드테크 연구지원센터<br>이용 신청서</td></tr>
+<tr><td ${H} width="18%">과 제 명</td><td ${C} colspan="3">${esc(d.title)}</td></tr>
+<tr><td ${H}>기 업 명</td><td ${C} width="32%">${esc(d.company)}</td><td ${H} width="18%">대 표 자</td><td ${C} width="32%">${esc(d.ceo)}</td></tr>
+<tr><td ${H}>사업자번호</td><td ${C}>${esc(d.bizno)}</td><td ${H}>기업 구분</td><td ${C}>${esc(d.type)}</td></tr>
+<tr><td ${H}>소 재 지</td><td ${C} colspan="3">${esc(d.addr)}</td></tr>
+<tr><td ${H}>업종 및<br>주요 제품·서비스</td><td ${C} colspan="3">${esc(d.bizdesc)}</td></tr>
+<tr><td ${H}>홈페이지</td><td ${C} colspan="3">${esc(d.web)||"-"}</td></tr>
+<tr><td ${H} rowspan="2">담 당 자</td><td ${C}>성명: ${esc(d.name)}</td><td ${C} colspan="2">부서/직위: ${esc(d.dept)||"-"}</td></tr>
+<tr><td ${C}>휴대전화: ${esc(d.phone)}</td><td ${C} colspan="2">E-mail: ${esc(d.email)}</td></tr>
+<tr><td ${H}>신청 실증<br>패키지</td><td ${CT} colspan="3">${pkgList}</td></tr>
+<tr><td ${H}>신청 장비</td><td ${CT} colspan="3">${eqList}</td></tr>
+<tr><td ${H}>이용 기간</td><td ${C}>${esc(d.period)}</td><td ${H}>이용 형태</td><td ${C}>${esc(d.usetype)}</td></tr>
+<tr><td ${H}>실증 내용<br>(기술·서비스 개요)</td><td ${CT} colspan="3">${esc(d.desc)}</td></tr>
+<tr><td ${H}>실증 목표 및<br>기대 성과</td><td ${CT} colspan="3">${esc(d.goal)}</td></tr>
+<tr><td ${H}>보유 데이터·<br>기술 현황</td><td ${CT} colspan="3">${esc(d.assets)||"-"}</td></tr>
+<tr><td ${H}>요청 지원 사항</td><td ${CT} colspan="3">${esc(d.request)||"-"}</td></tr>
+<tr><td ${CC} colspan="4">위와 같이 『과천시 푸드테크 연구지원센터』 이용에 참여하여 세부 계획과 같이 성실히 수행하고자 이용 신청서를 제출하며,<br>신청서 접수 및 이용 상담을 위한 개인정보(성명, 연락처, 이메일) 수집·이용에 동의합니다.</td></tr>
+<tr><td ${CC} colspan="4" style="border:1px solid #000;padding:14pt;text-align:center">
+${t.getFullYear()}년 &nbsp; ${t.getMonth()+1}월 &nbsp; ${t.getDate()}일<br><br>
+기업명 : ${esc(d.company)}<br>
+대표자 : ${esc(d.ceo)} &nbsp;(인)<br><br>
+<b>과천시 푸드테크 연구지원센터장 귀하</b></td></tr>
+</table>
+</body></html>`;
+}
+
+function downloadDoc(){
+  if(!lastDoc){alert("먼저 신청 내용 미리보기 또는 제출을 진행하여 주십시오.");return;}
+  const blob=new Blob(["﻿"+docHtml(lastDoc)],{type:"application/msword"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  const dt=new Date().toISOString().slice(0,10).replace(/-/g,"");
+  a.download=`과천푸드테크센터_이용신청서_${lastDoc.company||"기업"}_${dt}.doc`;
+  a.click(); URL.revokeObjectURL(a.href);
+}
+
+async function submitForm(mail){
+  const d=collect();
+  const missing=[["title","실증 과제명"],["company","기업명"],["ceo","대표자명"],["bizno","사업자등록번호"],["addr","소재지"],["bizdesc","업종 및 주요 제품·서비스"],["name","담당자명"],["phone","연락처"],["email","이메일"],["desc","기술·서비스 개요"],["goal","실증 목표 및 기대 성과"]].filter(([k])=>!d[k]);
+  if(missing.length){alert("다음 필수 항목을 입력하여 주십시오:\n- "+missing.map(m=>m[1]).join("\n- "));return;}
+  if(mail&&!d.agree){alert("개인정보 수집·이용에 동의하셔야 제출이 가능합니다.");return;}
+  lastDoc=d;
+  const body=summaryText(d);
+  const r=document.getElementById("result");
+  r.style.display="block"; r.textContent=body;
+  document.getElementById("docBtn").style.display="inline-block";
+  if(!mail) return;
+  const btns=document.querySelectorAll(".submitrow button");btns.forEach(b=>b.disabled=true);
+  try{
+    const res=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({company:d.company,type:d.type,name:d.name,phone:d.phone,email:d.email,period:d.period,
+        packages:d.packages, algorithms:d.algorithms, equipment:d.equipment, description:d.desc,
+        details:{title:d.title,ceo:d.ceo,bizno:d.bizno,addr:d.addr,bizdesc:d.bizdesc,web:d.web,dept:d.dept,usetype:d.usetype,goal:d.goal,assets:d.assets,request:d.request,agree:d.agree},
+        summary:body})});
+    if(!res.ok) throw new Error();
+    r.textContent="신청이 접수되었습니다. 담당자가 3영업일 이내 연락드립니다. 아래 신청서 다운로드 버튼으로 제출 문서를 보관하실 수 있습니다.\n\n"+body;
+  }catch(err){
+    location.href=`mailto:${CENTER_EMAIL}?subject=${encodeURIComponent("[이용신청] "+d.company)}&body=${encodeURIComponent(body)}`;
+  }finally{btns.forEach(b=>b.disabled=false);}
+}
+
+function parseCSV(text){
+  const NL=String.fromCharCode(10), CR=String.fromCharCode(13), Q=String.fromCharCode(34);
+  const rows=[]; let row=[], cell="", inQ=false;
+  for(let i=0;i<text.length;i++){
+    const ch=text[i];
+    if(inQ){
+      if(ch===Q){ if(text[i+1]===Q){cell+=Q;i++;} else inQ=false; }
+      else cell+=ch;
+    }else{
+      if(ch===Q) inQ=true;
+      else if(ch===","){row.push(cell);cell="";}
+      else if(ch===NL){row.push(cell);rows.push(row);row=[];cell="";}
+      else if(ch!==CR) cell+=ch;
+    }
+  }
+  if(cell!==""||row.length){row.push(cell);rows.push(row);}
+  return rows.filter(r=>r.some(c=>c.trim()!==""));
+}
+function rowsToObjs(rows){
+  const h=rows[0].map(x=>x.trim());
+  return rows.slice(1).map(r=>{const o={};h.forEach((k,i)=>o[k]=(r[i]||"").trim());return o;});
+}
+async function loadSheetContent(){
+  if(!SHEET_CSV_URLS.length) return;
+  const jobs=SHEET_CSV_URLS.map(u=>fetch(u+"&t="+Date.now()).then(r=>r.ok?r.text():Promise.reject()).then(t=>{
+    const rows=parseCSV(t); if(rows.length<2) return;
+    const heads=rows[0].map(x=>x.trim());
+    if(heads.includes("장비명")){
+      const objs=rowsToObjs(rows).filter(o=>o["장비명"]);
+      if(!objs.length) return;
+      const mapped=objs.map(o=>({name:o["장비명"],building_s:o["건물"],space_s:o["공간"],purpose:o["구분"]||"",
+        cat:o["카테고리"]||"기반 설비",year:o["연도"]||"2026",qty:parseInt(o["수량"]||"1")||1,price:"",
+        w:o["가로(mm)"]||"",dp:o["세로(mm)"]||"",h:o["높이(mm)"]||"",power:"",volt:o["전압(V)"]||"",
+        water:o["급수"]||"",drain:o["배수"]||"",vent:o["배기"]||""}));
+      EQUIP.length=0; mapped.forEach(x=>EQUIP.push(x));
+    }else if(heads.includes("카테고리")&&heads.includes("용도")){
+      const objs=rowsToObjs(rows).filter(o=>o["카테고리"]);
+      objs.forEach(o=>{
+        GUIDES[o["카테고리"]]={
+          "용도":o["용도"]||"",
+          "절차":[o["절차1"],o["절차2"],o["절차3"],o["절차4"],o["절차5"]].filter(x=>x),
+          "주의":o["주의사항"]||""
+        };
+      });
+    }else if(heads.includes("유형")&&heads.includes("제목")){
+      const objs=rowsToObjs(rows).filter(o=>o["제목"]);
+      const algos=objs.filter(o=>o["유형"].includes("알고리즘")).map(o=>({
+        n:o["제목"],k:o["태그"]||"",d:o["요약"]||o["개요"]||"",goal:o["개요"]||o["요약"]||"",
+        how:[o["항목1"],o["항목2"],o["항목3"],o["항목4"]].filter(x=>x),
+        out:o["산출물"]||"-",pat:(o["특허"]||"").toUpperCase()==="O"}));
+      const cases=objs.filter(o=>o["유형"].includes("시나리오")).map(o=>({
+        who:o["제목"],flow:(o["흐름"]||"").split(">").map(x=>x.trim()).filter(x=>x),
+        d:o["개요"]||o["요약"]||"",
+        detail:[o["항목1"],o["항목2"],o["항목3"],o["항목4"]].filter(x=>x)}));
+      if(algos.length){ALGOS.length=0;algos.forEach(x=>ALGOS.push(x));}
+      if(cases.length){CASES.length=0;cases.forEach(x=>CASES.push(x));}
+    }
+  }).catch(()=>{}));
+  await Promise.allSettled(jobs);
+  initFilters(); renderEquip();
+}
+
+renderPkgs(); initFilters(); renderEquip(); updateCnt(); loadSheetContent();
+</script>
+</body>
+</html>
