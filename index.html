@@ -141,7 +141,9 @@ main{max-width:1100px;margin:0 auto;padding:28px 20px 80px}
 /* space booking */
 .spacecard{cursor:pointer;transition:border-color .12s,box-shadow .12s}
 .spacecard:hover{border-color:var(--cyan);box-shadow:0 6px 18px rgba(42,212,232,.10)}
+.spacecard .thumb{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;margin-bottom:12px;background:var(--panel);display:block}
 .spacecard .cnt{font-size:12px;color:var(--sub);margin-bottom:8px}
+.mspaceimg{width:100%;max-height:240px;object-fit:cover;border-radius:12px;margin:12px 0 0;display:block;background:var(--panel)}
 .slotrow{display:flex;gap:6px}
 .slotbtn{flex:1;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:9px;padding:9px 4px;font-size:12.5px;font-weight:700}
 .slotbtn.on{background:var(--cyan);border-color:var(--cyan);color:#06121F}
@@ -276,22 +278,10 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding:22px 20p
   <div class="sect">
     <div class="sec-eyebrow">SPACE BOOKING</div>
     <h2>공간 예약</h2>
-    <p class="desc">장비는 공간 단위로 예약합니다. 공간을 선택하면 30분 단위로 날짜·시간과 이용 자리 수를 지정할 수 있고, 예약 후에는 해당 공간에서 사용 가능한 장비 목록과 사용법·규격을 바로 확인할 수 있습니다. 한 공간은 최대 3자리까지 나누어 이용할 수 있으며, 3자리를 모두 선택하면 공간 전체를 단독으로 이용하는 예약이 됩니다.</p>
+    <p class="desc">건물을 먼저 선택하면 해당 건물의 공간이 표시됩니다. 공간을 선택하면 30분 단위로 날짜·시간과 이용 자리 수를 지정할 수 있고, 예약 후에는 해당 공간에서 사용 가능한 장비 목록과 사용법·규격을 바로 확인할 수 있습니다. 한 공간은 최대 3자리까지 나누어 이용할 수 있으며, 3자리를 모두 선택하면 공간 전체를 단독으로 이용하는 예약이 됩니다.</p>
+    <div class="chiprow" id="bldChips"></div>
     <div class="grid g3" id="spaceGrid"></div>
-  </div>
-
-  <div class="sect">
-    <div class="sec-eyebrow">EQUIPMENT</div>
-    <h2>개별 장비 둘러보기</h2>
-    <p class="desc">센터 구축 장비를 검색·필터로 확인할 수 있습니다. 장비를 선택하면 규격과 사용 안내를 확인할 수 있습니다. 2027년 도입 예정 장비는 사전 협의 후 이용 일정이 안내됩니다.</p>
-    <div class="fbar">
-      <input type="text" id="q" placeholder="장비명 검색">
-      <select id="fBld"><option value="">전체 건물</option></select>
-      <select id="fYear"><option value="">전체 연도</option><option value="2026">2026 구축</option><option value="2027">2027 도입 예정</option></select>
-    </div>
-    <div class="chiprow" id="catChips"></div>
-    <div class="egrid" id="egrid"></div>
-    <div class="empty" id="eempty" style="display:none">검색 조건에 해당하는 장비가 없습니다.</div>
+    <div class="empty" id="spaceEmpty" style="display:none">선택한 건물에 등록된 공간이 없습니다.</div>
   </div>
 </section>
 
@@ -406,6 +396,15 @@ const SPACE_PRICE = {
   "디자인실": 10000
 };
 const DEFAULT_SPACE_PRICE = 10000;
+// 공간별 대표 사진. images/spaces/ 폴더에 아래 파일명 그대로 사진을 올리면 자동으로 표시됩니다(없으면 사진 영역이 그냥 생략됨).
+const SPACE_IMG = {
+  "공유오피스": "images/spaces/coworking.jpg",
+  "기술 지원실": "images/spaces/techsupport.jpg",
+  "실증실1 (가정식/외식 솔루션)": "images/spaces/demo1.jpg",
+  "실증실2 (급식솔루션실)": "images/spaces/demo2.jpg",
+  "미디어실": "images/spaces/media.jpg",
+  "디자인실": "images/spaces/design.jpg"
+};
 // 자리 수(1/2/3)별 가격 배수 — 자리가 늘어도 곱수만큼 비싸지지 않도록 체감 할인 적용. 실제 배수 확정 전 임시값.
 const SLOT_MULT = [1, 1.8, 2.4]; // index 0=1자리, 1=2자리, 2=3자리(=전체 공간 단독 이용)
 function spacePrice30(space){ return SPACE_PRICE[space] ?? DEFAULT_SPACE_PRICE; }
@@ -522,7 +521,7 @@ const CASES = [
   detail:["기업: 사용자 주문 식재료·배달 음식 기록 제공","센터: 주요 식이 패턴 점수(DASH, AHEI 등) 및 식이 패턴 기반 질환 위험도 도출","서비스: 건강 개선 또는 최적 궁합 관점의 맞춤 식재료·음식 추천"]}
 ];
 
-let state = { pkgs:new Set(), algos:new Set(), cart:new Map(), spaceCart:new Map(), cat:"", q:"", bld:"", year:"" };
+let state = { pkgs:new Set(), algos:new Set(), cart:new Map(), spaceCart:new Map(), spaceBld:"" };
 
 /* nav */
 function go(p){
@@ -646,53 +645,26 @@ function openCaseDetail(i){
 
 
 /* equipment */
-function getCats(){return [...new Set(EQUIP.map(e=>e.cat))];}
-let filtersBound=false;
-function initFilters(){
-  const blds=[...new Set(EQUIP.map(e=>e.building_s))];
-  document.getElementById("fBld").innerHTML = `<option value="">전체 건물</option>`+blds.map(b=>`<option>${b}</option>`).join("");
-  document.getElementById("catChips").innerHTML =
-    `<button class="chip on" data-c="">전체</button>`+getCats().map(c=>`<button class="chip" data-c="${c}">${c}</button>`).join("");
-  document.querySelectorAll(".chip").forEach(ch=>ch.onclick=()=>{
-    state.cat=ch.dataset.c;
-    document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===ch));
-    renderEquip();
-  });
-  if(!filtersBound){
-    filtersBound=true;
-    document.getElementById("q").oninput=e=>{state.q=e.target.value.trim();renderEquip()};
-    document.getElementById("fBld").onchange=e=>{state.bld=e.target.value;renderEquip()};
-    document.getElementById("fYear").onchange=e=>{state.year=e.target.value;renderEquip()};
-  }
-}
-function filtered(){
-  return EQUIP.filter(e=>
-    (!state.cat||e.cat===state.cat)&&
-    (!state.bld||e.building_s===state.bld)&&
-    (!state.year||e.year===state.year)&&
-    (!state.q||e.name.includes(state.q))
-  );
-}
 function eid(e){return e.name+"|"+e.building_s+"|"+e.space_s+"|"+e.purpose;}
-function renderEquip(){
-  const list=filtered();
-  document.getElementById("eempty").style.display=list.length?"none":"block";
-  document.getElementById("egrid").innerHTML=list.map((e,i)=>`
-    <div class="ecard" onclick="openModal('${encodeURIComponent(eid(e))}')">
-      <div class="badges">
-        <span class="bdg ${e.cat==="기반 설비"?"infra":"cat"}">${e.cat}</span>
-        ${e.year==="2027"?'<span class="bdg y27">2027 도입 예정</span>':""}
-      </div>
-      <div class="nm">${e.name}</div>
-      <div class="loc">${e.building_s} · ${e.space_s} · ${e.qty}대</div>
-    </div>`).join("");
-}
 
 /* space booking */
+function renderBldChips(){
+  const el=document.getElementById("bldChips"); if(!el) return;
+  const blds=[...new Set(EQUIP.map(e=>e.building_s))];
+  el.innerHTML=`<button class="chip on" data-b="">전체 건물</button>`+blds.map(b=>`<button class="chip" data-b="${b}">${b}</button>`).join("");
+  el.querySelectorAll(".chip").forEach(ch=>ch.onclick=()=>{
+    state.spaceBld=ch.dataset.b;
+    el.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===ch));
+    renderSpaces();
+  });
+}
 function renderSpaces(){
   const el=document.getElementById("spaceGrid"); if(!el) return;
-  el.innerHTML=getSpaces().map(s=>`
+  const list=getSpaces().filter(s=>!state.spaceBld||s.building===state.spaceBld);
+  document.getElementById("spaceEmpty").style.display=list.length?"none":"block";
+  el.innerHTML=list.map(s=>`
     <div class="card spacecard" onclick="openSpace('${encodeURIComponent(spaceKey(s.building,s.space))}')">
+      ${SPACE_IMG[s.space]?`<img class="thumb" src="${SPACE_IMG[s.space]}" alt="${s.space}" onerror="this.remove()">`:""}
       <h3>${s.space}</h3>
       <div class="cnt">${s.building} · 장비 ${s.count}종</div>
       <div class="badges">${[...s.cats].slice(0,3).map(c=>`<span class="bdg cat">${c}</span>`).join("")}</div>
@@ -707,6 +679,7 @@ function openSpace(key){
     <button class="x" onclick="closeModal()">✕</button>
     <h3>${space}</h3>
     <div class="mloc">${building}</div>
+    ${SPACE_IMG[space]?`<img class="mspaceimg" src="${SPACE_IMG[space]}" alt="${space}" onerror="this.remove()">`:""}
     <div class="usage">
       <h4>공간 예약</h4>
       <div class="frow" style="margin-bottom:12px">
@@ -1096,10 +1069,10 @@ async function loadSheetContent(){
     }
   }).catch(()=>{}));
   await Promise.allSettled(jobs);
-  initFilters(); renderEquip(); renderSpaces();
+  renderBldChips(); renderSpaces();
 }
 
-renderPkgs(); initFilters(); renderEquip(); renderSpaces(); updateCnt(); loadSheetContent();
+renderPkgs(); renderBldChips(); renderSpaces(); updateCnt(); loadSheetContent();
 </script>
 </body>
 </html>
