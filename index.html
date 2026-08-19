@@ -138,6 +138,18 @@ main{max-width:1100px;margin:0 auto;padding:28px 20px 80px}
 .bdg.infra{background:#15273C;color:#7A90A8;border:1px solid #2A415C}
 .empty{color:var(--sub);text-align:center;padding:40px 0;font-size:14px}
 
+/* space booking */
+.spacecard{cursor:pointer;transition:border-color .12s,box-shadow .12s}
+.spacecard:hover{border-color:var(--cyan);box-shadow:0 6px 18px rgba(42,212,232,.10)}
+.spacecard .cnt{font-size:12px;color:var(--sub);margin-bottom:8px}
+.slotrow{display:flex;gap:6px}
+.slotbtn{flex:1;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:9px;padding:9px 4px;font-size:12.5px;font-weight:700}
+.slotbtn.on{background:var(--cyan);border-color:var(--cyan);color:#06121F}
+.pricebox{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13.5px;color:var(--sub);margin:12px 0}
+.pricebox b{color:var(--cyan);font-size:17px;font-weight:800}
+.pricebox .pnote{display:block;margin-top:2px;font-size:12px;color:var(--sub)}
+.spequip{margin-top:8px}
+
 /* modal */
 .mback{position:fixed;inset:0;background:rgba(3,9,17,.72);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto}
 .mback.on{display:flex}
@@ -262,9 +274,16 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding:22px 20p
 <!-- ============ EQUIPMENT ============ -->
 <section class="page" id="page-equip">
   <div class="sect">
+    <div class="sec-eyebrow">SPACE BOOKING</div>
+    <h2>공간 예약</h2>
+    <p class="desc">장비는 공간 단위로 예약합니다. 공간을 선택하면 30분 단위로 날짜·시간과 이용 자리 수를 지정할 수 있고, 예약 후에는 해당 공간에서 사용 가능한 장비 목록과 사용법·규격을 바로 확인할 수 있습니다. 한 공간은 최대 3자리까지 나누어 이용할 수 있으며, 3자리를 모두 선택하면 공간 전체를 단독으로 이용하는 예약이 됩니다.</p>
+    <div class="grid g3" id="spaceGrid"></div>
+  </div>
+
+  <div class="sect">
     <div class="sec-eyebrow">EQUIPMENT</div>
-    <h2>장비 신청</h2>
-    <p class="desc">센터 구축 장비를 확인하고 사용을 신청할 수 있습니다. 장비를 선택하면 규격과 사용 안내를 확인할 수 있습니다. 2027년 도입 예정 장비는 사전 협의 후 이용 일정이 안내됩니다.</p>
+    <h2>개별 장비 둘러보기</h2>
+    <p class="desc">센터 구축 장비를 검색·필터로 확인할 수 있습니다. 장비를 선택하면 규격과 사용 안내를 확인할 수 있습니다. 2027년 도입 예정 장비는 사전 협의 후 이용 일정이 안내됩니다.</p>
     <div class="fbar">
       <input type="text" id="q" placeholder="장비명 검색">
       <select id="fBld"><option value="">전체 건물</option></select>
@@ -289,6 +308,10 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding:22px 20p
       <div class="selbox">
         <h4>선택한 실증 패키지</h4>
         <div id="selPkg" class="selempty">선택된 패키지가 없습니다. 실증 패키지 탭에서 선택할 수 있습니다.</div>
+      </div>
+      <div class="selbox">
+        <h4>선택한 공간 예약</h4>
+        <div id="selSpace" class="selempty">선택된 공간 예약이 없습니다. 장비 신청 탭에서 공간을 예약할 수 있습니다.</div>
       </div>
       <div class="selbox">
         <h4>선택한 장비</h4>
@@ -372,6 +395,38 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding:22px 20p
 const EQUIP = [{"name": "모니터", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(A) DB 저장", "cat": "컴퓨팅·데이터 인프라", "year": "2026", "qty": 8, "price": "₩281,511", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "서버", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(A) DB 저장", "cat": "컴퓨팅·데이터 인프라", "year": "2026", "qty": 2, "price": "₩5,529,700", "w": "435", "dp": "535", "h": "43", "power": "0.071", "volt": "220", "water": "", "drain": "-", "vent": "△"}, {"name": "서버랙", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(A) DB 저장", "cat": "컴퓨팅·데이터 인프라", "year": "2026", "qty": 1, "price": "₩1,003,380", "w": "1200", "dp": "1000", "h": "600", "power": "0", "volt": "0", "water": "", "drain": "-", "vent": "-"}, {"name": "워크스테이션", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(A) DB 저장", "cat": "컴퓨팅·데이터 인프라", "year": "2026", "qty": 1, "price": "₩20,811,780", "w": "604", "dp": "240", "h": "566", "power": "2", "volt": "230", "water": "", "drain": "-", "vent": "△"}, {"name": "고성능 컴퓨터", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(B) 알고리즘 설계", "cat": "컴퓨팅·데이터 인프라", "year": "2026", "qty": 2, "price": "₩6,882,060", "w": "230", "dp": "491", "h": "468", "power": "1", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "전자칠판_회의용", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(E) 회의실", "cat": "영상·콘텐츠 장비", "year": "2026", "qty": 1, "price": "₩3,719,980", "w": "1717", "dp": "1032", "h": "83.7", "power": "0.4", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "화상회의 시스템", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(E) 회의실", "cat": "영상·콘텐츠 장비", "year": "2026", "qty": 1, "price": "₩3,468,630", "w": "348", "dp": "251", "h": "308", "power": "0", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "광파오븐", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(F) 라운지", "cat": "가열·조리 장비", "year": "2026", "qty": 1, "price": "₩1,430,000", "w": "595", "dp": "469", "h": "459", "power": "2800", "volt": "220", "water": "-", "drain": "-", "vent": "- (상부장으로 할 경우 필요 O/하부장으로 할 경우 필요X )"}, {"name": "사이니지 (홍보영상 재생용)", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(F) 라운지", "cat": "영상·콘텐츠 장비", "year": "2026", "qty": 1, "price": "₩1,347,230", "w": "1455", "dp": "841", "h": "46.3", "power": "0.204", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "스마트 냉장고", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(F) 라운지", "cat": "보관·위생 설비", "year": "2026", "qty": 1, "price": "₩3,300,000", "w": "912", "dp": "697", "h": "1853", "power": "56", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "자동 식기 세척 시스템_가정용", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(F) 라운지", "cat": "보관·위생 설비", "year": "2026", "qty": 1, "price": "₩1,210,000", "w": "595", "dp": "815", "h": "572", "power": "2050", "volt": "220", "water": "냉수/온수", "drain": "O", "vent": "-"}, {"name": "후드일체형 인덕션렌지", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(F) 라운지", "cat": "가열·조리 장비", "year": "2026", "qty": 2, "price": "₩2,640,000", "w": "800", "dp": "520", "h": "0", "power": "7600", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "체성분 측정기", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(B) 뷰티존", "cat": "웰니스 측정 장비", "year": "2026", "qty": 2, "price": "₩6,535,100", "w": "526", "dp": "854", "h": "1175", "power": "0.0408", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "1조 세정 캐비닛", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 9, "price": "₩392,106", "w": "600", "dp": "700", "h": "850", "power": "0", "volt": "0", "water": "냉수/온수", "drain": "O", "vent": "-"}, {"name": "1조 세정 캐비닛 (대)", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 2, "price": "₩633,402", "w": "1200", "dp": "700", "h": "850", "power": "0", "volt": "0", "water": "냉수/온수", "drain": "O", "vent": "-"}, {"name": "2조 세정 캐비닛", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 2, "price": "₩623,348", "w": "1200", "dp": "700", "h": "850", "power": "0", "volt": "0", "water": "냉수/온수", "drain": "O", "vent": "-"}, {"name": "냉장테이블", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "보관·위생 설비", "year": "2026", "qty": 12, "price": "₩2,250,000", "w": "1200", "dp": "700", "h": "850", "power": "660", "volt": "220", "water": "-", "drain": "O (물 빠지는 배수선 필요)", "vent": "-"}, {"name": "다단식선반_대", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 3, "price": "₩645,165", "w": "1500", "dp": "600", "h": "2100", "power": "0", "volt": "0", "water": "-", "drain": "-", "vent": "-"}, {"name": "상업용 조리대 1500", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 4, "price": "₩834,482", "w": "1500", "dp": "600", "h": "850", "power": "0", "volt": "0", "water": "-", "drain": "-", "vent": "-"}, {"name": "실험대 1200", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 9, "price": "₩662,016", "w": "1200", "dp": "750", "h": "1050", "power": "0", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "이중배기후드/휠타/등", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 8, "price": "₩3,483,711", "w": "1800", "dp": "1500", "h": "550", "power": "0", "volt": "0", "water": "-", "drain": "-", "vent": "O"}, {"name": "인덕션렌지2구", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "가열·조리 장비", "year": "2026", "qty": 8, "price": "₩3,465,000", "w": "800", "dp": "700", "h": "800", "power": "10200", "volt": "220, 380", "water": "-", "drain": "-", "vent": "-(선택사항)"}, {"name": "캐비넷 벽 찬장", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 12, "price": "₩341,836", "w": "1500", "dp": "350", "h": "600", "power": "0", "volt": "0", "water": "-", "drain": "-", "vent": "-"}, {"name": "1조 세정 캐비닛 (대)", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 2, "price": "₩633,402", "w": "1200", "dp": "700", "h": "850", "power": "0", "volt": "0", "water": "냉수/온수", "drain": "O", "vent": "-"}, {"name": "2조 세정 캐비닛", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 2, "price": "₩623,348", "w": "1200", "dp": "700", "h": "850", "power": "0", "volt": "0", "water": "냉수/온수", "drain": "O", "vent": "-"}, {"name": "냉장테이블", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(A) 기본 장비", "cat": "보관·위생 설비", "year": "2026", "qty": 4, "price": "₩2,250,000", "w": "1200", "dp": "700", "h": "850", "power": "660", "volt": "220", "water": "-", "drain": "O (물 빠지는 배수선 필요)", "vent": "-"}, {"name": "이중배기후드/휠타/등", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(A) 기본 장비", "cat": "기반 설비", "year": "2026", "qty": 6, "price": "₩3,483,711", "w": "1800", "dp": "1500", "h": "550", "power": "0", "volt": "0", "water": "-", "drain": "-", "vent": "O"}, {"name": "초음파 세척기", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(A) 기본 장비", "cat": "스마트 조리 로봇", "year": "2026", "qty": 2, "price": "₩4,510,000", "w": "1000", "dp": "800", "h": "1000", "power": "2", "volt": "1Ø220V", "water": "", "drain": "O", "vent": "-"}, {"name": "초음파 튀김기", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(B) 스마트 조리", "cat": "스마트 조리 로봇", "year": "2026", "qty": 2, "price": "₩4,180,000", "w": "600", "dp": "800", "h": "1000", "power": "9", "volt": "3Ø380V", "water": "-", "drain": "-", "vent": "O"}, {"name": "국탕 조리 로봇", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(B) 스마트 조리", "cat": "스마트 조리 로봇", "year": "2026", "qty": 1, "price": "₩176,000,000", "w": "3500", "dp": "3000", "h": "2000", "power": "35", "volt": "1Ø220V 3Ø4W380V 1Ø220V", "water": "", "drain": "O", "vent": "O"}, {"name": "튀김용 조리 로봇", "building_s": "진성 FM", "space_s": "실증실2 (급식솔루션실)", "purpose": "(B) 스마트 조리", "cat": "스마트 조리 로봇", "year": "2026", "qty": 2, "price": "₩66,000,000", "w": "1500", "dp": "2000", "h": "1800", "power": "17", "volt": "1Ø220V  1Ø220V  1Ø220V", "water": "", "drain": "O", "vent": "O"}, {"name": "올인원 스튜디오", "building_s": "진성 FM", "space_s": "미디어실", "purpose": "(A) 올인원 스튜디오", "cat": "영상·콘텐츠 장비", "year": "2026", "qty": 1, "price": "₩30,019,000", "w": "4000", "dp": "0", "h": "0", "power": "1", "volt": "가능", "water": "-", "drain": "-", "vent": "-"}, {"name": "식탁", "building_s": "진성 FM", "space_s": "미디어실", "purpose": "(B) 시음실", "cat": "기반 설비", "year": "2026", "qty": 1, "price": "₩2,392,852", "w": "2100", "dp": "1000", "h": "740", "power": "0", "volt": "-", "water": "-", "drain": "-", "vent": "-"}, {"name": "의자", "building_s": "진성 FM", "space_s": "미디어실", "purpose": "(B) 시음실", "cat": "기반 설비", "year": "2026", "qty": 8, "price": "₩450,419", "w": "550", "dp": "525", "h": "1055", "power": "0", "volt": "0", "water": "-", "drain": "-", "vent": "-"}, {"name": "실험대 1500", "building_s": "진성 FM", "space_s": "미디어실", "purpose": "(C) 포장 장비", "cat": "기반 설비", "year": "2026", "qty": 4, "price": "₩861,527", "w": "1500", "dp": "750", "h": "1050", "power": "0", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "실험대 1500", "building_s": "진성 FM", "space_s": "미디어실", "purpose": "(D) 레시피 분석", "cat": "기반 설비", "year": "2026", "qty": 6, "price": "₩861,527", "w": "1500", "dp": "750", "h": "1050", "power": "0", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "상업용 조리대 1500", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(D) 보관/세척", "cat": "기반 설비", "year": "2026", "qty": 4, "price": "₩834,482", "w": "1500", "dp": "600", "h": "850", "power": "0", "volt": "0", "water": "-", "drain": "-", "vent": "-"}, {"name": "고성능 컴퓨터", "building_s": "프리즘스퀘어", "space_s": "디자인실", "purpose": "(A) 서비스 기획", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 4, "price": "₩6,702,097", "w": "230", "dp": "491", "h": "468", "power": "1", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "모니터", "building_s": "프리즘스퀘어", "space_s": "디자인실", "purpose": "(A) 서비스 기획", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 8, "price": "₩281,512", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "모니터", "building_s": "프리즘스퀘어", "space_s": "디자인실", "purpose": "(B) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 10, "price": "₩281,512", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "사무용 컴퓨터", "building_s": "프리즘스퀘어", "space_s": "디자인실", "purpose": "(B) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 5, "price": "₩2,650,737", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "모니터", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(B) 알고리즘 설계", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 8, "price": "₩281,512", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "워크스테이션", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(B) 알고리즘 설계", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 3, "price": "₩20,811,780", "w": "604", "dp": "240", "h": "566", "power": "2", "volt": "230", "water": "", "drain": "-", "vent": "△"}, {"name": "GPU", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(B) 알고리즘 설계", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 1, "price": "₩12,700,000", "w": "110", "dp": "266", "h": "내부", "power": "0.3", "volt": "0", "water": "", "drain": "-", "vent": "△"}, {"name": "노트북", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(C) 프로젝트 기획", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 8, "price": "₩3,016,200", "w": "휴대용", "dp": "휴대용", "h": "휴대용", "power": "배터리", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "전자칠판_사무실", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(C) 프로젝트 기획", "cat": "영상·콘텐츠 장비", "year": "2027", "qty": 4, "price": "₩3,680,000", "w": "1709", "dp": "1031", "h": "100", "power": "0.365", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "프리젠터", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(C) 프로젝트 기획", "cat": "영상·콘텐츠 장비", "year": "2027", "qty": 4, "price": "₩170,000", "w": "휴대용", "dp": "휴대용", "h": "휴대용", "power": "휴대용", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "화상회의 시스템", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(C) 프로젝트 기획", "cat": "영상·콘텐츠 장비", "year": "2027", "qty": 4, "price": "₩3,468,630", "w": "348", "dp": "251", "h": "308", "power": "0", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "고성능 컴퓨터 (시험·인증 연계 및 사업화·R&D)", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 1, "price": "₩98,770,000", "w": "230", "dp": "491", "h": "468", "power": "1", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "고성능 컴퓨터 (실증 기반 시험·검증)", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 1, "price": "₩25,300,000", "w": "230", "dp": "491", "h": "468", "power": "1", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "고성능 컴퓨터 (표준·시험기반구축)", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 1, "price": "₩25,000,000", "w": "230", "dp": "491", "h": "468", "power": "1", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "네트워크 장치(스위치)", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 1, "price": "₩709,812", "w": "440", "dp": "200", "h": "44", "power": "0.37", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "모니터", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 6, "price": "₩281,512", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "보안장비(방화벽)", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 1, "price": "₩4,976,730", "w": "430", "dp": "88", "h": "562", "power": "0.03", "volt": "12", "water": "", "drain": "-", "vent": "-"}, {"name": "서버", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 2, "price": "₩5,529,700", "w": "435", "dp": "535", "h": "43", "power": "0.071", "volt": "220", "water": "", "drain": "-", "vent": "△"}, {"name": "GPU", "building_s": "케이사인 사옥", "space_s": "공유오피스", "purpose": "(D) 인증 컨설팅", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 1, "price": "₩12,700,000", "w": "110", "dp": "266", "h": "내부", "power": "0.3", "volt": "0", "water": "", "drain": "-", "vent": "△"}, {"name": "가정용 혈압계", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(A) 웨어러블존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 2, "price": "₩1,216,534", "w": "105", "dp": "85", "h": "152", "power": "0.03", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "스마트 링", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(A) 웨어러블존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 100, "price": "₩499,400", "w": "휴대용", "dp": "휴대용", "h": "휴대용", "power": "0", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "스마트 워치", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(A) 웨어러블존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 100, "price": "₩389,500", "w": "휴대용", "dp": "휴대용", "h": "휴대용", "power": "0", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "연속혈당 측정기", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(A) 웨어러블존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 100, "price": "₩104,500", "w": "휴대용", "dp": "휴대용", "h": "휴대용", "power": "0", "volt": "0", "water": "", "drain": "-", "vent": "-"}, {"name": "두피진단시스템", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(B) 뷰티존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 2, "price": "₩3,300,000", "w": "500", "dp": "300", "h": "300", "power": "0.1", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "모니터", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(B) 뷰티존", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 2, "price": "₩281,512", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "사무용 컴퓨터", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(B) 뷰티존", "cat": "컴퓨팅·데이터 인프라", "year": "2027", "qty": 2, "price": "₩2,650,737", "w": "615", "dp": "499", "h": "169", "power": "0.027", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "피부/헤어 듀얼솔루션", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(B) 뷰티존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 2, "price": "₩4,550,000", "w": "85", "dp": "19", "h": "170", "power": "0", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "피부진단기", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(B) 뷰티존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 2, "price": "₩8,800,000", "w": "302", "dp": "369", "h": "480", "power": "0.06", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "근골격통합검진시스템_6100", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(C) 메디존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 1, "price": "₩19,906,920", "w": "4500", "dp": "1300", "h": "1200", "power": "0.3", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "근골격통합검진시스템_9100", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(C) 메디존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 1, "price": "₩22,118,800", "w": "1500", "dp": "3000", "h": "2120", "power": "0.3", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "근골격통합검진시스템용 트레드밀", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(C) 메디존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 1, "price": "₩1,990,692", "w": "시스템 통합", "dp": "시스템 통합", "h": "시스템 통합", "power": "0.93", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "뇌파측정 웨어러블 기기", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(C) 메디존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 2, "price": "₩9,852,920", "w": "휴대용", "dp": "휴대용", "h": "휴대용", "power": "배터리", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "바이탈 트래커", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(C) 메디존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 2, "price": "₩8,800,000", "w": "350", "dp": "500", "h": "1700", "power": "0.3", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "스트레스 측정기", "building_s": "케이사인 사옥", "space_s": "기술 지원실", "purpose": "(C) 메디존", "cat": "웰니스 측정 장비", "year": "2027", "qty": 2, "price": "₩6,434,560", "w": "330", "dp": "140", "h": "310", "power": "0.024", "volt": "220", "water": "", "drain": "-", "vent": "-"}, {"name": "스마트 음식물 처리기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩13,070,200", "w": "650", "dp": "980", "h": "930", "power": "1000", "volt": "220", "water": "냉수", "drain": "O", "vent": "-"}, {"name": "자동 식기 세척 시스템_업소용", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "보관·위생 설비", "year": "2027", "qty": 2, "price": "₩7,078,016", "w": "900", "dp": "700", "h": "850", "power": "1440", "volt": "220", "water": "온수", "drain": "O", "vent": "-"}, {"name": "전기식기소독장", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "보관·위생 설비", "year": "2027", "qty": 1, "price": "₩5,670,456", "w": "1800", "dp": "750", "h": "1950", "power": "6100", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "제빙기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "가열·조리 장비", "year": "2027", "qty": 1, "price": "₩3,921,060", "w": "560", "dp": "825", "h": "1925", "power": "1221", "volt": "220", "water": "냉수", "drain": "O", "vent": "-"}, {"name": "칼도마소독기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비", "cat": "보관·위생 설비", "year": "2027", "qty": 1, "price": "₩3,669,710", "w": "1000", "dp": "600", "h": "1900", "power": "3000", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "교반기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩1,759,500", "w": "340", "dp": "460", "h": "520", "power": "650", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "다기능 조리기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "가열·조리 장비", "year": "2027", "qty": 2, "price": "₩6,311,000", "w": "256", "dp": "405", "h": "122", "power": "최대 2000", "volt": "220-240", "water": "-", "drain": "- (직접 세척)", "vent": "-"}, {"name": "블렌더/믹서기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "절단·혼합·전처리", "year": "2027", "qty": 7, "price": "₩2,250,000", "w": "224", "dp": "249", "h": "457", "power": "1.5", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "야채절단기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩10,893,509", "w": "676", "dp": "426", "h": "562", "power": "600", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "저울", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "분석 장비", "year": "2027", "qty": 13, "price": "₩250,000", "w": "266", "dp": "280", "h": "146", "power": "0", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "전기믹서기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩150,000", "w": "250", "dp": "270", "h": "390", "power": "320", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "정밀저울", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "분석 장비", "year": "2027", "qty": 13, "price": "₩486,000", "w": "190", "dp": "218", "h": "53", "power": "0.4", "volt": "배터리/220", "water": "-", "drain": "-", "vent": "-"}, {"name": "제면기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "가열·조리 장비", "year": "2027", "qty": 2, "price": "₩1,100,000", "w": "500", "dp": "600", "h": "380", "power": "500", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "착즙기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩2,290,000", "w": "185", "dp": "265", "h": "512", "power": "200", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "푸드프로세서", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(A) 기본 장비_다단식 선반", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩728,900", "w": "385", "dp": "345", "h": "280", "power": "1200", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "3D 프린터", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(B) 가열/조리", "cat": "3D 푸드프린팅", "year": "2027", "qty": 3, "price": "₩77,000,000", "w": "700", "dp": "700", "h": "630", "power": "1300", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "건조기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(B) 가열/조리", "cat": "가열·조리 장비", "year": "2027", "qty": 2, "price": "₩249,000", "w": "331", "dp": "403", "h": "355", "power": "850", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "데크오븐", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(B) 가열/조리", "cat": "가열·조리 장비", "year": "2027", "qty": 2, "price": "₩7,942,660", "w": "1640", "dp": "830", "h": "1900", "power": "19,000", "volt": "220", "water": "-", "drain": "-", "vent": "- (환기구/환풍설비 권장)"}, {"name": "저당 밥솥", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(B) 가열/조리", "cat": "가열·조리 장비", "year": "2027", "qty": 2, "price": "₩748,000", "w": "271", "dp": "371", "h": "253", "power": "1090", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "콤비스팀 오븐", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(B) 가열/조리", "cat": "가열·조리 장비", "year": "2027", "qty": 2, "price": "₩37,646,198", "w": "1114", "dp": "1110", "h": "1890", "power": "64600", "volt": "단상AC223, 220 무관", "water": "냉수", "drain": "O (25A  회색 드린호수관)", "vent": "- (가능하면 후드 설치)"}, {"name": "Bespoke 큐커 오븐 32L", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(B) 가열/조리", "cat": "가열·조리 장비", "year": "2027", "qty": 2, "price": "₩499,000", "w": "528", "dp": "481", "h": "404", "power": "2500", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "고속 유화기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(C) 절단/혼합", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩4,304,410", "w": "250", "dp": "314", "h": "454", "power": "200", "volt": "220", "water": "-", "drain": "-", "vent": "-"}, {"name": "고압균질기", "building_s": "진성 FM", "space_s": "실증실1 (가정식/외식 솔루션)", "purpose": "(C) 절단/혼합", "cat": "절단·혼합·전처리", "year": "2027", "qty": 2, "price": "₩75,240,000", "w": "620", "dp": "615", "h": "1102", "power": "2200", "volt": "380", "water": "냉수", "drain": "O", "vent": "-"}];
 const GUIDES = {"스마트 조리 로봇": {"용도": "급식·외식 환경에서의 자동 조리 공정 실증 및 레시피 표준화", "절차": ["센터 담당자와 사전 협의 후 조리 레시피(투입량·온도·시간)를 로봇 공정 데이터로 변환", "담당 인력 입회 하에 시운전 및 안전 점검 실시", "실증 조리 진행 및 공정 데이터(온도·시간·투입량) 자동 기록", "조리 완료 후 세척·위생 관리 절차 수행"], "주의": "조리 로봇은 반드시 센터 담당 인력 입회 하에 운영하며, 사전 안전 교육 이수가 필수임. 3상 380V 전원 및 급배수·배기 설비와 연동되어 있어 임의 이동·설정 변경이 불가함."}, "가열·조리 장비": {"용도": "맞춤형 레시피 시범 조리 및 온도·시간·가열 방식별 조리 조건 실증", "절차": ["장비 예약 후 사용 전 상태 점검(전원·급배수·배기)", "레시피 조건(온도·시간·모드) 설정 및 조리 진행", "조리 조건과 결과를 실증 기록지(또는 센터 데이터 시스템)에 기록", "사용 후 내부 세척 및 전원 차단"], "주의": "고온·고전력 장비로 사용 중 자리 이탈을 금하며, 화상 방지 보호구를 착용함. 배기 후드 가동 상태를 확인한 후 사용함."}, "절단·혼합·전처리": {"용도": "식재료 전처리 및 물성 제어(분쇄·혼합·유화·균질) 공정 실증", "절차": ["안전 커버·부속 장착 상태 확인 후 전원 연결", "재료 투입량을 정격 용량 이내로 투입", "목적에 맞는 속도·시간 설정 후 가동", "사용 직후 분해 세척 및 건조"], "주의": "회전체·칼날 장비로 가동 중 개구부에 손을 넣지 않으며, 세척 시 반드시 전원을 분리함."}, "분석 장비": {"용도": "조리 전후 시료의 성분·물성·품질 지표 측정 및 레시피 최적화 데이터 확보", "절차": ["사용 전 교정(캘리브레이션) 상태 확인", "시료 전처리 후 규격에 맞게 장착·측정", "측정값을 센터 데이터 시스템에 기록", "측정부 세척 및 표준 상태로 복귀"], "주의": "정밀 장비로 초기 사용 시 센터 담당자의 교육 후 사용하며, 교정 주기와 시료 규격을 준수함."}, "웰니스 측정 장비": {"용도": "헬스케어 데이터 수집 실증(대상자 신체·생체 지표 측정) 및 서비스 검증", "절차": ["측정 대상자 동의 및 개인정보 처리 절차 확인", "장비별 표준 측정 프로토콜에 따라 측정", "측정 데이터의 익명화·보안 처리 후 저장", "웨어러블 기기는 반납 시 초기화 및 소독"], "주의": "대상자 데이터 수집 시 사전 동의와 개인정보 보호 절차 준수가 필수이며, 의료행위 목적으로 사용할 수 없음."}, "컴퓨팅·데이터 인프라": {"용도": "맞춤식이 알고리즘 개발·학습, 데이터 분석 및 DB 구축", "절차": ["계정 발급 및 보안 서약 후 접속 권한 부여", "할당된 컴퓨팅 자원(GPU·스토리지) 범위 내 작업 수행", "산출물은 지정 저장소에 보관", "사용 종료 시 세션 종료 및 자원 반납"], "주의": "센터 보안 정책에 따라 외부 저장매체 반출 및 무단 소프트웨어 설치가 제한됨."}, "영상·콘텐츠 장비": {"용도": "제품·서비스 홍보 콘텐츠 제작, 투자 피칭 자료 제작 및 회의·발표 지원", "절차": ["미디어실·회의실 예약 후 장비 세팅 지원 요청", "촬영·회의 진행", "산출 파일 백업 후 장비 원위치", "조명·전원 차단 확인"], "주의": "스튜디오 장비는 센터 담당자의 세팅 지원 하에 사용하며, 구조물 임의 변경을 금함."}, "보관·위생 설비": {"용도": "식재료·시제품 보관 및 조리 위생 관리", "절차": ["보관물품 라벨링(기업명·내용물·일자) 후 지정 구역에 보관", "설정 온도 임의 변경 금지", "세척·소독 장비는 표준 운전 조건으로 사용", "보관 기간 종료 시 자진 수거"], "주의": "공용 설비로 장기 방치 물품은 위생 규정에 따라 폐기될 수 있음."}, "3D 푸드프린팅": {"용도": "맞춤형 식품 조형·시제품 제작 실증", "절차": ["식용 소재(카트리지) 규격 및 물성 적합성 사전 확인", "디자인 파일 업로드 및 출력 조건 설정", "출력 진행 및 결과물 품질 확인", "노즐·베드 세척 및 소재 보관"], "주의": "지정된 식용 소재만 사용 가능하며, 최초 사용 시 센터 교육 이수가 필요함."}, "기반 설비": {"용도": "실증 공간 공용 기반 설비(작업대·수납·급배기 등)", "절차": ["실증 공간 예약 시 함께 제공되어 별도 신청 없이 사용", "사용 후 정리·세척 상태 유지"], "주의": "공용 설비로 임의 이동·개조를 금함."}};
 const CENTER_EMAIL = "snupfm@gmail.com"; // 접수 실패 시 대체 이메일
+
+// 공간별 30분 · 1자리 기준 예약료(원). 실제 단가 확정 전 임시값 — 센터 협의 후 아래 숫자만 교체하면 됩니다.
+const SPACE_PRICE = {
+  "공유오피스": 10000,
+  "기술 지원실": 10000,
+  "실증실1 (가정식/외식 솔루션)": 15000,
+  "실증실2 (급식솔루션실)": 15000,
+  "미디어실": 12000,
+  "디자인실": 10000
+};
+const DEFAULT_SPACE_PRICE = 10000;
+// 자리 수(1/2/3)별 가격 배수 — 자리가 늘어도 곱수만큼 비싸지지 않도록 체감 할인 적용. 실제 배수 확정 전 임시값.
+const SLOT_MULT = [1, 1.8, 2.4]; // index 0=1자리, 1=2자리, 2=3자리(=전체 공간 단독 이용)
+function spacePrice30(space){ return SPACE_PRICE[space] ?? DEFAULT_SPACE_PRICE; }
+function timeOpts(){
+  const arr=[];
+  for(let m=9*60;m<=21*60+30;m+=30){
+    const h=String(Math.floor(m/60)).padStart(2,"0"), mm=String(m%60).padStart(2,"0");
+    arr.push(h+":"+mm);
+  }
+  return arr;
+}
+function spaceKey(building,space){ return building+"|"+space; }
+function getSpaces(){
+  const map=new Map();
+  EQUIP.forEach(e=>{
+    const k=spaceKey(e.building_s,e.space_s);
+    if(!map.has(k)) map.set(k,{building:e.building_s,space:e.space_s,count:0,cats:new Set()});
+    const s=map.get(k); s.count++; s.cats.add(e.cat);
+  });
+  return [...map.values()];
+}
 const API_URL = "https://gwacheon-apply-api.snupfm.workers.dev";
 // 구글 시트 '웹에 게시' CSV 링크 목록. 각 링크의 머리글을 보고 장비/실증예시 탭을 자동 판별.
 const SHEET_CSV_URLS = [
@@ -467,7 +522,7 @@ const CASES = [
   detail:["기업: 사용자 주문 식재료·배달 음식 기록 제공","센터: 주요 식이 패턴 점수(DASH, AHEI 등) 및 식이 패턴 기반 질환 위험도 도출","서비스: 건강 개선 또는 최적 궁합 관점의 맞춤 식재료·음식 추천"]}
 ];
 
-let state = { pkgs:new Set(), algos:new Set(), cart:new Map(), cat:"", q:"", bld:"", year:"" };
+let state = { pkgs:new Set(), algos:new Set(), cart:new Map(), spaceCart:new Map(), cat:"", q:"", bld:"", year:"" };
 
 /* nav */
 function go(p){
@@ -633,8 +688,127 @@ function renderEquip(){
     </div>`).join("");
 }
 
+/* space booking */
+function renderSpaces(){
+  const el=document.getElementById("spaceGrid"); if(!el) return;
+  el.innerHTML=getSpaces().map(s=>`
+    <div class="card spacecard" onclick="openSpace('${encodeURIComponent(spaceKey(s.building,s.space))}')">
+      <h3>${s.space}</h3>
+      <div class="cnt">${s.building} · 장비 ${s.count}종</div>
+      <div class="badges">${[...s.cats].slice(0,3).map(c=>`<span class="bdg cat">${c}</span>`).join("")}</div>
+    </div>`).join("");
+}
+function openSpace(key){
+  const k=decodeURIComponent(key);
+  const [building,space]=k.split("|");
+  const eqs=EQUIP.filter(e=>e.building_s===building&&e.space_s===space);
+  const opts=timeOpts();
+  document.getElementById("modalBody").innerHTML=`
+    <button class="x" onclick="closeModal()">✕</button>
+    <h3>${space}</h3>
+    <div class="mloc">${building}</div>
+    <div class="usage">
+      <h4>공간 예약</h4>
+      <div class="frow" style="margin-bottom:12px">
+        <div class="fld"><label>이용 날짜</label><input type="date" id="spDate"></div>
+        <div class="fld"><label>이용 자리 수</label>
+          <div class="slotrow" id="spSlots">
+            <button type="button" class="slotbtn" data-n="1">1자리</button>
+            <button type="button" class="slotbtn" data-n="2">2자리</button>
+            <button type="button" class="slotbtn" data-n="3">3자리(전체 공간)</button>
+          </div>
+        </div>
+      </div>
+      <div class="frow" style="margin-bottom:0">
+        <div class="fld"><label>시작 시간</label><select id="spStart">${opts.map(t=>`<option>${t}</option>`).join("")}</select></div>
+        <div class="fld"><label>종료 시간</label><select id="spEnd">${opts.map(t=>`<option>${t}</option>`).join("")}</select></div>
+      </div>
+      <div class="pricebox" id="spPrice">이용 날짜·시간과 자리 수를 선택하면 예상 비용이 표시됩니다.</div>
+    </div>
+    <div class="mact">
+      <button class="addbtn" id="spAddBtn" onclick="addSpaceReservation('${encodeURIComponent(k)}')" disabled>날짜·시간·자리 수를 선택하여 주십시오</button>
+    </div>
+    <div class="usage spequip">
+      <h4>이 공간에서 사용 가능한 장비 <small style="color:var(--sub);font-weight:500">(${eqs.length}종 · 클릭 시 사용법·규격 확인)</small></h4>
+      <div class="egrid" style="margin-top:10px">${eqs.map(e=>`
+        <div class="ecard" onclick="openModal('${encodeURIComponent(eid(e))}','${encodeURIComponent(k)}')">
+          <div class="badges">
+            <span class="bdg ${e.cat==="기반 설비"?"infra":"cat"}">${e.cat}</span>
+            ${e.year==="2027"?'<span class="bdg y27">2027 도입 예정</span>':""}
+          </div>
+          <div class="nm">${e.name}</div>
+          <div class="loc">${e.qty}대</div>
+        </div>`).join("")}</div>
+    </div>`;
+  const dateEl=document.getElementById("spDate");
+  dateEl.min=new Date().toISOString().slice(0,10);
+  dateEl.onchange=recomputeSpacePrice;
+  document.getElementById("spStart").onchange=recomputeSpacePrice;
+  document.getElementById("spEnd").onchange=recomputeSpacePrice;
+  document.querySelectorAll("#spSlots .slotbtn").forEach(b=>b.onclick=()=>{
+    document.querySelectorAll("#spSlots .slotbtn").forEach(x=>x.classList.toggle("on",x===b));
+    recomputeSpacePrice();
+  });
+  const m=document.getElementById("mback");
+  m.dataset.kind="space"; m.dataset.spacekey=key;
+  m.classList.add("on"); document.body.style.overflow="hidden";
+  recomputeSpacePrice();
+}
+function recomputeSpacePrice(){
+  const box=document.getElementById("spPrice"); const btn=document.getElementById("spAddBtn");
+  if(!box||!btn) return;
+  const date=document.getElementById("spDate").value;
+  const start=document.getElementById("spStart").value;
+  const end=document.getElementById("spEnd").value;
+  const slotBtn=document.querySelector("#spSlots .slotbtn.on");
+  const slots=slotBtn?parseInt(slotBtn.dataset.n):0;
+  const toMin=t=>{const[h,m]=t.split(":").map(Number);return h*60+m;};
+  const minutes=toMin(end)-toMin(start);
+  if(!date||!slots||minutes<=0||minutes%30!==0){
+    box.innerHTML="이용 날짜·시간과 자리 수를 선택하면 예상 비용이 표시됩니다.";
+    btn.disabled=true; btn.textContent="날짜·시간·자리 수를 선택하여 주십시오";
+    return;
+  }
+  const k=decodeURIComponent(document.getElementById("mback").dataset.spacekey);
+  const space=k.split("|")[1];
+  const price=Math.round(spacePrice30(space)*SLOT_MULT[slots-1]*(minutes/30));
+  box.innerHTML=`<b>₩${price.toLocaleString()}</b><span class="pnote">${date} ${start}~${end} (${minutes}분) · ${slots===3?"전체 공간 단독 이용":slots+"자리 공유 이용"}</span>`;
+  const resKey=k+"|"+date+"|"+start+"|"+end+"|"+slots;
+  const already=state.spaceCart.has(resKey);
+  btn.disabled=false;
+  btn.className="addbtn"+(already?" added":"");
+  btn.textContent=already?"예약 목록에 담김 · 해제":"예약 담기";
+}
+function addSpaceReservation(key){
+  const k=decodeURIComponent(key);
+  const [building,space]=k.split("|");
+  const date=document.getElementById("spDate").value;
+  const start=document.getElementById("spStart").value;
+  const end=document.getElementById("spEnd").value;
+  const slotBtn=document.querySelector("#spSlots .slotbtn.on");
+  const slots=slotBtn?parseInt(slotBtn.dataset.n):0;
+  const toMin=t=>{const[h,m]=t.split(":").map(Number);return h*60+m;};
+  const minutes=toMin(end)-toMin(start);
+  if(!date||!slots||minutes<=0) return;
+  const resKey=k+"|"+date+"|"+start+"|"+end+"|"+slots;
+  if(state.spaceCart.has(resKey)){
+    state.spaceCart.delete(resKey);
+  }else{
+    const price=Math.round(spacePrice30(space)*SLOT_MULT[slots-1]*(minutes/30));
+    state.spaceCart.set(resKey,{building,space,date,start,end,minutes,slots,price});
+  }
+  updateCnt(); renderSel(); recomputeSpacePrice();
+}
+function toggleSpaceCart(key){
+  const resKey=decodeURIComponent(key);
+  state.spaceCart.delete(resKey);
+  updateCnt(); renderSel();
+  const m=document.getElementById("mback");
+  if(m.classList.contains("on")&&m.dataset.kind==="space") recomputeSpacePrice();
+}
+
 /* modal */
-function openModal(key){
+function openModal(key,backSpaceKey){
   const k=decodeURIComponent(key);
   const e=EQUIP.find(x=>eid(x)===k); if(!e)return;
   const g=GUIDES[e.cat]||{"용도":e.purpose||"센터 실증 지원 장비","절차":["센터 담당자와 사전 협의 후 예약","담당자 안내에 따른 사용 및 데이터 기록","사용 후 정리 및 상태 확인"],"주의":"최초 사용 시 센터 담당자의 교육 후 사용함."};
@@ -648,8 +822,10 @@ function openModal(key){
     ["이용 가능 시기",e.year==="2026"?"2026년 구축 (12월 운영 개시)":"2027년 도입 예정 (사전 협의)"],
     ["구분",e.purpose||"-"]
   ];
+  const backBtn=backSpaceKey?`<button class="back" onclick="openSpace('${backSpaceKey}')">← ${e.space_s}(으)로 돌아가기</button>`:"";
   document.getElementById("modalBody").innerHTML=`
     <button class="x" onclick="closeModal()">✕</button>
+    ${backBtn}
     <h3>${e.name}</h3>
     <div class="mloc">${e.cat}${e.year==="2027"?" · 2027년 도입 예정":""}</div>
     <div class="spec">${specs.map(s=>`<div><b>${s[0]}</b>${s[1]}</div>`).join("")}</div>
@@ -665,9 +841,10 @@ function openModal(key){
         :`<button class="addbtn ${inCart?"added":""}" id="mAdd" onclick="toggleCart('${encodeURIComponent(k)}')">${inCart?"신청 목록에 담김 · 해제":"신청 목록에 담기"}</button>`}
     </div>`;
   document.getElementById("mback").classList.add("on");
+  document.getElementById("mback").dataset.kind="equip";
   document.body.style.overflow="hidden";
 }
-function closeModal(){const m=document.getElementById("mback");m.classList.remove("on");delete m.dataset.kind;document.body.style.overflow="";}
+function closeModal(){const m=document.getElementById("mback");m.classList.remove("on");delete m.dataset.kind;delete m.dataset.spacekey;document.body.style.overflow="";}
 function toggleCart(key){
   const k=decodeURIComponent(key);
   const e=EQUIP.find(x=>eid(x)===k);
@@ -677,13 +854,24 @@ function toggleCart(key){
   if(b){b.classList.toggle("added",state.cart.has(k));b.textContent=state.cart.has(k)?"신청 목록에 담김 · 해제":"신청 목록에 담기";}
 }
 function updateCnt(){
-  const n=state.cart.size+state.pkgs.size;
+  const n=state.cart.size+state.pkgs.size+state.spaceCart.size;
   const c=document.getElementById("cartCnt");
   c.style.display=n?"flex":"none"; c.textContent=n;
 }
 
 /* apply page */
 function renderSel(){
+  const ss=document.getElementById("selSpace");
+  if(state.spaceCart.size){
+    ss.className="";
+    const total=[...state.spaceCart.values()].reduce((s,r)=>s+r.price,0);
+    ss.innerHTML=[...state.spaceCart.entries()].map(([k,r])=>
+      `<div class="selitem" style="display:block"><div style="display:flex;justify-content:space-between;align-items:center">
+        <span>${r.space} <small style="color:var(--sub)">(${r.building})</small></span>
+        <button onclick="toggleSpaceCart('${encodeURIComponent(k)}')">삭제</button>
+      </div><div style="font-size:12px;color:var(--sub);margin-top:2px">${r.date} ${r.start}~${r.end} · ${r.slots===3?"전체 공간 단독 이용":r.slots+"자리 공유"} · ₩${r.price.toLocaleString()}</div></div>`).join("")
+      +`<div style="text-align:right;font-size:13.5px;font-weight:700;margin-top:6px">예상 총액 ₩${total.toLocaleString()}</div>`;
+  }else{ss.className="selempty";ss.textContent="선택된 공간 예약이 없습니다. 장비 신청 탭에서 공간을 예약할 수 있습니다.";}
   const sp=document.getElementById("selPkg");
   if(state.pkgs.size){
     sp.className="";
@@ -711,7 +899,8 @@ function collect(){
     agree:document.getElementById("fAgree").checked,
     packages:[...state.pkgs].map(id=>PKGS.find(x=>x.id===id).name),
     algorithms:[...state.algos],
-    equipment:[...state.cart.values()].map(e=>({name:e.name,building:e.building_s,space:e.space_s,year:e.year}))
+    equipment:[...state.cart.values()].map(e=>({name:e.name,building:e.building_s,space:e.space_s,year:e.year})),
+    spaces:[...state.spaceCart.values()]
   };
 }
 
@@ -721,12 +910,16 @@ function summaryText(d){
     if(n.includes("알고리즘")&&d.algorithms.length) t+="\n  · 관심 알고리즘: "+d.algorithms.join(", ");
     return t;}).join("\n"):"- 없음";
   const eqTxt=d.equipment.length?d.equipment.map(e=>`- ${e.name} (${e.building} · ${e.space}${e.year==="2027"?", 2027 도입 예정":""})`).join("\n"):"- 없음";
+  const spTotal=d.spaces.reduce((s,r)=>s+r.price,0);
+  const spTxt=d.spaces.length?d.spaces.map(r=>`- ${r.space} (${r.building}) · ${r.date} ${r.start}~${r.end} · ${r.slots===3?"전체 공간 단독 이용":r.slots+"자리 공유"} · ₩${r.price.toLocaleString()}`).join("\n")+`\n(예상 총액 ₩${spTotal.toLocaleString()}, 최종 금액은 센터 확인 후 확정)`:"- 없음";
   return `[과천시 푸드테크 연구지원센터 이용 신청서]
 
 1. 신청 내용
 - 실증 과제명: ${d.title}
 - 신청 실증 패키지:
 ${pkgTxt}
+- 신청 공간 예약:
+${spTxt}
 - 신청 장비:
 ${eqTxt}
 - 희망 이용 기간: ${d.period}
@@ -773,6 +966,8 @@ function docHtml(d){
     if(n.includes("알고리즘")&&d.algorithms.length) x+=`<br>&nbsp;&nbsp;&nbsp;- 관심 알고리즘: ${esc(d.algorithms.join(", "))}`;
     return x;}).join("<br>"):"ㅇ 해당 없음";
   const eqList=d.equipment.length?d.equipment.map(e=>`ㅇ ${esc(e.name)} (${esc(e.building)} · ${esc(e.space)}${e.year==="2027"?", 2027 도입 예정":""})`).join("<br>"):"ㅇ 해당 없음";
+  const spTotal=d.spaces.reduce((s,r)=>s+r.price,0);
+  const spList=d.spaces.length?d.spaces.map(r=>`ㅇ ${esc(r.space)} (${esc(r.building)}) · ${esc(r.date)} ${esc(r.start)}~${esc(r.end)} · ${r.slots===3?"전체 공간 단독 이용":r.slots+"자리 공유"} · ₩${r.price.toLocaleString()}`).join("<br>")+`<br>(예상 총액 ₩${spTotal.toLocaleString()}, 최종 금액은 센터 확인 후 확정)`:"ㅇ 해당 없음";
   const H='style="background:#EFEFEF;border:1px solid #000;padding:6pt;font-weight:bold;text-align:center;vertical-align:middle"';
   const C='style="border:1px solid #000;padding:6pt;vertical-align:middle"';
   const CT='style="border:1px solid #000;padding:6pt;vertical-align:top"';
@@ -790,6 +985,7 @@ function docHtml(d){
 <tr><td ${H} rowspan="2">담 당 자</td><td ${C}>성명: ${esc(d.name)}</td><td ${C} colspan="2">부서/직위: ${esc(d.dept)||"-"}</td></tr>
 <tr><td ${C}>휴대전화: ${esc(d.phone)}</td><td ${C} colspan="2">E-mail: ${esc(d.email)}</td></tr>
 <tr><td ${H}>신청 실증<br>패키지</td><td ${CT} colspan="3">${pkgList}</td></tr>
+<tr><td ${H}>신청 공간<br>예약</td><td ${CT} colspan="3">${spList}</td></tr>
 <tr><td ${H}>신청 장비</td><td ${CT} colspan="3">${eqList}</td></tr>
 <tr><td ${H}>이용 기간</td><td ${C}>${esc(d.period)}</td><td ${H}>이용 형태</td><td ${C}>${esc(d.usetype)}</td></tr>
 <tr><td ${H}>실증 내용<br>(기술·서비스 개요)</td><td ${CT} colspan="3">${esc(d.desc)}</td></tr>
@@ -831,7 +1027,7 @@ async function submitForm(mail){
   try{
     const res=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"application/json"},
       body:JSON.stringify({company:d.company,type:d.type,name:d.name,phone:d.phone,email:d.email,period:d.period,
-        packages:d.packages, algorithms:d.algorithms, equipment:d.equipment, description:d.desc,
+        packages:d.packages, algorithms:d.algorithms, equipment:d.equipment, spaces:d.spaces, description:d.desc,
         details:{title:d.title,ceo:d.ceo,bizno:d.bizno,addr:d.addr,bizdesc:d.bizdesc,web:d.web,dept:d.dept,usetype:d.usetype,goal:d.goal,assets:d.assets,request:d.request,agree:d.agree},
         summary:body})});
     if(!res.ok) throw new Error();
@@ -900,10 +1096,10 @@ async function loadSheetContent(){
     }
   }).catch(()=>{}));
   await Promise.allSettled(jobs);
-  initFilters(); renderEquip();
+  initFilters(); renderEquip(); renderSpaces();
 }
 
-renderPkgs(); initFilters(); renderEquip(); updateCnt(); loadSheetContent();
+renderPkgs(); initFilters(); renderEquip(); renderSpaces(); updateCnt(); loadSheetContent();
 </script>
 </body>
 </html>

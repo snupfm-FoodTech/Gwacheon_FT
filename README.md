@@ -22,11 +22,17 @@ create table public.applications (
   packages jsonb default '[]',
   algorithms jsonb default '[]',
   equipment jsonb default '[]',
+  spaces jsonb default '[]',
   description text not null
 );
 
 alter table public.applications enable row level security;
 -- service_role 키로만 서버(함수)에서 기록하므로 별도 정책 불필요
+```
+
+이미 `applications` 테이블이 생성되어 있다면(공간 예약 기능 추가 전) 아래 구문으로 컬럼만 추가하면 됩니다:
+```sql
+alter table public.applications add column if not exists spaces jsonb default '[]';
 ```
 
 ## 2. Resend 설정

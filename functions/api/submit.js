@@ -30,6 +30,7 @@ export async function onRequestPost({ request, env }) {
     packages: data.packages || [],
     algorithms: data.algorithms || [],
     equipment: data.equipment || [],
+    spaces: data.spaces || [],
     description: s(data.description),
   };
 
