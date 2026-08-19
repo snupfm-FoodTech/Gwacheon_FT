@@ -141,7 +141,7 @@ main{max-width:1100px;margin:0 auto;padding:28px 20px 80px}
 /* space booking */
 .spacecard{cursor:pointer;transition:border-color .12s,box-shadow .12s}
 .spacecard:hover{border-color:var(--cyan);box-shadow:0 6px 18px rgba(42,212,232,.10)}
-.spacecard .thumb{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;margin-bottom:12px;background:var(--panel);display:block}
+.thumb{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;margin-bottom:12px;background:var(--panel);display:block}
 .spacecard .cnt{font-size:12px;color:var(--sub);margin-bottom:8px}
 .mspaceimg{width:100%;max-height:240px;object-fit:cover;border-radius:12px;margin:12px 0 0;display:block;background:var(--panel)}
 .slotrow{display:flex;gap:6px}
@@ -396,17 +396,30 @@ const SPACE_PRICE = {
   "디자인실": 10000
 };
 const DEFAULT_SPACE_PRICE = 10000;
-// 공간별 대표 사진. images/spaces/ 폴더에 아래 파일명 그대로 사진을 올리면 자동으로 표시됩니다(없으면 사진 영역이 그냥 생략됨).
+// 공간별 대표 사진(확장자 제외 경로). images/spaces/ 폴더에 아래 파일명(.jpg/.jpeg/.png/.webp 아무거나)으로 사진을 올리면 자동으로 표시됩니다(없으면 사진 영역이 그냥 생략됨).
 const SPACE_IMG = {
-  "공유오피스": "images/spaces/coworking.jpg",
-  "기술 지원실": "images/spaces/techsupport.jpg",
-  "실증실1 (가정식/외식 솔루션)": "images/spaces/demo1.jpg",
-  "실증실2 (급식솔루션실)": "images/spaces/demo2.jpg",
-  "미디어실": "images/spaces/media.jpg",
-  "디자인실": "images/spaces/design.jpg"
+  "공유오피스": "images/spaces/coworking",
+  "기술 지원실": "images/spaces/techsupport",
+  "실증실1 (가정식/외식 솔루션)": "images/spaces/demo1",
+  "실증실2 (급식솔루션실)": "images/spaces/demo2",
+  "미디어실": "images/spaces/media",
+  "디자인실": "images/spaces/design"
 };
 // 자리 수(1/2/3)별 가격 배수 — 자리가 늘어도 곱수만큼 비싸지지 않도록 체감 할인 적용. 실제 배수 확정 전 임시값.
 const SLOT_MULT = [1, 1.8, 2.4]; // index 0=1자리, 1=2자리, 2=3자리(=전체 공간 단독 이용)
+// 이미지 표시 공통 유틸: 여러 확장자를 순서대로 시도하고, 전부 없으면 이미지 영역을 생략함.
+const IMG_EXTS = ["jpg","jpeg","png","webp"];
+function slugName(n){ return String(n).replace(/[\\/:*?"<>|]/g,"_"); }
+function equipImgBase(e){ return "images/equipment/"+slugName(e.name); }
+function imgTag(base, alt, cls){
+  return `<img class="${cls}" src="${base}.${IMG_EXTS[0]}" data-base="${encodeURIComponent(base)}" data-i="0" alt="${alt}" onerror="imgFallback(this)">`;
+}
+function imgFallback(img){
+  const i=parseInt(img.dataset.i,10)+1;
+  if(i>=IMG_EXTS.length){ img.remove(); return; }
+  img.dataset.i=i;
+  img.src=decodeURIComponent(img.dataset.base)+"."+IMG_EXTS[i];
+}
 function spacePrice30(space){ return SPACE_PRICE[space] ?? DEFAULT_SPACE_PRICE; }
 function timeOpts(){
   const arr=[];
@@ -664,7 +677,7 @@ function renderSpaces(){
   document.getElementById("spaceEmpty").style.display=list.length?"none":"block";
   el.innerHTML=list.map(s=>`
     <div class="card spacecard" onclick="openSpace('${encodeURIComponent(spaceKey(s.building,s.space))}')">
-      ${SPACE_IMG[s.space]?`<img class="thumb" src="${SPACE_IMG[s.space]}" alt="${s.space}" onerror="this.remove()">`:""}
+      ${SPACE_IMG[s.space]?imgTag(SPACE_IMG[s.space],s.space,"thumb"):""}
       <h3>${s.space}</h3>
       <div class="cnt">${s.building} · 장비 ${s.count}종</div>
       <div class="badges">${[...s.cats].slice(0,3).map(c=>`<span class="bdg cat">${c}</span>`).join("")}</div>
@@ -679,7 +692,7 @@ function openSpace(key){
     <button class="x" onclick="closeModal()">✕</button>
     <h3>${space}</h3>
     <div class="mloc">${building}</div>
-    ${SPACE_IMG[space]?`<img class="mspaceimg" src="${SPACE_IMG[space]}" alt="${space}" onerror="this.remove()">`:""}
+    ${SPACE_IMG[space]?imgTag(SPACE_IMG[space],space,"mspaceimg"):""}
     <div class="usage">
       <h4>공간 예약</h4>
       <div class="frow" style="margin-bottom:12px">
@@ -705,6 +718,7 @@ function openSpace(key){
       <h4>이 공간에서 사용 가능한 장비 <small style="color:var(--sub);font-weight:500">(${eqs.length}종 · 클릭 시 사용법·규격 확인)</small></h4>
       <div class="egrid" style="margin-top:10px">${eqs.map(e=>`
         <div class="ecard" onclick="openModal('${encodeURIComponent(eid(e))}','${encodeURIComponent(k)}')">
+          ${imgTag(equipImgBase(e),e.name,"thumb")}
           <div class="badges">
             <span class="bdg ${e.cat==="기반 설비"?"infra":"cat"}">${e.cat}</span>
             ${e.year==="2027"?'<span class="bdg y27">2027 도입 예정</span>':""}
@@ -801,6 +815,7 @@ function openModal(key,backSpaceKey){
     ${backBtn}
     <h3>${e.name}</h3>
     <div class="mloc">${e.cat}${e.year==="2027"?" · 2027년 도입 예정":""}</div>
+    ${imgTag(equipImgBase(e),e.name,"mspaceimg")}
     <div class="spec">${specs.map(s=>`<div><b>${s[0]}</b>${s[1]}</div>`).join("")}</div>
     <div class="usage">
       <h4>용도</h4><p class="note">${g["용도"]}</p>
