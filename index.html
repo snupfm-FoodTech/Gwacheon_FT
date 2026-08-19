@@ -386,7 +386,8 @@ const EQUIP = [{"name": "모니터", "building_s": "케이사인 사옥", "space
 const GUIDES = {"스마트 조리 로봇": {"용도": "급식·외식 환경에서의 자동 조리 공정 실증 및 레시피 표준화", "절차": ["센터 담당자와 사전 협의 후 조리 레시피(투입량·온도·시간)를 로봇 공정 데이터로 변환", "담당 인력 입회 하에 시운전 및 안전 점검 실시", "실증 조리 진행 및 공정 데이터(온도·시간·투입량) 자동 기록", "조리 완료 후 세척·위생 관리 절차 수행"], "주의": "조리 로봇은 반드시 센터 담당 인력 입회 하에 운영하며, 사전 안전 교육 이수가 필수임. 3상 380V 전원 및 급배수·배기 설비와 연동되어 있어 임의 이동·설정 변경이 불가함."}, "가열·조리 장비": {"용도": "맞춤형 레시피 시범 조리 및 온도·시간·가열 방식별 조리 조건 실증", "절차": ["장비 예약 후 사용 전 상태 점검(전원·급배수·배기)", "레시피 조건(온도·시간·모드) 설정 및 조리 진행", "조리 조건과 결과를 실증 기록지(또는 센터 데이터 시스템)에 기록", "사용 후 내부 세척 및 전원 차단"], "주의": "고온·고전력 장비로 사용 중 자리 이탈을 금하며, 화상 방지 보호구를 착용함. 배기 후드 가동 상태를 확인한 후 사용함."}, "절단·혼합·전처리": {"용도": "식재료 전처리 및 물성 제어(분쇄·혼합·유화·균질) 공정 실증", "절차": ["안전 커버·부속 장착 상태 확인 후 전원 연결", "재료 투입량을 정격 용량 이내로 투입", "목적에 맞는 속도·시간 설정 후 가동", "사용 직후 분해 세척 및 건조"], "주의": "회전체·칼날 장비로 가동 중 개구부에 손을 넣지 않으며, 세척 시 반드시 전원을 분리함."}, "분석 장비": {"용도": "조리 전후 시료의 성분·물성·품질 지표 측정 및 레시피 최적화 데이터 확보", "절차": ["사용 전 교정(캘리브레이션) 상태 확인", "시료 전처리 후 규격에 맞게 장착·측정", "측정값을 센터 데이터 시스템에 기록", "측정부 세척 및 표준 상태로 복귀"], "주의": "정밀 장비로 초기 사용 시 센터 담당자의 교육 후 사용하며, 교정 주기와 시료 규격을 준수함."}, "웰니스 측정 장비": {"용도": "헬스케어 데이터 수집 실증(대상자 신체·생체 지표 측정) 및 서비스 검증", "절차": ["측정 대상자 동의 및 개인정보 처리 절차 확인", "장비별 표준 측정 프로토콜에 따라 측정", "측정 데이터의 익명화·보안 처리 후 저장", "웨어러블 기기는 반납 시 초기화 및 소독"], "주의": "대상자 데이터 수집 시 사전 동의와 개인정보 보호 절차 준수가 필수이며, 의료행위 목적으로 사용할 수 없음."}, "컴퓨팅·데이터 인프라": {"용도": "맞춤식이 알고리즘 개발·학습, 데이터 분석 및 DB 구축", "절차": ["계정 발급 및 보안 서약 후 접속 권한 부여", "할당된 컴퓨팅 자원(GPU·스토리지) 범위 내 작업 수행", "산출물은 지정 저장소에 보관", "사용 종료 시 세션 종료 및 자원 반납"], "주의": "센터 보안 정책에 따라 외부 저장매체 반출 및 무단 소프트웨어 설치가 제한됨."}, "영상·콘텐츠 장비": {"용도": "제품·서비스 홍보 콘텐츠 제작, 투자 피칭 자료 제작 및 회의·발표 지원", "절차": ["미디어실·회의실 예약 후 장비 세팅 지원 요청", "촬영·회의 진행", "산출 파일 백업 후 장비 원위치", "조명·전원 차단 확인"], "주의": "스튜디오 장비는 센터 담당자의 세팅 지원 하에 사용하며, 구조물 임의 변경을 금함."}, "보관·위생 설비": {"용도": "식재료·시제품 보관 및 조리 위생 관리", "절차": ["보관물품 라벨링(기업명·내용물·일자) 후 지정 구역에 보관", "설정 온도 임의 변경 금지", "세척·소독 장비는 표준 운전 조건으로 사용", "보관 기간 종료 시 자진 수거"], "주의": "공용 설비로 장기 방치 물품은 위생 규정에 따라 폐기될 수 있음."}, "3D 푸드프린팅": {"용도": "맞춤형 식품 조형·시제품 제작 실증", "절차": ["식용 소재(카트리지) 규격 및 물성 적합성 사전 확인", "디자인 파일 업로드 및 출력 조건 설정", "출력 진행 및 결과물 품질 확인", "노즐·베드 세척 및 소재 보관"], "주의": "지정된 식용 소재만 사용 가능하며, 최초 사용 시 센터 교육 이수가 필요함."}, "기반 설비": {"용도": "실증 공간 공용 기반 설비(작업대·수납·급배기 등)", "절차": ["실증 공간 예약 시 함께 제공되어 별도 신청 없이 사용", "사용 후 정리·세척 상태 유지"], "주의": "공용 설비로 임의 이동·개조를 금함."}};
 const CENTER_EMAIL = "snupfm@gmail.com"; // 접수 실패 시 대체 이메일
 
-// 공간별 30분 · 1자리 기준 예약료(원). 실제 단가 확정 전 임시값 — 센터 협의 후 아래 숫자만 교체하면 됩니다.
+// 공간별 30분 · 1자리 기준 예약료(원) / 사진 경로 / 자리수 배수의 기본값(임시값). 구글 시트에 "공간" + "30분단가" 헤더를 가진 탭을 추가하면
+// loadSheetContent()가 아래 값을 자동으로 덮어씁니다 — 시트에 없는 공간은 이 기본값이 그대로 쓰입니다.
 const SPACE_PRICE = {
   "공유오피스": 10000,
   "기술 지원실": 10000,
@@ -396,7 +397,7 @@ const SPACE_PRICE = {
   "디자인실": 10000
 };
 const DEFAULT_SPACE_PRICE = 10000;
-// 공간별 대표 사진(확장자 제외 경로). images/spaces/ 폴더에 아래 파일명(.jpg/.jpeg/.png/.webp 아무거나)으로 사진을 올리면 자동으로 표시됩니다(없으면 사진 영역이 그냥 생략됨).
+// 공간별 대표 사진(확장자 제외 경로). images/spaces/ 폴더에 이 파일명(.jpg/.jpeg/.png/.webp 아무거나)으로 사진을 올리면 자동으로 표시됩니다(없으면 사진 영역이 그냥 생략됨).
 const SPACE_IMG = {
   "공유오피스": "images/spaces/coworking",
   "기술 지원실": "images/spaces/techsupport",
@@ -405,8 +406,14 @@ const SPACE_IMG = {
   "미디어실": "images/spaces/media",
   "디자인실": "images/spaces/design"
 };
-// 자리 수(1/2/3)별 가격 배수 — 자리가 늘어도 곱수만큼 비싸지지 않도록 체감 할인 적용. 실제 배수 확정 전 임시값.
+// 자리 수(1/2/3)별 가격 배수 기본값 — 자리가 늘어도 곱수만큼 비싸지지 않도록 체감 할인 적용.
 const SLOT_MULT = [1, 1.8, 2.4]; // index 0=1자리, 1=2자리, 2=3자리(=전체 공간 단독 이용)
+// 공간별 자리수 배수 시트 재정의값(있으면 SLOT_MULT 대신 사용).
+const SPACE_SLOT_MULT = {};
+function slotMultFor(space, slots){
+  const arr = SPACE_SLOT_MULT[space] || SLOT_MULT;
+  return arr[slots-1];
+}
 // 이미지 표시 공통 유틸: 여러 확장자를 순서대로 시도하고, 전부 없으면 이미지 영역을 생략함.
 const IMG_EXTS = ["jpg","jpeg","png","webp"];
 function slugName(n){ return String(n).replace(/[\\/:*?"<>|]/g,"_"); }
@@ -758,7 +765,7 @@ function recomputeSpacePrice(){
   }
   const k=decodeURIComponent(document.getElementById("mback").dataset.spacekey);
   const space=k.split("|")[1];
-  const price=Math.round(spacePrice30(space)*SLOT_MULT[slots-1]*(minutes/30));
+  const price=Math.round(spacePrice30(space)*slotMultFor(space,slots)*(minutes/30));
   box.innerHTML=`<b>₩${price.toLocaleString()}</b><span class="pnote">${date} ${start}~${end} (${minutes}분) · ${slots===3?"전체 공간 단독 이용":slots+"자리 공유 이용"}</span>`;
   const resKey=k+"|"+date+"|"+start+"|"+end+"|"+slots;
   const already=state.spaceCart.has(resKey);
@@ -781,7 +788,7 @@ function addSpaceReservation(key){
   if(state.spaceCart.has(resKey)){
     state.spaceCart.delete(resKey);
   }else{
-    const price=Math.round(spacePrice30(space)*SLOT_MULT[slots-1]*(minutes/30));
+    const price=Math.round(spacePrice30(space)*slotMultFor(space,slots)*(minutes/30));
     state.spaceCart.set(resKey,{building,space,date,start,end,minutes,slots,price});
   }
   updateCnt(); renderSel(); recomputeSpacePrice();
@@ -1081,6 +1088,17 @@ async function loadSheetContent(){
         detail:[o["항목1"],o["항목2"],o["항목3"],o["항목4"]].filter(x=>x)}));
       if(algos.length){ALGOS.length=0;algos.forEach(x=>ALGOS.push(x));}
       if(cases.length){CASES.length=0;cases.forEach(x=>CASES.push(x));}
+    }else if(heads.includes("공간")&&heads.includes("30분단가")){
+      const objs=rowsToObjs(rows).filter(o=>o["공간"]);
+      objs.forEach(o=>{
+        const space=o["공간"];
+        const price=parseFloat(String(o["30분단가"]).replace(/[^0-9.]/g,""));
+        if(!isNaN(price)) SPACE_PRICE[space]=price;
+        const m2=parseFloat(o["2자리배수"]), m3=parseFloat(o["3자리배수"]);
+        if(!isNaN(m2)||!isNaN(m3)) SPACE_SLOT_MULT[space]=[1, isNaN(m2)?SLOT_MULT[1]:m2, isNaN(m3)?SLOT_MULT[2]:m3];
+        const img=(o["이미지파일명"]||"").trim();
+        if(img) SPACE_IMG[space]="images/spaces/"+img;
+      });
     }
   }).catch(()=>{}));
   await Promise.allSettled(jobs);
