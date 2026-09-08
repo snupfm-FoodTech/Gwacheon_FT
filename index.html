@@ -75,6 +75,22 @@ main{max-width:1100px;margin:0 auto;padding:28px 20px 80px}
 .card h3{font-size:16px;font-weight:700;margin-bottom:6px}
 .card p{font-size:13.5px;color:var(--sub)}
 
+/* icon cards */
+.icard{display:flex;gap:14px;align-items:flex-start}
+.icard .iico{width:38px;height:38px;border-radius:10px;background:var(--cyan-soft);color:var(--cyan);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.icard .iico svg{width:20px;height:20px}
+.icard .ibody{min-width:0}
+.icard .ibody h3{margin-bottom:4px}
+
+/* connected flow (roadmap) */
+.flow3{display:flex;gap:30px;align-items:stretch}
+.flow3 .fbox{flex:1;position:relative}
+.flow3 .fbox:not(:last-child)::after{content:"→";position:absolute;right:-26px;top:50%;transform:translateY(-50%);color:var(--cyan);font-size:20px;font-weight:800}
+@media(max-width:840px){
+  .flow3{flex-direction:column;gap:26px}
+  .flow3 .fbox:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-22px;transform:translateX(-50%)}
+}
+
 /* packages */
 .pkg{display:flex;flex-direction:column;transition:border-color .15s,box-shadow .15s;cursor:pointer}
 .pkg:hover{border-color:var(--cyan);box-shadow:0 8px 26px rgba(42,212,232,.12)}
@@ -229,7 +245,6 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding:22px 20p
     </div>
     <nav>
       <button data-page="home" class="on"><span class="navlabel">센터 소개</span></button>
-      <button data-page="facility"><span class="navlabel">시설 소개</span></button>
       <button data-page="pkg"><span class="navlabel">실증 패키지</span></button>
       <button data-page="equip"><span class="navlabel">장비 신청</span></button>
       <button data-page="notice"><span class="navlabel">공지사항</span></button>
@@ -247,7 +262,7 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding:22px 20p
   <div class="hero">
     <div class="eyebrow">GWACHEON FOODTECH RESEARCH SUPPORT CENTER</div>
     <h1>데이터부터 인증까지,<br><em>개인맞춤형식품 사업화</em>의 전 과정을 지원합니다</h1>
-    <p>본 센터는 개인맞춤형식품 분야 기업을 대상으로 데이터 확보, 알고리즘 설계, 제조·서비스 실증, 인증 지원의 원스톱 플랫폼을 운영합니다. 필요한 단계만 선택하거나 전 과정을 통합 지원받을 수 있습니다.</p>
+    <p>과천시가 지정하고 서울대학교 산학협력단(식품바이오융합연구소)이 위탁 운영하는 개인맞춤형식품 분야 통합 지원 플랫폼입니다. 기반 데이터 확보, 맞춤식이 알고리즘 개발, 제조·서비스 실증, 제품·서비스 인증 지원의 전 과정을 원스톱으로 지원합니다.</p>
     <div class="chain">
       <span>데이터</span><span class="ar">→</span>
       <span>알고리즘 설계</span><span class="ar">→</span>
@@ -261,36 +276,69 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding:22px 20p
   </div>
 
   <div class="sect">
+    <div class="sec-eyebrow">OVERVIEW</div>
+    <h2>센터 개요</h2>
+    <p class="desc">「과천시 푸드테크 산업 육성 및 지원 조례」에 근거해, 과천시·춘천시 2025년도 푸드테크 연구지원센터 공모사업 "개인맞춤형식품" 분야에 선정되어 설립되었습니다.</p>
+    <div class="grid g2">
+      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 21v-4h6v4M8 7h1M8 11h1M8 15h1M15 7h1M15 11h1M15 15h1"/></svg></div><div class="ibody"><h3>운영 기관</h3><p>서울대학교 산학협력단(소관: 식품바이오융합연구소) · 민간 위탁 운영</p></div></div>
+      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><div class="ibody"><h3>위탁 기간</h3><p>2026.03.01 ~ 2029.02.28 (3년)</p></div></div>
+      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".6" fill="currentColor"/></svg></div><div class="ibody"><h3>선정 분야</h3><p>과천시·춘천시 공동 공모사업 "개인맞춤형식품" 분야 (2025.03.05. 선정)</p></div></div>
+      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s7-7.4 7-12.5A7 7 0 0 0 5 9.5C5 14.6 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.4"/></svg></div><div class="ibody"><h3>위치</h3><p>경기도 과천시 지식정보타운 일대 (프리즘스퀘어·케이사인 사옥·진성에프엠 3개 건물)</p></div></div>
+    </div>
+  </div>
+
+  <div class="sect">
     <div class="sec-eyebrow">CORE SUPPORT</div>
     <h2>센터가 제공하는 핵심 지원</h2>
-    <p class="desc">서울대학교가 보유한 기술 자산과 센터 인프라를 결합하여 기업의 실증 전 과정을 지원합니다.</p>
+    <p class="desc">서울대학교가 보유한 기술 자산과 센터 인프라를 결합하여 기업의 데이터-설계-실증-인증 밸류체인 전 과정을 지원합니다.</p>
     <div class="grid g2">
-      <div class="card"><h3>식품 통합 데이터베이스 제공</h3><p>레시피 영양성분, 표준 조리법, 알레르기 정보, 식재료 데이터 등 검증된 국내 식품 통합 데이터베이스를 제공하고, 실증 데이터를 통합하여 지속 업데이트합니다.</p></div>
-      <div class="card"><h3>맞춤식이 설계 알고리즘 및 기술 컨설팅</h3><p>기보유 AI 알고리즘의 기업 맞춤 커스터마이징과 파라미터 최적화를 지원하며, 식이 평가·추천·설계·코칭 전 과정의 기술 컨설팅을 제공합니다.</p></div>
-      <div class="card"><h3>시범 조리·분석 통합 인프라</h3><p>외식·급식·가정식 전 유형의 시범 조리가 가능한 조리 인프라와 실시간 성분·물성 분석 장비를 함께 제공하여, 조리 조건별 데이터 축적과 레시피 표준화를 지원합니다.</p></div>
-      <div class="card"><h3>서비스 실증 테스트베드 및 인증 지원</h3><p>조리 로봇·스마트 모니터링 기반 서비스 검증 테스트베드와 전문 스튜디오를 운영하며, KTR·KOTITI 등 협력 인증기관 연계를 통해 인증 획득을 지원합니다.</p></div>
+      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v13c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-13"/><path d="M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></svg></div><div class="ibody"><h3>【데이터】 기반 데이터 확보</h3><p>맞춤형 식이설계 플랫폼 기반 개인맞춤형 식이 데이터베이스를 제공하고, 웰니스 측정 시스템을 통한 헬스케어 데이터와 조리·분석 장비를 통한 레시피 특성 데이터 수집을 지원합니다.</p></div></div>
+      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg></div><div class="ibody"><h3>【설계】 맞춤식이 알고리즘 개발</h3><p>기보유 AI 알고리즘 제공 및 커스터마이징, 고성능 컴퓨팅 인프라 지원, 실증 데이터 기반 알고리즘 반복 개선 사이클 운영을 지원합니다.</p></div></div>
+      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 3h6M10 3v6l-5.5 9.5A1.5 1.5 0 0 0 5.8 21h12.4a1.5 1.5 0 0 0 1.3-2.5L14 9V3"/><path d="M7.5 15h9"/></svg></div><div class="ibody"><h3>【실증】 제조·서비스 실증 지원</h3><p>맞춤형 레시피 시범 조리·표준화, 실시간 성분·물성 분석 기반 조리 조건 빅데이터 축적, VR·스마트 모니터링 기반 서비스 테스트베드(외식·가정식 통합 검증)를 지원합니다.</p></div></div>
+      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l2.4 1.7 2.9-.2 1 2.7 2.5 1.5-.9 2.8.9 2.8-2.5 1.5-1 2.7-2.9-.2L12 19l-2.4-1.7-2.9.2-1-2.7-2.5-1.5.9-2.8-.9-2.8 2.5-1.5 1-2.7 2.9.2z"/><path d="M9 12l2 2 4-4"/></svg></div><div class="ibody"><h3>【인증】 제품·서비스 인증 지원</h3><p>KTR·KOTITI 등 협력 인증기관 연계 신속 인허가 지원, 수요 기반 신규 인증 제도 개발, 인증 획득 기업 대상 실질적 혜택을 지원합니다.</p></div></div>
     </div>
   </div>
 
   <div class="sect">
     <div class="sec-eyebrow">FACILITIES</div>
     <h2>공간 안내</h2>
-    <p class="desc">과천 지식정보타운 내 3개 거점에서 기능별 인프라를 운영합니다.</p>
-    <div class="grid g3">
-      <div class="card"><h3>프리즘스퀘어</h3><p>센터 본부. 서비스 기획 및 인증 컨설팅 공간을 운영합니다. (2027년 구축)</p></div>
-      <div class="card"><h3>케이사인 사옥</h3><p>데이터·설계 거점. 고성능 컴퓨팅 환경의 공유오피스와 웰니스 측정 장비 기반 기술 지원실을 운영합니다.</p></div>
-      <div class="card"><h3>진성에프엠</h3><p>실증 거점. 가정식·외식 솔루션 실증실, 급식 솔루션실(조리 로봇), 미디어실을 운영합니다. (2026년 12월 운영 개시)</p></div>
+    <p class="desc">과천 지식정보타운 내 3개 거점이 데이터 수집-맞춤 설계-실증-인증 밸류체인 단계에 따라 연계 운영됩니다. 카드를 클릭하면 거점별 세부 공간과 역할을 확인할 수 있습니다.</p>
+    <div class="grid g3" id="facilityGrid"></div>
+  </div>
+
+  <div class="sect">
+    <div class="sec-eyebrow">2026 ROADMAP</div>
+    <h2>2026년 추진 방향</h2>
+    <p class="desc">2026년은 센터의 시설·장비 인프라를 구축하고 운영 체계를 확립하는 '구축 및 안정화' 원년으로, 데이터·설계 지원을 중심으로 기업 지원 서비스를 시범 운영합니다.</p>
+    <div class="flow3">
+      <div class="card fbox"><h3>① 데이터 분석실 중심 운영</h3><p>케이사인 사옥 공유오피스·기술지원실을 통해 데이터·알고리즘 지원 서비스를 우선 시범 운영합니다.</p></div>
+      <div class="card fbox"><h3>② 진성에프엠 구축 완료</h3><p>제품 실증실 준공 후 장비 반입·설치(10~11월)를 완료해 2026년 12월부터 실증실·미디어실을 시범 운영합니다.</p></div>
+      <div class="card fbox"><h3>③ 2027년 전면 운영 준비</h3><p>2026년 구축·시범 운영을 기반으로 2027년 전체 공간·장비의 전면 운영 체계로 확장합니다.</p></div>
     </div>
   </div>
-</section>
 
-<!-- ============ FACILITY ============ -->
-<section class="page" id="page-facility">
   <div class="sect">
-    <div class="sec-eyebrow">FACILITIES</div>
-    <h2>시설 소개</h2>
-    <p class="desc">과천 지식정보타운 내 3개 거점의 공간과 보유 인프라를 자세히 소개합니다. 카드를 클릭하면 거점별 세부 공간과 사진을 확인할 수 있습니다.</p>
-    <div class="grid g3" id="facilityGrid"></div>
+    <div class="sec-eyebrow">GOALS</div>
+    <h2>2026~2028년 핵심 성과 목표</h2>
+    <p class="desc">개인맞춤형식품 분야 국내 최대 규모의 데이터·설계·실증·인증 통합 지원 체계 확립을 목표로 합니다. (3개년 누적 목표)</p>
+    <div class="grid g3">
+      <div class="card"><h3>35개</h3><p>참여기업 수 — 장비 활용·연구·실증·인증 지원·네트워킹 참여 기업</p></div>
+      <div class="card"><h3>19명</h3><p>참여기업 연계 신규 고용 창출</p></div>
+      <div class="card"><h3>35억 원</h3><p>연구지원센터·참여기업 매출액 총액</p></div>
+      <div class="card"><h3>60억 원</h3><p>참여기업 투자유치 총액</p></div>
+      <div class="card"><h3>300건</h3><p>맞춤형 레시피·식단 개발 지원</p></div>
+      <div class="card"><h3>14건</h3><p>센터 장비 활용 시제품 제작 지원</p></div>
+    </div>
+  </div>
+
+  <div class="sect">
+    <div class="sec-eyebrow">NETWORK</div>
+    <h2>협력 네트워크</h2>
+    <p class="desc">산업계·정부기관·학계 협력 네트워크를 조성하고, 전국 푸드테크 연구지원센터 및 글로벌 네트워크와 연계합니다.</p>
+    <div class="grid g2">
+      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 15l6-6"/><path d="M11 6l1-1a4 4 0 0 1 5.7 5.7l-1.4 1.4"/><path d="M13 18l-1 1A4 4 0 0 1 6.3 13.3l1.4-1.4"/></svg></div><div class="ibody"><h3>국내 협력</h3><p>전국 푸드테크 연구지원센터(식물기반식품-익산, 식품업사이클링-나주, 식품로봇-포항, 간편식품-제주, 스마트 제조-구미)와 정기 협력 체계를 구축하고, 식약처·농림축산식품부·KTR·KOTITI 등 인증기관과 연계합니다. 춘천시 연구지원센터와는 지역 농산물 공급 체계로 협력합니다.</p></div></div>
+      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9z"/></svg></div><div class="ibody"><h3>글로벌 네트워크</h3><p>월드푸드테크협의회를 중심으로 글로벌 네트워크를 확대하고, 해외 우수 기관·기업 협력 채널을 확보하며, 국제 푸드테크 컨퍼런스 유치 및 해외 실증·인증 지원 체계를 마련합니다.</p></div></div>
+    </div>
   </div>
 </section>
 
@@ -684,33 +732,56 @@ const CASES = [
   detail:["기업: 사용자 주문 식재료·배달 음식 기록 제공","센터: 주요 식이 패턴 점수(DASH, AHEI 등) 및 식이 패턴 기반 질환 위험도 도출","서비스: 건강 개선 또는 최적 궁합 관점의 맞춤 식재료·음식 추천"]}
 ];
 
+const FACILITY_ICONS = {
+ flag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 21V4"/><path d="M5 4h13l-3 4 3 4H5"/></svg>',
+ database:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v13c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-13"/><path d="M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></svg>',
+ flask:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 3h6M10 3v6l-5.5 9.5A1.5 1.5 0 0 0 5.8 21h12.4a1.5 1.5 0 0 0 1.3-2.5L14 9V3"/><path d="M7.5 15h9"/></svg>'
+};
 const FACILITIES = [
- {key:"prism", name:"프리즘스퀘어", desc:"센터 본부. 서비스 기획 및 인증 컨설팅 공간을 운영합니다. (2027년 구축)",
-  spaces:["디자인실"]},
- {key:"ksign", name:"케이사인 사옥", desc:"데이터·설계 거점. 고성능 컴퓨팅 환경의 공유오피스와 웰니스 측정 장비 기반 기술 지원실을 운영합니다.",
-  spaces:["공유오피스","기술 지원실"]},
- {key:"jsfm", name:"진성에프엠", desc:"실증 거점. 가정식·외식 솔루션 실증실, 급식 솔루션실(조리 로봇), 미디어실을 운영합니다. (2026년 12월 운영 개시)",
-  spaces:["실증실1 (가정식/외식 솔루션)","실증실2 (급식솔루션실)","미디어실"]}
+ {key:"prism", name:"프리즘스퀘어", role:"헤드쿼터", area:"310.6㎡ · 2층", icon:"flag",
+  desc:"총괄 운영 및 협력 네트워크 거점으로, 센터 행정과 대외 협력 업무를 수행하며 기업이 원스톱 지원을 받을 수 있도록 조율합니다.",
+  rooms:[
+   {name:"센터 운영실", purposes:["센터 총괄 행정 및 운영 관리","참여기업 접수 및 상담","운영위원회 운영 지원 및 성과관리"]},
+   {name:"협력 네트워크실", purposes:["월드푸드테크협의회 연계 협력 사업 운영","전국 푸드테크 연구지원센터 협력 창구","글로벌 네트워크 관리 및 파트너십 확대"]},
+   {name:"회의실", purposes:["기업 맞춤형 멘토링·컨설팅 운영","대외협력 회의 및 공동사업 기획 회의","공간 간 운영 조정 회의(프로그램 연계, 성과 점검)"]}
+  ]},
+ {key:"ksign", name:"케이사인 사옥", role:"데이터 분석실", area:"265.9㎡ · 4층", icon:"database",
+  desc:"개인맞춤형식품 관련 데이터 분석, 데이터 기반 맞춤형 식이 설계 알고리즘 개발, 맞춤 설계 기반 실증·인증 지원을 수행합니다.",
+  rooms:[
+   {name:"공유오피스", purposes:["빅데이터 분석 및 데이터베이스 관리","AI 알고리즘 기반 개인맞춤형 식이설계","실증 및 인증을 위한 기초 계획 수립 및 컨설팅","기업 미팅 및 네트워킹 공간"]},
+   {name:"기술지원실", purposes:["개인맞춤 식품 설계를 위한 생체 데이터 수집 및 분석","개별 맞춤 식품의 임상 효과검증 및 피드백 제공","헬스케어 및 웰니스 관련 데이터 분석 서비스","인증획득을 위한 분석 데이터 수집"]}
+  ]},
+ {key:"jsfm", name:"진성에프엠", role:"제품 실증실", area:"513.53㎡ · 12층", icon:"flask",
+  desc:"개인맞춤형식품 개발 지원 공간으로, 스마트 조리 실증, 품질 검증, 콘텐츠 제작 기능을 수행합니다. (2026년 12월 시범 운영 개시)",
+  rooms:[
+   {name:"실증실1 (가정식/외식 솔루션)", purposes:["메뉴 개발을 위한 시범 조리 및 표준화 레시피 개발","3D 프린터 등 스마트 조리 기술 테스트","VR을 활용한 매장 환경 시뮬레이션"]},
+   {name:"실증실2 (급식 솔루션)", purposes:["대량조리 시스템 실증 및 조리로봇용 표준화 레시피 개발","조리 자동화 솔루션 검증 및 효과성 평가","스마트 급식실 테스트베드 마련"]},
+   {name:"미디어실", purposes:["공유주방 및 자동조리실 음식에 대한 시음 및 평가","검증된 데이터 기반 홍보 콘텐츠 제작","식품 영양성분 정밀 분석"]}
+  ]}
 ];
 function renderFacilities(){
-  document.getElementById("facilityGrid").innerHTML = FACILITIES.map(f=>{
-    const img = SPACE_IMG[f.spaces[0]];
-    return `<div class="card spacecard" onclick="openFacility('${f.key}')">
-      ${img?imgTag(img,f.name,"thumb"):""}
-      <h3>${f.name}</h3><p>${f.desc}</p>
-    </div>`;
-  }).join("");
+  document.getElementById("facilityGrid").innerHTML = FACILITIES.map(f=>`
+    <div class="card spacecard icard" onclick="openFacility('${f.key}')">
+      <div class="iico">${FACILITY_ICONS[f.icon]}</div>
+      <div class="ibody">
+        <h3>${f.name}</h3>
+        <div class="cnt">${f.role} · ${f.area}</div>
+        <p>${f.desc}</p>
+      </div>
+    </div>`).join("");
 }
 function openFacility(key){
   const f = FACILITIES.find(x=>x.key===key); if(!f) return;
-  const rooms = f.spaces.map(s=>{
-    const img = SPACE_IMG[s];
-    return `<div class="card" style="margin-bottom:10px">${img?imgTag(img,s,"thumb"):""}<h3>${s}</h3></div>`;
-  }).join("");
+  const rooms = f.rooms.map(r=>`
+    <div class="usage">
+      <h4>${r.name}</h4>
+      <ol>${r.purposes.map(p=>`<li>${p}</li>`).join("")}</ol>
+    </div>`).join("");
   document.getElementById("modalBody").innerHTML = `
     <button class="x" onclick="closeModal()">✕</button>
     <h3>${f.name}</h3>
-    <div class="mloc">${f.desc}</div>
+    <div class="mloc">${f.role} · ${f.area}</div>
+    <p class="note" style="margin-top:8px">${f.desc}</p>
     ${rooms}
     <div class="mact"><button class="addbtn" onclick="closeModal();go('equip')">이 거점 공간 예약하러 가기</button></div>`;
   document.getElementById("mback").classList.add("on");
