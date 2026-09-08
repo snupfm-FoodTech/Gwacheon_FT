@@ -279,6 +279,110 @@ main{max-width:1140px;margin:0 auto;padding:32px 24px 80px}
 
 /* ── FOOTER ── */
 footer{border-top:1px solid var(--line);background:#fff;padding:24px 20px;text-align:center;color:var(--sub);font-size:12.5px}
+
+/* ══════════════════════════════════════
+   HERO BANNER SLIDER (fullscreen)
+══════════════════════════════════════ */
+.hero-banner{position:relative;width:100%;height:calc(100vh - 64px);min-height:480px;max-height:760px;overflow:hidden;margin-bottom:0}
+.hero-slides{display:flex;width:100%;height:100%;transition:transform .7s cubic-bezier(.77,0,.18,1)}
+.hero-slide{flex:0 0 100%;height:100%;position:relative;display:flex;align-items:center}
+.hero-slide .bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.hero-slide .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(10,30,15,.68) 0%,rgba(10,30,15,.30) 60%,transparent 100%)}
+/* 각 슬라이드 배경 그라디언트 (이미지 없는 경우) */
+.hero-slide:nth-child(1) .bg{background:linear-gradient(135deg,#064e3b 0%,#065f46 40%,#0d9488 100%)}
+.hero-slide:nth-child(2) .bg{background:linear-gradient(135deg,#1e3a8a 0%,#1d4ed8 50%,#0284c7 100%)}
+.hero-slide:nth-child(3) .bg{background:linear-gradient(135deg,#4a1d96 0%,#6d28d9 50%,#7c3aed 100%)}
+.hero-slide:nth-child(4) .bg{background:linear-gradient(135deg,#7c2d12 0%,#c2410c 50%,#ea580c 100%)}
+.hero-slide .inner{position:relative;z-index:2;max-width:1140px;margin:0 auto;padding:0 48px;width:100%}
+.hero-slide .slide-eyebrow{font-size:12px;font-weight:700;letter-spacing:.2em;color:rgba(255,255,255,.7);margin-bottom:16px;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.hero-slide .slide-eyebrow::before{content:"";width:32px;height:2px;background:rgba(255,255,255,.6);display:block}
+.hero-slide h2{font-size:clamp(26px,3.5vw,46px);font-weight:800;color:#fff;line-height:1.25;letter-spacing:-.5px;margin-bottom:18px}
+.hero-slide h2 em{font-style:normal;color:#6EE7B7}
+.hero-slide p{font-size:15px;color:rgba(255,255,255,.78);max-width:560px;line-height:1.7;margin-bottom:28px}
+.hero-slide .slide-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-slide .slide-btns a,.hero-slide .slide-btns button{text-decoration:none;border-radius:10px;padding:12px 26px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .15s;border:none}
+.hero-slide .slide-btns .btn-p{background:#fff;color:var(--green-d)}
+.hero-slide .slide-btns .btn-p:hover{background:#DCFCE7}
+.hero-slide .slide-btns .btn-s{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.55)}
+.hero-slide .slide-btns .btn-s:hover{background:rgba(255,255,255,.12);border-color:#fff}
+
+/* slide controls */
+.hero-dots{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10}
+.hero-dot{width:8px;height:8px;border-radius:99px;background:rgba(255,255,255,.35);border:none;cursor:pointer;padding:0;transition:all .3s}
+.hero-dot.on,.hero-dot.active{width:28px;background:#fff}
+.hero-arr{position:absolute;top:50%;transform:translateY(-50%);z-index:10;border:none;background:rgba(255,255,255,.18);backdrop-filter:blur(4px);color:#fff;width:44px;height:44px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.hero-arr:hover{background:rgba(255,255,255,.32)}
+.hero-arr.prev{left:20px}
+.hero-arr.next{right:20px}
+/* progress bar */
+.hero-progress{position:absolute;bottom:0;left:0;height:3px;background:var(--green);z-index:10;transition:width .1s linear}
+/* slide counter */
+.hero-counter{position:absolute;bottom:32px;right:32px;color:rgba(255,255,255,.7);font-size:13px;font-weight:700;z-index:10;letter-spacing:.05em}
+.hero-counter strong{color:#fff;font-size:16px}
+@media(max-width:640px){
+  .hero-banner{height:60vw;min-height:320px}
+  .hero-slide .inner{padding:0 24px}
+  .hero-slide h2{font-size:22px}
+  .hero-arr{display:none}
+  .hero-counter{display:none}
+}
+
+/* ══════════════════════════════════════
+   SUPPORT DOMAIN ACCORDION (kaia style)
+══════════════════════════════════════ */
+.domain-section{margin-bottom:40px}
+.domain-section .sec-eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.16em;color:var(--green-d);margin-bottom:4px;text-transform:uppercase}
+.domain-section h2{font-size:22px;font-weight:800;letter-spacing:-.4px;margin-bottom:6px;color:var(--ink)}
+.domain-section .desc{color:var(--sub);font-size:14px;margin-bottom:24px}
+
+.domain-panels{display:flex;gap:0;border-radius:18px;overflow:hidden;height:380px;box-shadow:0 8px 32px rgba(0,0,0,.10)}
+.domain-panel{position:relative;flex:1;cursor:pointer;overflow:hidden;transition:flex .55s cubic-bezier(.77,0,.18,1)}
+.domain-panel.active{flex:4.5}
+.domain-panel .dp-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .55s cubic-bezier(.77,0,.18,1)}
+.domain-panel:hover .dp-bg{transform:scale(1.04)}
+.domain-panel .dp-overlay{position:absolute;inset:0;transition:opacity .3s}
+/* 각 패널 배경 */
+.domain-panel:nth-child(1) .dp-bg{background:linear-gradient(160deg,#064e3b,#065f46 60%,#047857)}
+.domain-panel:nth-child(1) .dp-overlay{background:linear-gradient(to right,rgba(4,60,40,.75) 0%,rgba(4,60,40,.30) 100%)}
+.domain-panel:nth-child(2) .dp-bg{background:linear-gradient(160deg,#1e3a8a,#1d4ed8 60%,#2563eb)}
+.domain-panel:nth-child(2) .dp-overlay{background:linear-gradient(to right,rgba(15,30,100,.75) 0%,rgba(15,30,100,.30) 100%)}
+.domain-panel:nth-child(3) .dp-bg{background:linear-gradient(160deg,#92400e,#b45309 60%,#d97706)}
+.domain-panel:nth-child(3) .dp-overlay{background:linear-gradient(to right,rgba(100,40,10,.75) 0%,rgba(100,40,10,.30) 100%)}
+.domain-panel:nth-child(4) .dp-bg{background:linear-gradient(160deg,#4a1d96,#6d28d9 60%,#7c3aed)}
+.domain-panel:nth-child(4) .dp-overlay{background:linear-gradient(to right,rgba(50,15,100,.75) 0%,rgba(50,15,100,.30) 100%)}
+
+/* collapsed label (세로 텍스트) */
+.domain-panel .dp-label{position:absolute;bottom:0;left:0;right:0;padding:20px 16px;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;transition:opacity .3s}
+.domain-panel.active .dp-label{opacity:0;pointer-events:none}
+.dp-label .dp-num{font-size:11px;font-weight:800;color:rgba(255,255,255,.5);letter-spacing:.15em;margin-bottom:8px}
+.dp-label .dp-title-v{writing-mode:vertical-rl;text-orientation:mixed;font-size:14px;font-weight:800;color:#fff;letter-spacing:.06em;line-height:1;white-space:nowrap}
+
+/* expanded content */
+.domain-panel .dp-content{position:absolute;inset:0;padding:36px 36px 32px;z-index:2;opacity:0;transform:translateX(-16px);transition:opacity .35s .1s,transform .35s .1s;pointer-events:none;display:flex;flex-direction:column;justify-content:flex-end}
+.domain-panel.active .dp-content{opacity:1;transform:translateX(0);pointer-events:auto}
+.dp-content .dp-eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;color:rgba(255,255,255,.65);margin-bottom:10px;text-transform:uppercase}
+.dp-content h3{font-size:24px;font-weight:800;color:#fff;margin-bottom:12px;line-height:1.3;letter-spacing:-.3px}
+.dp-content p{font-size:13.5px;color:rgba(255,255,255,.78);line-height:1.7;max-width:480px;margin-bottom:20px}
+.dp-content ul{list-style:none;margin-bottom:22px;display:flex;flex-direction:column;gap:6px}
+.dp-content ul li{font-size:13px;color:rgba(255,255,255,.8);padding-left:18px;position:relative;line-height:1.5}
+.dp-content ul li::before{content:"✓";position:absolute;left:0;color:#6EE7B7;font-weight:800;font-size:11px;top:2px}
+.dp-content .dp-cta{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);backdrop-filter:blur(4px);color:#fff;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:700;border:1.5px solid rgba(255,255,255,.3);cursor:pointer;text-decoration:none;transition:all .15s;font-family:inherit}
+.dp-content .dp-cta:hover{background:rgba(255,255,255,.28);border-color:#fff}
+.dp-content .dp-cta svg{width:14px;height:14px;transition:transform .15s}
+.dp-content .dp-cta:hover svg{transform:translateX(3px)}
+
+/* narrow panel divider line */
+.domain-panel:not(:last-child){border-right:1px solid rgba(255,255,255,.08)}
+
+@media(max-width:840px){
+  .domain-panels{flex-direction:column;height:auto;border-radius:14px}
+  .domain-panel{flex:none!important;height:64px;transition:height .45s cubic-bezier(.77,0,.18,1)}
+  .domain-panel.active{height:320px}
+  .domain-panel .dp-label{flex-direction:row;align-items:center;padding:0 20px;height:64px;justify-content:flex-start;gap:12px}
+  .domain-panel .dp-label .dp-title-v{writing-mode:horizontal-tb;font-size:15px}
+  .domain-panel .dp-content{padding:20px 20px 24px;justify-content:flex-end}
+  .dp-content h3{font-size:20px}
+}
 </style>
 </head>
 <body>
@@ -303,25 +407,80 @@ footer{border-top:1px solid var(--line);background:#fff;padding:24px 20px;text-a
 
 <main>
 
+<!-- ============ HERO BANNER SLIDER ============ -->
+<div class="hero-banner" id="heroBanner">
+  <div class="hero-slides" id="heroSlides">
+
+    <!-- Slide 1: 원스톱 지원 -->
+    <div class="hero-slide">
+      <div class="bg"></div>
+      <div class="inner">
+        <div class="slide-eyebrow">GWACHEON FOODTECH RESEARCH SUPPORT CENTER</div>
+        <h2>데이터부터 인증까지,<br><em>개인맞춤형식품 사업화</em>의<br>전 과정을 원스톱 지원</h2>
+        <p>과천시가 지정하고 서울대학교 산학협력단이 위탁 운영하는<br>개인맞춤형식품 분야 통합 지원 플랫폼입니다.</p>
+        <div class="slide-btns">
+          <button class="btn-p" onclick="go('pkg')">실증 패키지 신청</button>
+          <button class="btn-s" onclick="go('equip')">장비 둘러보기</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: 알고리즘 설계 -->
+    <div class="hero-slide">
+      <div class="bg"></div>
+      <div class="inner">
+        <div class="slide-eyebrow">ALGORITHM &amp; AI DESIGN</div>
+        <h2>AI 기반 <em>맞춤식이 알고리즘</em><br>개발·고도화 지원</h2>
+        <p>서울대 보유 7종 알고리즘 제공 및 커스터마이징,<br>GPU 서버·워크스테이션 등 고성능 컴퓨팅 환경을 지원합니다.</p>
+        <div class="slide-btns">
+          <button class="btn-p" onclick="go('pkg')">알고리즘 패키지 보기</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: 제품 실증 -->
+    <div class="hero-slide">
+      <div class="bg"></div>
+      <div class="inner">
+        <div class="slide-eyebrow">PRODUCT &amp; SERVICE VALIDATION</div>
+        <h2>스마트 조리·분석 장비로<br><em>제품·서비스 실증</em> 지원</h2>
+        <p>조리 로봇, 3D 푸드프린터, 성분 분석 장비 등<br>전문 실증 인프라를 통해 시제품 개발을 지원합니다.</p>
+        <div class="slide-btns">
+          <button class="btn-p" onclick="go('equip')">장비 신청하기</button>
+          <button class="btn-s" onclick="go('pkg')">실증 패키지 보기</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: 인증 지원 -->
+    <div class="hero-slide">
+      <div class="bg"></div>
+      <div class="inner">
+        <div class="slide-eyebrow">CERTIFICATION &amp; COMMERCIALIZATION</div>
+        <h2>KTR·KOTITI 연계<br><em>인증 획득</em> 패스트트랙 지원</h2>
+        <p>협력 인증기관 직접 연계로 신속한 인허가를 지원하며<br>사업화 전 주기를 함께합니다.</p>
+        <div class="slide-btns">
+          <button class="btn-p" onclick="go('apply')">신청서 작성하기</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /hero-slides -->
+
+  <!-- controls -->
+  <button class="hero-arr prev" id="heroPrev" aria-label="이전">&#8592;</button>
+  <button class="hero-arr next" id="heroNext" aria-label="다음">&#8594;</button>
+  <div class="hero-dots" id="heroDots"></div>
+  <div class="hero-counter" id="heroCounter"><strong>1</strong> / 4</div>
+  <div class="hero-progress" id="heroProgress" style="width:0%"></div>
+</div>
+
+<main>
+
 <!-- ============ HOME ============ -->
 <section class="page on" id="page-home">
-  <div class="hero">
-    <div class="eyebrow">GWACHEON FOODTECH RESEARCH SUPPORT CENTER</div>
-    <h1>데이터부터 인증까지,<br><em>개인맞춤형식품 사업화</em>의 전 과정을 지원합니다</h1>
-    <p>과천시가 지정하고 서울대학교 산학협력단(식품바이오융합연구소)이 위탁 운영하는 개인맞춤형식품 분야 통합 지원 플랫폼입니다. 기반 데이터 확보, 맞춤식이 알고리즘 개발, 제조·서비스 실증, 제품·서비스 인증 지원의 전 과정을 원스톱으로 지원합니다.</p>
-    <div class="chain">
-      <span>데이터</span><span class="ar">→</span>
-      <span>알고리즘 설계</span><span class="ar">→</span>
-      <span>실증</span><span class="ar">→</span>
-      <span>인증</span>
-    </div>
-    <div class="cta">
-      <button class="b1" onclick="go('pkg')">실증 패키지 신청</button>
-      <button class="b2" onclick="go('equip')">장비 둘러보기</button>
-    </div>
-  </div>
 
-  <div class="sect">
+  <div class="sect" style="margin-top:8px">
     <div class="sec-eyebrow">OVERVIEW</div>
     <h2>센터 개요</h2>
     <p class="desc">「과천시 푸드테크 산업 육성 및 지원 조례」에 근거해, 과천시·춘천시 2025년도 푸드테크 연구지원센터 공모사업 "개인맞춤형식품" 분야에 선정되어 설립되었습니다.</p>
@@ -333,17 +492,106 @@ footer{border-top:1px solid var(--line);background:#fff;padding:24px 20px;text-a
     </div>
   </div>
 
-  <div class="sect">
+  <!-- ── CORE SUPPORT: accordion panels ── -->
+  <div class="domain-section">
     <div class="sec-eyebrow">CORE SUPPORT</div>
     <h2>센터가 제공하는 핵심 지원</h2>
-    <p class="desc">서울대학교가 보유한 기술 자산과 센터 인프라를 결합하여 기업의 데이터-설계-실증-인증 밸류체인 전 과정을 지원합니다.</p>
-    <div class="grid g2">
-      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v13c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-13"/><path d="M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></svg></div><div class="ibody"><h3>【데이터】 기반 데이터 확보</h3><p>맞춤형 식이설계 플랫폼 기반 개인맞춤형 식이 데이터베이스를 제공하고, 웰니스 측정 시스템을 통한 헬스케어 데이터와 조리·분석 장비를 통한 레시피 특성 데이터 수집을 지원합니다.</p></div></div>
-      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg></div><div class="ibody"><h3>【설계】 맞춤식이 알고리즘 개발</h3><p>기보유 AI 알고리즘 제공 및 커스터마이징, 고성능 컴퓨팅 인프라 지원, 실증 데이터 기반 알고리즘 반복 개선 사이클 운영을 지원합니다.</p></div></div>
-      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 3h6M10 3v6l-5.5 9.5A1.5 1.5 0 0 0 5.8 21h12.4a1.5 1.5 0 0 0 1.3-2.5L14 9V3"/><path d="M7.5 15h9"/></svg></div><div class="ibody"><h3>【실증】 제조·서비스 실증 지원</h3><p>맞춤형 레시피 시범 조리·표준화, 실시간 성분·물성 분석 기반 조리 조건 빅데이터 축적, VR·스마트 모니터링 기반 서비스 테스트베드(외식·가정식 통합 검증)를 지원합니다.</p></div></div>
-      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l2.4 1.7 2.9-.2 1 2.7 2.5 1.5-.9 2.8.9 2.8-2.5 1.5-1 2.7-2.9-.2L12 19l-2.4-1.7-2.9.2-1-2.7-2.5-1.5.9-2.8-.9-2.8 2.5-1.5 1-2.7 2.9.2z"/><path d="M9 12l2 2 4-4"/></svg></div><div class="ibody"><h3>【인증】 제품·서비스 인증 지원</h3><p>KTR·KOTITI 등 협력 인증기관 연계 신속 인허가 지원, 수요 기반 신규 인증 제도 개발, 인증 획득 기업 대상 실질적 혜택을 지원합니다.</p></div></div>
-    </div>
-  </div>
+    <p class="desc">분야를 클릭하면 세부 지원 내용을 확인할 수 있습니다. 서울대 기술 자산과 센터 인프라를 결합하여 기업의 밸류체인 전 과정을 지원합니다.</p>
+
+    <div class="domain-panels" id="domainPanels">
+
+      <!-- Panel 1: 데이터 -->
+      <div class="domain-panel active" data-idx="0">
+        <div class="dp-bg"></div>
+        <div class="dp-overlay"></div>
+        <!-- collapsed label -->
+        <div class="dp-label">
+          <div class="dp-num">01</div>
+          <div class="dp-title-v">데이터</div>
+        </div>
+        <!-- expanded content -->
+        <div class="dp-content">
+          <div class="dp-eyebrow">01 · DATA</div>
+          <h3>기반 데이터 확보</h3>
+          <p>맞춤형 식이설계 플랫폼 기반 개인맞춤형 식이 DB를 제공하고, 웰니스 측정 시스템을 통한 헬스케어 데이터와 조리·분석 장비를 통한 레시피 특성 데이터 수집을 지원합니다.</p>
+          <ul>
+            <li>레시피·영양성분·식재료 통합 DB 제공</li>
+            <li>웰니스 장비 기반 헬스케어 데이터 수집</li>
+            <li>조리·분석 장비 기반 레시피 특성 데이터 수집</li>
+            <li>서비스 형태별 데이터 수집 프로토콜 설계</li>
+          </ul>
+          <button class="dp-cta" onclick="go('pkg')">데이터 패키지 신청 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Panel 2: 알고리즘 설계 -->
+      <div class="domain-panel" data-idx="1">
+        <div class="dp-bg"></div>
+        <div class="dp-overlay"></div>
+        <div class="dp-label">
+          <div class="dp-num">02</div>
+          <div class="dp-title-v">알고리즘</div>
+        </div>
+        <div class="dp-content">
+          <div class="dp-eyebrow">02 · ALGORITHM &amp; AI</div>
+          <h3>맞춤식이 알고리즘 개발</h3>
+          <p>기보유 AI 알고리즘 7종 제공 및 커스터마이징, 고성능 컴퓨팅 인프라 지원, 실증 데이터 기반 알고리즘 반복 개선 사이클 운영을 지원합니다.</p>
+          <ul>
+            <li>식습관 군집분석 · 다중목적 식단 최적화</li>
+            <li>그래프 신경망 기반 음식 추천 (특허출원)</li>
+            <li>채식 유형 필터링 · 질환 특화 RAG 챗봇</li>
+            <li>GPU 서버·워크스테이션 AI 개발 환경 제공</li>
+          </ul>
+          <button class="dp-cta" onclick="go('pkg')">알고리즘 패키지 신청 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Panel 3: 실증 -->
+      <div class="domain-panel" data-idx="2">
+        <div class="dp-bg"></div>
+        <div class="dp-overlay"></div>
+        <div class="dp-label">
+          <div class="dp-num">03</div>
+          <div class="dp-title-v">실증</div>
+        </div>
+        <div class="dp-content">
+          <div class="dp-eyebrow">03 · VALIDATION</div>
+          <h3>제조·서비스 실증 지원</h3>
+          <p>맞춤형 레시피 시범 조리·표준화, 실시간 성분·물성 분석, VR·스마트 모니터링 기반 서비스 테스트베드(외식·가정식 통합 검증)를 지원합니다.</p>
+          <ul>
+            <li>조리 로봇·3D 푸드프린터 활용 시제품 제작</li>
+            <li>성분·물성 분석 장비 기반 조리 조건 데이터 축적</li>
+            <li>VR 기반 매장 환경 시뮬레이션 서비스</li>
+            <li>외식·가정식·급식 통합 테스트베드 운영</li>
+          </ul>
+          <button class="dp-cta" onclick="go('equip')">장비·공간 신청 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Panel 4: 인증 -->
+      <div class="domain-panel" data-idx="3">
+        <div class="dp-bg"></div>
+        <div class="dp-overlay"></div>
+        <div class="dp-label">
+          <div class="dp-num">04</div>
+          <div class="dp-title-v">인증</div>
+        </div>
+        <div class="dp-content">
+          <div class="dp-eyebrow">04 · CERTIFICATION</div>
+          <h3>제품·서비스 인증 지원</h3>
+          <p>KTR·KOTITI 등 협력 인증기관 연계 신속 인허가 지원, 수요 기반 신규 인증 제도 개발, 인증 획득 기업 대상 실질적 혜택을 지원합니다.</p>
+          <ul>
+            <li>협력 인증기관 직접 연계 패스트트랙</li>
+            <li>비의료 건강관리서비스·SW 품질 인증 지원</li>
+            <li>데이터 보안 인증 컨설팅</li>
+            <li>센터 자체 인증 제도 연계 (개발 예정)</li>
+          </ul>
+          <button class="dp-cta" onclick="go('apply')">인증 지원 신청 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+
+    </div><!-- /domain-panels -->
+  </div><!-- /domain-section -->
 
   <div class="sect">
     <div class="sec-eyebrow">FACILITIES</div>
@@ -1400,6 +1648,100 @@ async function loadSheetContent(){
 }
 
 renderPkgs(); renderFacilities(); renderBldChips(); renderSpaces(); renderNotices(); renderFaqs(); renderGallery(); updateCnt(); loadSheetContent(); loadBoardContent();
+
+/* ── Hero Banner Slider ── */
+(function(){
+  const TOTAL = 4;
+  const DELAY = 5000; // 5초 자동재생
+  let cur = 0, timer = null, progTimer = null, progStart = null;
+
+  const slides  = document.getElementById('heroSlides');
+  const dotsEl  = document.getElementById('heroDots');
+  const counter = document.getElementById('heroCounter');
+  const progress= document.getElementById('heroProgress');
+  const prevBtn = document.getElementById('heroPrev');
+  const nextBtn = document.getElementById('heroNext');
+
+  if (!slides) return; // 요소 없으면 중단
+
+  // 도트 생성
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement('button');
+    d.className = 'hero-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', (i+1) + '번 슬라이드');
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  }
+
+  function updateUI() {
+    slides.style.transform = `translateX(-${cur * 100}%)`;
+    dotsEl.querySelectorAll('.hero-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === cur);
+    });
+    counter.innerHTML = `<strong>${cur + 1}</strong> / ${TOTAL}`;
+  }
+
+  function startProgress() {
+    clearInterval(progTimer);
+    progress.style.transition = 'none';
+    progress.style.width = '0%';
+    // reflow 강제
+    void progress.offsetWidth;
+    progress.style.transition = `width ${DELAY}ms linear`;
+    progress.style.width = '100%';
+  }
+
+  function goTo(idx) {
+    cur = (idx + TOTAL) % TOTAL;
+    updateUI();
+    startAutoplay();
+  }
+
+  function startAutoplay() {
+    clearInterval(timer);
+    startProgress();
+    timer = setInterval(() => goTo(cur + 1), DELAY);
+  }
+
+  prevBtn && prevBtn.addEventListener('click', () => goTo(cur - 1));
+  nextBtn && nextBtn.addEventListener('click', () => goTo(cur + 1));
+
+  // 터치 스와이프 지원
+  let touchX = 0;
+  const banner = document.getElementById('heroBanner');
+  banner.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, {passive:true});
+  banner.addEventListener('touchend', e => {
+    const diff = touchX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) goTo(cur + (diff > 0 ? 1 : -1));
+  }, {passive:true});
+
+  // 마우스 호버 시 일시정지
+  banner.addEventListener('mouseenter', () => {
+    clearInterval(timer);
+    clearInterval(progTimer);
+    progress.style.transition = 'none';
+  });
+  banner.addEventListener('mouseleave', () => startAutoplay());
+
+  // 초기 시작
+  updateUI();
+  startAutoplay();
+})();
+
+/* ── Domain Accordion Panels ── */
+(function(){
+  const panels = document.querySelectorAll('.domain-panel');
+  if (!panels.length) return;
+
+  panels.forEach(panel => {
+    panel.addEventListener('click', () => {
+      if (panel.classList.contains('active')) return; // 이미 열려있으면 무시
+      panels.forEach(p => p.classList.remove('active'));
+      panel.classList.add('active');
+    });
+  });
+})();
+
 </script>
 </body>
 </html>
