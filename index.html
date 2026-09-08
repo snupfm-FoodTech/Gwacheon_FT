@@ -66,8 +66,8 @@ main{max-width:1100px;margin:0 auto;padding:28px 20px 80px}
   .brand .mark{width:30px;height:26px;font-size:10px}
   .brand .t{font-size:13px;line-height:1.3}
   .brand .t small{font-size:10px}
-  nav{width:100%;gap:4px}
-  nav button{flex:1;padding:8px 4px;font-size:12.5px;white-space:nowrap;text-align:center}
+  nav{width:100%;gap:4px;flex-wrap:wrap}
+  nav button{flex:1 1 auto;padding:8px 10px;font-size:12.5px;white-space:nowrap;text-align:center}
   .cartbtn .cnt{top:-4px;right:2px}
 }
 
@@ -198,6 +198,24 @@ main{max-width:1100px;margin:0 auto;padding:28px 20px 80px}
 .sb2{background:transparent;border:1px solid var(--line)!important;color:var(--ink)}
 .result{display:none;margin-top:18px;background:var(--panel);border:1px solid rgba(42,212,232,.35);border-radius:10px;padding:16px;font-size:13.5px;white-space:pre-wrap}
 .notice{font-size:12.5px;color:var(--sub);margin-top:12px}
+
+/* notice board / FAQ / gallery */
+.noticecard{cursor:pointer;transition:border-color .12s,box-shadow .12s}
+.noticecard:hover{border-color:var(--cyan);box-shadow:0 6px 18px rgba(42,212,232,.10)}
+.noticecard .nd{font-size:12px;color:var(--sub);margin:4px 0 8px}
+.pin{display:inline-block;font-size:10.5px;font-weight:700;color:#06121F;background:var(--cyan);border-radius:5px;padding:1px 6px;margin-bottom:6px}
+.faq-item{border:1px solid var(--line);background:var(--card);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:16px 20px;font-size:14.5px;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--ink)}
+.faq-q .arrow{color:var(--cyan);transition:transform .15s;flex-shrink:0}
+.faq-item.open .faq-q .arrow{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .2s ease}
+.faq-item.open .faq-a{max-height:400px}
+.faq-a p{padding:0 20px 16px;font-size:13.5px;color:var(--sub);white-space:pre-wrap}
+.gthumb{cursor:pointer;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--card);transition:border-color .12s}
+.gthumb:hover{border-color:var(--cyan)}
+.gthumb img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.gthumb .gcap{padding:10px 14px;font-size:13px;color:var(--sub)}
+.lightimg{width:100%;border-radius:12px;margin:12px 0;display:block;background:var(--panel)}
 footer{border-top:1px solid var(--line);background:var(--panel);padding:22px 20px;text-align:center;color:var(--sub);font-size:12.5px}
 </style>
 </head>
@@ -211,8 +229,12 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding:22px 20p
     </div>
     <nav>
       <button data-page="home" class="on"><span class="navlabel">센터 소개</span></button>
+      <button data-page="facility"><span class="navlabel">시설 소개</span></button>
       <button data-page="pkg"><span class="navlabel">실증 패키지</span></button>
       <button data-page="equip"><span class="navlabel">장비 신청</span></button>
+      <button data-page="notice"><span class="navlabel">공지사항</span></button>
+      <button data-page="guide"><span class="navlabel">이용안내</span></button>
+      <button data-page="gallery"><span class="navlabel">갤러리</span></button>
       <button data-page="apply" class="cartbtn">신청서<span class="cnt" id="cartCnt">0</span></button>
     </nav>
   </div>
@@ -262,6 +284,16 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding:22px 20p
   </div>
 </section>
 
+<!-- ============ FACILITY ============ -->
+<section class="page" id="page-facility">
+  <div class="sect">
+    <div class="sec-eyebrow">FACILITIES</div>
+    <h2>시설 소개</h2>
+    <p class="desc">과천 지식정보타운 내 3개 거점의 공간과 보유 인프라를 자세히 소개합니다. 카드를 클릭하면 거점별 세부 공간과 사진을 확인할 수 있습니다.</p>
+    <div class="grid g3" id="facilityGrid"></div>
+  </div>
+</section>
+
 <!-- ============ PACKAGES ============ -->
 <section class="page" id="page-pkg">
   <div class="sect">
@@ -282,6 +314,38 @@ footer{border-top:1px solid var(--line);background:var(--panel);padding:22px 20p
     <div class="chiprow" id="bldChips"></div>
     <div class="grid g3" id="spaceGrid"></div>
     <div class="empty" id="spaceEmpty" style="display:none">선택한 건물에 등록된 공간이 없습니다.</div>
+  </div>
+</section>
+
+<!-- ============ NOTICE ============ -->
+<section class="page" id="page-notice">
+  <div class="sect">
+    <div class="sec-eyebrow">NOTICE</div>
+    <h2>공지사항</h2>
+    <p class="desc">센터 운영 관련 공지와 모집 안내를 확인하세요.</p>
+    <div class="grid g2" id="noticeGrid"></div>
+    <div class="empty" id="noticeEmpty" style="display:none">등록된 공지사항이 없습니다.</div>
+  </div>
+</section>
+
+<!-- ============ GUIDE / FAQ ============ -->
+<section class="page" id="page-guide">
+  <div class="sect">
+    <div class="sec-eyebrow">GUIDE</div>
+    <h2>이용안내 · FAQ</h2>
+    <p class="desc">신청 절차와 자주 묻는 질문을 안내합니다.</p>
+    <div id="faqList"></div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="page" id="page-gallery">
+  <div class="sect">
+    <div class="sec-eyebrow">GALLERY</div>
+    <h2>갤러리</h2>
+    <p class="desc">센터 공간과 활동 사진을 소개합니다.</p>
+    <div class="grid g3" id="galleryGrid"></div>
+    <div class="empty" id="galleryEmpty" style="display:none">준비 중입니다.</div>
   </div>
 </section>
 
@@ -455,6 +519,84 @@ const SHEET_CSV_URLS = [
  "https://docs.google.com/spreadsheets/d/e/2PACX-1vSAARXoGXRYEpN39Y-gwzPhE2NAr7UKUWBTsJrpSVTSCh9s1F-QVudHu7j6f3Bhx1sdH4em1JkM9Tpv/pub?gid=661115400&single=true&output=csv"
 ];
 
+// 공지사항/이용안내(FAQ)/갤러리 — Cloudflare Pages Function(/api/notices, /api/faqs, /api/gallery)을 통해
+// Supabase 테이블에서 불러옴. 테이블이 아직 없거나 fetch에 실패하면 아래 폴백 데이터가 그대로 표시됨.
+let NOTICES = [
+ {title:"과천시 푸드테크 연구지원센터 개소 안내", created_at:"2026-09-01",
+  body:"과천시 푸드테크 연구지원센터가 거점별로 순차 개소합니다. 자세한 일정과 이용 방법은 추후 공지될 예정입니다.", pinned:true}
+];
+let FAQS = [
+ {question:"이용 신청은 어떻게 하나요?", answer:"상단 '신청서' 메뉴에서 실증 패키지·장비·공간을 선택한 뒤 신청서를 작성하여 제출하시면, 담당자가 3영업일 이내 연락드립니다."},
+ {question:"이용 대상 자격 제한이 있나요?", answer:"개인맞춤형식품 분야 사업화를 추진하는 기업이면 신청 가능합니다. 자세한 자격 요건은 담당자와 상담을 통해 확인해 주세요."},
+ {question:"이용료는 어떻게 산정되나요?", answer:"공간은 30분 단위로 자리 수에 따라 예약료가 부과됩니다. '장비 신청' 메뉴에서 공간을 선택하면 실시간으로 예상 금액을 확인할 수 있습니다."},
+ {question:"문의는 어디로 하나요?", answer:"이메일(snupfm@gmail.com)로 문의해 주시면 담당자가 순차적으로 답변드립니다."}
+];
+let GALLERY = [];
+
+function renderNotices(){
+  const el=document.getElementById("noticeGrid");
+  document.getElementById("noticeEmpty").style.display = NOTICES.length ? "none" : "block";
+  el.innerHTML = NOTICES.map((n,i)=>`
+    <div class="card noticecard" onclick="openNotice(${i})">
+      ${n.pinned?'<span class="pin">고정</span>':""}
+      <h3>${n.title}</h3>
+      <div class="nd">${(n.created_at||"").slice(0,10)}</div>
+      <p>${(n.body||"").slice(0,80)}${(n.body||"").length>80?"…":""}</p>
+    </div>`).join("");
+}
+function openNotice(i){
+  const n=NOTICES[i]; if(!n) return;
+  document.getElementById("modalBody").innerHTML=`
+    <button class="x" onclick="closeModal()">✕</button>
+    <h3>${n.title}</h3>
+    <div class="mloc">${(n.created_at||"").slice(0,10)}</div>
+    <div class="usage"><p class="note" style="white-space:pre-wrap">${n.body||""}</p></div>`;
+  document.getElementById("mback").classList.add("on");
+  document.getElementById("mback").dataset.kind="notice";
+  document.body.style.overflow="hidden";
+}
+function renderFaqs(){
+  document.getElementById("faqList").innerHTML = FAQS.map((f,i)=>`
+    <div class="faq-item" id="faq${i}">
+      <button class="faq-q" onclick="toggleFaq(${i})"><span>${f.question}</span><span class="arrow">▾</span></button>
+      <div class="faq-a"><p>${f.answer}</p></div>
+    </div>`).join("");
+}
+function toggleFaq(i){ document.getElementById("faq"+i).classList.toggle("open"); }
+function renderGallery(){
+  const el=document.getElementById("galleryGrid");
+  document.getElementById("galleryEmpty").style.display = GALLERY.length ? "none" : "block";
+  el.innerHTML = GALLERY.map((g,i)=>`
+    <div class="gthumb" onclick="openGalleryImg(${i})">
+      <img src="${g.image_path}" alt="${g.title||""}" onerror="this.closest('.gthumb').remove()">
+      ${g.title?`<div class="gcap">${g.title}</div>`:""}
+    </div>`).join("");
+}
+function openGalleryImg(i){
+  const g=GALLERY[i]; if(!g) return;
+  document.getElementById("modalBody").innerHTML=`
+    <button class="x" onclick="closeModal()">✕</button>
+    <h3>${g.title||""}</h3>
+    <img class="lightimg" src="${g.image_path}" alt="${g.title||""}">
+    ${g.caption?`<p class="note">${g.caption}</p>`:""}`;
+  document.getElementById("mback").classList.add("on");
+  document.getElementById("mback").dataset.kind="gallery";
+  document.body.style.overflow="hidden";
+}
+async function loadBoardContent(){
+  try{
+    const [nr,fr,gr] = await Promise.allSettled([
+      fetch("/api/notices").then(r=>r.ok?r.json():null),
+      fetch("/api/faqs").then(r=>r.ok?r.json():null),
+      fetch("/api/gallery").then(r=>r.ok?r.json():null)
+    ]);
+    if(nr.status==="fulfilled" && Array.isArray(nr.value) && nr.value.length) NOTICES=nr.value;
+    if(fr.status==="fulfilled" && Array.isArray(fr.value) && fr.value.length) FAQS=fr.value;
+    if(gr.status==="fulfilled" && Array.isArray(gr.value) && gr.value.length) GALLERY=gr.value;
+  }catch(e){}
+  renderNotices(); renderFaqs(); renderGallery();
+}
+
 const PKGS = [
  {id:"onestop", tag:"원스톱", best:true, name:"전주기 원스톱 패키지",
   desc:"데이터-설계-실증-인증 전 과정을 통합 지원하는 패키지",
@@ -541,6 +683,40 @@ const CASES = [
   d:"커머스·배달 플랫폼의 주문 기록을 기반으로 주요 식이 패턴 점수와 질환 위험도를 도출하고, 상호보완적 맞춤 추천 서비스를 제공하는 구조입니다.",
   detail:["기업: 사용자 주문 식재료·배달 음식 기록 제공","센터: 주요 식이 패턴 점수(DASH, AHEI 등) 및 식이 패턴 기반 질환 위험도 도출","서비스: 건강 개선 또는 최적 궁합 관점의 맞춤 식재료·음식 추천"]}
 ];
+
+const FACILITIES = [
+ {key:"prism", name:"프리즘스퀘어", desc:"센터 본부. 서비스 기획 및 인증 컨설팅 공간을 운영합니다. (2027년 구축)",
+  spaces:["디자인실"]},
+ {key:"ksign", name:"케이사인 사옥", desc:"데이터·설계 거점. 고성능 컴퓨팅 환경의 공유오피스와 웰니스 측정 장비 기반 기술 지원실을 운영합니다.",
+  spaces:["공유오피스","기술 지원실"]},
+ {key:"jsfm", name:"진성에프엠", desc:"실증 거점. 가정식·외식 솔루션 실증실, 급식 솔루션실(조리 로봇), 미디어실을 운영합니다. (2026년 12월 운영 개시)",
+  spaces:["실증실1 (가정식/외식 솔루션)","실증실2 (급식솔루션실)","미디어실"]}
+];
+function renderFacilities(){
+  document.getElementById("facilityGrid").innerHTML = FACILITIES.map(f=>{
+    const img = SPACE_IMG[f.spaces[0]];
+    return `<div class="card spacecard" onclick="openFacility('${f.key}')">
+      ${img?imgTag(img,f.name,"thumb"):""}
+      <h3>${f.name}</h3><p>${f.desc}</p>
+    </div>`;
+  }).join("");
+}
+function openFacility(key){
+  const f = FACILITIES.find(x=>x.key===key); if(!f) return;
+  const rooms = f.spaces.map(s=>{
+    const img = SPACE_IMG[s];
+    return `<div class="card" style="margin-bottom:10px">${img?imgTag(img,s,"thumb"):""}<h3>${s}</h3></div>`;
+  }).join("");
+  document.getElementById("modalBody").innerHTML = `
+    <button class="x" onclick="closeModal()">✕</button>
+    <h3>${f.name}</h3>
+    <div class="mloc">${f.desc}</div>
+    ${rooms}
+    <div class="mact"><button class="addbtn" onclick="closeModal();go('equip')">이 거점 공간 예약하러 가기</button></div>`;
+  document.getElementById("mback").classList.add("on");
+  document.getElementById("mback").dataset.kind="facility";
+  document.body.style.overflow="hidden";
+}
 
 let state = { pkgs:new Set(), algos:new Set(), cart:new Map(), spaceCart:new Map(), spaceBld:"" };
 
@@ -1106,7 +1282,7 @@ async function loadSheetContent(){
   renderBldChips(); renderSpaces();
 }
 
-renderPkgs(); renderBldChips(); renderSpaces(); updateCnt(); loadSheetContent();
+renderPkgs(); renderFacilities(); renderBldChips(); renderSpaces(); renderNotices(); renderFaqs(); renderGallery(); updateCnt(); loadSheetContent(); loadBoardContent();
 </script>
 </body>
 </html>
