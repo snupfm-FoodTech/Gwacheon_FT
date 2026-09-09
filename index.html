@@ -1265,8 +1265,8 @@ let FAQS = [
 let GALLERY = [];
 
 function renderNotices(){
-  const el=document.getElementById("noticeGrid");
-  document.getElementById("noticeEmpty").style.display = NOTICES.length ? "none" : "block";
+  const el=document.getElementById("noticeGrid"); if(!el) return;
+  const emEl=document.getElementById("noticeEmpty"); if(emEl) emEl.style.display = NOTICES.length ? "none" : "block";
   el.innerHTML = NOTICES.map((n,i)=>`
     <div class="card noticecard" onclick="openNotice(${i})">
       ${n.pinned?'<span class="pin">고정</span>':""}
@@ -1287,7 +1287,8 @@ function openNotice(i){
   document.body.style.overflow="hidden";
 }
 function renderFaqs(){
-  document.getElementById("faqList").innerHTML = FAQS.map((f,i)=>`
+  const el=document.getElementById("faqList"); if(!el) return;
+  el.innerHTML = FAQS.map((f,i)=>`
     <div class="faq-item" id="faq${i}">
       <button class="faq-q" onclick="toggleFaq(${i})"><span>${f.question}</span><span class="arrow">▾</span></button>
       <div class="faq-a"><p>${f.answer}</p></div>
@@ -1295,8 +1296,8 @@ function renderFaqs(){
 }
 function toggleFaq(i){ document.getElementById("faq"+i).classList.toggle("open"); }
 function renderGallery(){
-  const el=document.getElementById("galleryGrid");
-  document.getElementById("galleryEmpty").style.display = GALLERY.length ? "none" : "block";
+  const el=document.getElementById("galleryGrid"); if(!el) return;
+  const emEl=document.getElementById("galleryEmpty"); if(emEl) emEl.style.display = GALLERY.length ? "none" : "block";
   el.innerHTML = GALLERY.map((g,i)=>`
     <div class="gthumb" onclick="openGalleryImg(${i})">
       <img src="${g.image_path}" alt="${g.title||""}" onerror="this.closest('.gthumb').remove()">
@@ -1443,7 +1444,9 @@ const FACILITIES = [
   ]}
 ];
 function renderFacilities(){
-  document.getElementById("facilityGrid").innerHTML = FACILITIES.map(f=>`
+  const el = document.getElementById("facilityGrid");
+  if (!el) return; // facilityGrid 없으면 조용히 스킵
+  el.innerHTML = FACILITIES.map(f=>`
     <div class="card spacecard icard" onclick="openFacility('${f.key}')">
       <div class="iico">${FACILITY_ICONS[f.icon]}</div>
       <div class="ibody">
@@ -1485,7 +1488,8 @@ document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>go(b.dataset.pa
 
 /* packages */
 function renderPkgs(){
-  document.getElementById("pkgGrid").innerHTML = PKGS.map(p=>`
+  const el=document.getElementById("pkgGrid"); if(!el) return;
+  el.innerHTML = PKGS.map(p=>`
     <div class="card pkg ${p.best?"best":""} ${p.soon?"soon":""}" ${p.soon?"":`onclick="openPkg('${p.id}')"`}>
       <span class="tag">${p.soon?"준비중":p.tag}</span>
       <h3>${p.name}</h3>
@@ -1612,7 +1616,7 @@ function renderBldChips(){
 function renderSpaces(){
   const el=document.getElementById("spaceGrid"); if(!el) return;
   const list=getSpaces().filter(s=>!state.spaceBld||s.building===state.spaceBld);
-  document.getElementById("spaceEmpty").style.display=list.length?"none":"block";
+  const emEl2=document.getElementById("spaceEmpty"); if(emEl2) emEl2.style.display=list.length?"none":"block";
   el.innerHTML=list.map(s=>`
     <div class="card spacecard" onclick="openSpace('${encodeURIComponent(spaceKey(s.building,s.space))}')">
       ${SPACE_IMG[s.space]?imgTag(SPACE_IMG[s.space],s.space,"thumb"):""}
@@ -2036,7 +2040,16 @@ async function loadSheetContent(){
   renderBldChips(); renderSpaces();
 }
 
-renderPkgs(); renderFacilities(); renderBldChips(); renderSpaces(); renderNotices(); renderFaqs(); renderGallery(); updateCnt(); loadSheetContent(); loadBoardContent();
+try { renderPkgs(); } catch(e) { console.warn('renderPkgs', e); }
+try { renderFacilities(); } catch(e) { console.warn('renderFacilities', e); }
+try { renderBldChips(); } catch(e) { console.warn('renderBldChips', e); }
+try { renderSpaces(); } catch(e) { console.warn('renderSpaces', e); }
+try { renderNotices(); } catch(e) { console.warn('renderNotices', e); }
+try { renderFaqs(); } catch(e) { console.warn('renderFaqs', e); }
+try { renderGallery(); } catch(e) { console.warn('renderGallery', e); }
+try { updateCnt(); } catch(e) {}
+try { loadSheetContent(); } catch(e) {}
+try { loadBoardContent(); } catch(e) {}
 
 /* ── Hero Banner Slider ── */
 (function(){
