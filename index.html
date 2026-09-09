@@ -7,8 +7,8 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{
-  /* ── Light theme (foodpolis-inspired) ── */
   --bg:#F5F7FA;
+  --bg2:#F0F4F8;
   --panel:#FFFFFF;
   --card:#FFFFFF;
   --card2:#F0F4F8;
@@ -17,26 +17,19 @@
   --ink:#1E293B;
   --sub:#64748B;
   --sub2:#94A3B8;
-
-  /* Brand accent: green (식품/농업 연상) */
   --green:#16A34A;
   --green-d:#15803D;
   --green-soft:rgba(22,163,74,.10);
   --green-soft2:rgba(22,163,74,.06);
-
-  /* Secondary: blue */
   --blue:#2563EB;
   --blue-soft:rgba(37,99,235,.10);
-
-  /* Status */
   --ok:#16A34A;
   --danger:#DC2626;
   --warn:#D97706;
-
-  /* Compat aliases (old vars → new) */
   --cyan:var(--green);
   --cyan-soft:var(--green-soft);
   --pink:#E11D48;
+  --purple:#7C3AED;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -44,44 +37,254 @@ body{font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFo
 button{font-family:inherit;cursor:pointer}
 input,select,textarea{font-family:inherit;font-size:14px}
 
-/* ── HEADER ── */
-header{position:sticky;top:0;z-index:50;background:#FFFFFF;backdrop-filter:none;border-bottom:1px solid var(--line);box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.hwrap{max-width:1140px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px}
-.brand{display:flex;align-items:center;gap:10px}
-.brand .mark{width:36px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--green),#22C55E);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:11px;letter-spacing:.02em}
-.brand .t{font-weight:700;font-size:15px;letter-spacing:-.3px;color:var(--ink)}
-.brand .t small{display:block;font-size:11px;color:var(--sub);font-weight:500}
-nav{display:flex;gap:2px}
-nav button{background:none;border:none;padding:8px 13px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--sub);transition:color .12s,background .12s}
-nav button:hover{background:var(--green-soft2);color:var(--green-d)}
-nav button.on{background:var(--green-soft);color:var(--green-d)}
-.cartbtn{position:relative;border:1px solid var(--line2)!important;background:var(--bg)!important;color:var(--ink)!important}
-.cartbtn:hover{border-color:var(--green)!important;color:var(--green-d)!important}
-.cartbtn .cnt{position:absolute;top:-6px;right:-6px;background:var(--green);color:#fff;border-radius:99px;font-size:11px;font-weight:700;min-width:18px;height:18px;display:none;align-items:center;justify-content:center;padding:0 4px}
+/* ══════════════════════ HEADER ══════════════════════ */
+header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.hwrap{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;height:68px;gap:0}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;flex-shrink:0}
+.brand-logo{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--green),#22C55E);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:12px;letter-spacing:-.5px}
+.brand-text{font-weight:800;font-size:15px;letter-spacing:-.4px;color:var(--ink);line-height:1.2}
+.brand-text small{display:block;font-size:11px;color:var(--sub);font-weight:500}
+.gnb{display:flex;flex:1;justify-content:center;gap:2px}
+.gnb button{background:none;border:none;padding:10px 16px;border-radius:8px;font-size:14px;font-weight:600;color:var(--sub);transition:color .12s,background .12s;white-space:nowrap}
+.gnb button:hover{background:var(--green-soft2);color:var(--green-d)}
+.gnb button.on{color:var(--green-d);font-weight:700;border-bottom:2px solid var(--green);border-radius:0;padding-bottom:8px}
+.hutil{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.hutil-link{font-size:12.5px;font-weight:600;color:var(--sub);background:none;border:none;padding:7px 12px;border-radius:7px;transition:background .12s,color .12s}
+.hutil-link:hover{background:var(--green-soft);color:var(--green-d)}
+.cartbtn{position:relative;background:var(--green)!important;color:#fff!important;border-radius:8px;padding:8px 16px!important;font-size:13px!important;font-weight:700!important;border:none!important}
+.cartbtn:hover{background:var(--green-d)!important}
+.cartbtn .cnt{position:absolute;top:-7px;right:-7px;background:#EF4444;color:#fff;border-radius:99px;font-size:10px;font-weight:700;min-width:17px;height:17px;display:none;align-items:center;justify-content:center;padding:0 4px;border:2px solid #fff}
 
-main{max-width:1140px;margin:0 auto;padding:32px 24px 80px}
+/* ══════════════════════ LAYOUT ══════════════════════ */
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
 .page{display:none}.page.on{display:block}
+.page-inner{padding:40px 32px 80px;max-width:1200px;margin:0 auto}
 
-/* ── HERO ── */
-.hero{background:linear-gradient(135deg,#ECFDF5 0%,#F0FFF4 50%,#EFF6FF 100%);border:1px solid #D1FAE5;border-radius:20px;padding:52px 48px;margin-bottom:36px;position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(22,163,74,.12),transparent 65%);pointer-events:none}
-.hero::after{content:"";position:absolute;left:-60px;bottom:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.08),transparent 65%);pointer-events:none}
-.hero .eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--green-d);margin-bottom:14px;text-transform:uppercase}
-.hero .eyebrow::before{content:"";display:block;width:48px;height:3px;background:var(--green);border-radius:2px;margin-bottom:12px}
-.hero h1{font-size:30px;font-weight:800;letter-spacing:-.5px;line-height:1.35;margin-bottom:14px;color:var(--ink)}
-.hero h1 em{font-style:normal;color:var(--green-d)}
-.hero p{font-size:15px;color:var(--sub);max-width:680px;position:relative;z-index:1}
-.hero .chain{display:flex;gap:8px;margin-top:24px;flex-wrap:wrap;position:relative;z-index:1}
-.hero .chain span{background:#DCFCE7;border:1px solid #86EFAC;color:var(--green-d);border-radius:99px;padding:5px 15px;font-size:13px;font-weight:700}
-.hero .chain .ar{background:none;border:none;padding:5px 0;color:var(--sub2)}
-.hero .cta{margin-top:28px;display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
-.hero .cta button{border:none;border-radius:10px;padding:12px 26px;font-size:14px;font-weight:700;transition:all .15s}
-.hero .cta .b1{background:var(--green);color:#fff;box-shadow:0 2px 8px rgba(22,163,74,.30)}
-.hero .cta .b1:hover{background:var(--green-d);box-shadow:0 4px 14px rgba(22,163,74,.40)}
-.hero .cta .b2{background:#fff;color:var(--ink);border:1px solid var(--line2)}
-.hero .cta .b2:hover{border-color:var(--green);color:var(--green-d)}
+/* ══════════════════════ HOME HERO BANNER ══════════════════════ */
+.hero-wrap{display:grid;grid-template-columns:1fr 340px;gap:0;height:calc(100vh - 68px);min-height:520px;max-height:720px;background:var(--bg)}
+.hero-main{position:relative;overflow:hidden}
+.hero-slides{display:flex;height:100%;transition:transform .7s cubic-bezier(.77,0,.18,1)}
+.hero-slide{flex:0 0 100%;height:100%;position:relative;display:flex;align-items:center}
+.hero-slide .bg{position:absolute;inset:0}
+.hero-slide:nth-child(1) .bg{background:linear-gradient(135deg,#064e3b 0%,#065f46 35%,#059669 70%,#0d9488 100%)}
+.hero-slide:nth-child(2) .bg{background:linear-gradient(135deg,#1e3a8a 0%,#1d4ed8 40%,#0284c7 100%)}
+.hero-slide:nth-child(3) .bg{background:linear-gradient(135deg,#4a1d96 0%,#6d28d9 50%,#7c3aed 100%)}
+.hero-slide:nth-child(4) .bg{background:linear-gradient(135deg,#7c2d12 0%,#c2410c 50%,#d97706 100%)}
+.hero-slide .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.48) 0%,rgba(0,0,0,.15) 60%,transparent 100%)}
+.hero-slide .inner{position:relative;z-index:2;padding:48px 52px;max-width:580px}
+.slide-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);color:#fff;border-radius:99px;padding:5px 14px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px;border:1px solid rgba(255,255,255,.25)}
+.hero-slide h1{font-size:clamp(24px,2.8vw,38px);font-weight:900;color:#fff;line-height:1.25;letter-spacing:-.5px;margin-bottom:16px}
+.hero-slide h1 em{font-style:normal;color:#6EE7B7}
+.hero-slide .lead{font-size:14.5px;color:rgba(255,255,255,.78);max-width:480px;line-height:1.75;margin-bottom:28px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap}
+.hero-btns .btn-white{background:#fff;color:var(--green-d);border:none;border-radius:10px;padding:12px 24px;font-size:14px;font-weight:700;font-family:inherit;transition:all .15s}
+.hero-btns .btn-white:hover{background:#DCFCE7;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.hero-btns .btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5);border-radius:10px;padding:12px 24px;font-size:14px;font-weight:700;font-family:inherit;transition:all .15s}
+.hero-btns .btn-ghost:hover{background:rgba(255,255,255,.12);border-color:#fff}
 
-/* ── SECTION ── */
+/* hero controls */
+.hero-ctrl{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;padding:20px 52px;z-index:10;gap:12px}
+.hero-dots{display:flex;gap:7px;flex:1}
+.hero-dot{width:8px;height:8px;border-radius:99px;background:rgba(255,255,255,.35);border:none;cursor:pointer;padding:0;transition:all .3s}
+.hero-dot.active{width:28px;background:#fff}
+.hero-counter{color:rgba(255,255,255,.7);font-size:12px;font-weight:700;letter-spacing:.05em}
+.hero-counter strong{color:#fff}
+.hero-arr{background:rgba(255,255,255,.18);backdrop-filter:blur(4px);color:#fff;width:38px;height:38px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;border:none}
+.hero-arr:hover{background:rgba(255,255,255,.32)}
+.hero-progress{position:absolute;bottom:0;left:0;height:3px;background:rgba(255,255,255,.7);z-index:10}
+
+/* ── 우측 퀵 카드 패널 ── */
+.hero-side{display:flex;flex-direction:column;background:#fff;border-left:1px solid var(--line);overflow:hidden}
+.hs-top{background:linear-gradient(135deg,#064e3b,#065f46);padding:24px;flex-shrink:0}
+.hs-top .hs-badge{display:inline-block;background:rgba(255,255,255,.2);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.1em;border-radius:4px;padding:2px 8px;margin-bottom:12px}
+.hs-top h3{font-size:18px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:8px}
+.hs-top p{font-size:12.5px;color:rgba(255,255,255,.75);line-height:1.55}
+.hs-top .hs-cta{margin-top:14px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.35);color:#fff;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;font-family:inherit;width:100%;text-align:center;transition:background .15s;cursor:pointer}
+.hs-top .hs-cta:hover{background:rgba(255,255,255,.28)}
+.hs-quick{flex:1;overflow-y:auto;padding:16px}
+.hs-quick-title{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--sub2);text-transform:uppercase;margin-bottom:12px;padding-left:2px}
+.qs-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer;transition:all .15s;margin-bottom:8px}
+.qs-item:hover{border-color:var(--green);background:var(--green-soft2);transform:translateX(2px)}
+.qs-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.qs-icon.g{background:#DCFCE7}
+.qs-icon.b{background:#DBEAFE}
+.qs-icon.p{background:#EDE9FE}
+.qs-icon.o{background:#FFEDD5}
+.qs-body{flex:1;min-width:0}
+.qs-name{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.qs-desc{font-size:11.5px;color:var(--sub)}
+.qs-arr{color:var(--sub2);font-size:14px;flex-shrink:0}
+.hs-bottom{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-top:1px solid var(--line);flex-shrink:0}
+.hs-bottom-item{background:#fff;padding:14px 16px;cursor:pointer;transition:background .12s;text-align:center}
+.hs-bottom-item:hover{background:var(--green-soft2)}
+.hs-bottom-item .hbi-ico{font-size:22px;margin-bottom:4px}
+.hs-bottom-item .hbi-lbl{font-size:12px;font-weight:700;color:var(--ink)}
+
+/* ══════════════════════ HOME SHORTCUT GRID ══════════════════════ */
+.sc-section{background:#fff;border-bottom:1px solid var(--line);padding:28px 0}
+.sc-inner{max-width:1200px;margin:0 auto;padding:0 32px}
+.sc-intro{text-align:center;margin-bottom:24px}
+.sc-intro h2{font-size:20px;font-weight:800;letter-spacing:-.4px;color:var(--ink);margin-bottom:6px}
+.sc-intro p{font-size:13.5px;color:var(--sub)}
+.sc-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}
+.sc-item{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:14px;border:1px solid var(--line);background:#FAFAFA;cursor:pointer;transition:all .15s}
+.sc-item:hover{background:var(--green-soft2);border-color:var(--green);transform:translateY(-2px)}
+.sc-icon{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;transition:transform .15s}
+.sc-item:hover .sc-icon{transform:scale(1.1)}
+.sc-lbl{font-size:12px;font-weight:700;color:var(--ink);text-align:center;line-height:1.3}
+
+/* ══════════════════════ HOME SECTIONS ══════════════════════ */
+.home-wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* 프로그램 안내 */
+.prog-section{padding:56px 0 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px}
+.sec-head-text .sec-eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.16em;color:var(--green-d);margin-bottom:4px;text-transform:uppercase}
+.sec-head-text h2{font-size:24px;font-weight:900;letter-spacing:-.5px;color:var(--ink)}
+.sec-head-text p{font-size:14px;color:var(--sub);margin-top:4px}
+.see-all{font-size:13px;font-weight:700;color:var(--green-d);background:none;border:none;padding:8px 14px;border-radius:8px;transition:background .12s}
+.see-all:hover{background:var(--green-soft)}
+.prog-slider-wrap{position:relative;overflow:hidden}
+.prog-slider{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.prog-card{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;cursor:pointer;transition:all .2s;display:flex;flex-direction:column}
+.prog-card:hover{box-shadow:0 8px 28px rgba(0,0,0,.1);transform:translateY(-3px);border-color:var(--green)}
+.prog-card-thumb{height:180px;overflow:hidden;position:relative}
+.prog-card-thumb .tc-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px}
+.prog-card-thumb .tc-badge{position:absolute;top:12px;left:12px;background:var(--green);color:#fff;font-size:11px;font-weight:700;border-radius:6px;padding:3px 9px}
+.prog-card-body{padding:18px 20px;flex:1;display:flex;flex-direction:column}
+.prog-card-body h3{font-size:16px;font-weight:800;letter-spacing:-.3px;color:var(--ink);margin-bottom:8px;line-height:1.35}
+.prog-card-meta{display:flex;flex-direction:column;gap:3px;font-size:12.5px;color:var(--sub);flex:1}
+.prog-card-meta span{display:flex;gap:4px}
+.prog-card-meta b{color:var(--ink);font-weight:600}
+.prog-card-foot{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-top:1px solid var(--line)}
+.prog-card-status{font-size:11.5px;font-weight:700;border-radius:5px;padding:3px 8px}
+.prog-card-status.open{background:#DCFCE7;color:var(--green-d)}
+.prog-card-status.soon{background:#DBEAFE;color:#1D4ED8}
+.prog-card-status.closed{background:#F1F5F9;color:var(--sub)}
+.prog-card-foot .detail-btn{font-size:12.5px;font-weight:700;color:var(--green-d);background:none;border:none;padding:0}
+.prog-card-foot .detail-btn:hover{text-decoration:underline}
+
+/* 소식 + 하이라이트 */
+.news-section{padding:56px 0;display:grid;grid-template-columns:1fr 400px;gap:32px;align-items:start}
+.news-left h2{font-size:22px;font-weight:900;letter-spacing:-.4px;color:var(--ink);margin-bottom:20px}
+.news-list{display:flex;flex-direction:column;gap:0}
+.news-item{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer;transition:background .12s;border-radius:0}
+.news-item:hover .news-title{color:var(--green-d)}
+.news-item:last-child{border-bottom:none}
+.news-pin{flex-shrink:0;background:var(--green);color:#fff;font-size:10px;font-weight:800;border-radius:4px;padding:2px 6px;letter-spacing:.03em}
+.news-body{flex:1;min-width:0}
+.news-title{font-size:14px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .12s}
+.news-date{font-size:12px;color:var(--sub2);margin-top:2px}
+.news-more{font-size:12.5px;font-weight:700;color:var(--sub);margin-top:14px;display:flex;align-items:center;gap:4px}
+.news-highlight{background:#fff;border-radius:18px;border:1px solid var(--line);overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.07)}
+.nh-img{height:200px;background:linear-gradient(135deg,#064e3b,#065f46);display:flex;align-items:center;justify-content:center;font-size:64px;position:relative;overflow:hidden}
+.nh-body{padding:24px}
+.nh-tag{display:inline-block;background:var(--green-soft);color:var(--green-d);font-size:11px;font-weight:700;border-radius:5px;padding:3px 8px;margin-bottom:12px}
+.nh-title{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--ink);line-height:1.45;margin-bottom:10px}
+.nh-desc{font-size:13px;color:var(--sub);line-height:1.65;margin-bottom:18px}
+.nh-cta{background:var(--green);color:#fff;border:none;border-radius:9px;padding:11px 20px;font-size:13.5px;font-weight:700;font-family:inherit;cursor:pointer;transition:background .12s}
+.nh-cta:hover{background:var(--green-d)}
+
+/* CTA 풀배너 */
+.cta-banner{margin:0;position:relative;overflow:hidden;min-height:280px;display:flex;align-items:center}
+.cta-banner .cta-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 50%,#134e4a 100%)}
+.cta-banner .cta-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.3),transparent)}
+.cta-overlay{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:56px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.cta-text h2{font-size:clamp(20px,2.5vw,32px);font-weight:900;color:#fff;letter-spacing:-.5px;line-height:1.3;margin-bottom:10px}
+.cta-text p{font-size:15px;color:rgba(255,255,255,.72);line-height:1.6}
+.cta-btn{background:#fff;color:var(--green-d);border:none;border-radius:12px;padding:14px 32px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;flex-shrink:0;transition:all .15s;white-space:nowrap}
+.cta-btn:hover{background:#DCFCE7;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+
+/* 이용문의 + 공간 */
+.info-section{padding:48px 0 64px;display:grid;grid-template-columns:360px 1fr;gap:32px;align-items:start}
+.contact-box{background:linear-gradient(160deg,var(--green-d),var(--green));border-radius:18px;padding:32px;color:#fff}
+.contact-box h3{font-size:14px;font-weight:700;opacity:.8;margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em}
+.contact-phone{font-size:36px;font-weight:900;letter-spacing:-.5px;margin-bottom:6px}
+.contact-hours{font-size:13px;opacity:.75;margin-bottom:28px;line-height:1.6}
+.contact-menu{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cm-item{background:rgba(255,255,255,.15);border-radius:12px;padding:14px 8px;text-align:center;cursor:pointer;transition:background .15s}
+.cm-item:hover{background:rgba(255,255,255,.25)}
+.cm-ico{font-size:22px;margin-bottom:6px}
+.cm-lbl{font-size:12px;font-weight:700}
+.space-box h2{font-size:22px;font-weight:900;letter-spacing:-.4px;color:var(--ink);margin-bottom:20px}
+.space-cards{display:flex;flex-direction:column;gap:14px}
+.space-card{display:grid;grid-template-columns:110px 1fr;gap:0;border-radius:14px;border:1px solid var(--line);background:#fff;overflow:hidden;cursor:pointer;transition:all .15s}
+.space-card:hover{border-color:var(--green);box-shadow:0 4px 16px rgba(22,163,74,.12)}
+.space-thumb{background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:36px}
+.space-info{padding:16px 18px}
+.space-info h4{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:4px}
+.space-info p{font-size:12.5px;color:var(--sub);line-height:1.5}
+.space-tag{display:inline-block;background:var(--green-soft);color:var(--green-d);font-size:11px;font-weight:700;border-radius:5px;padding:2px 7px;margin-top:6px}
+
+/* ══════════════════════ HOME DOMAIN ACCORDION ══════════════════════ */
+.domain-wrap{padding:56px 0 0}
+.domain-panels{display:flex;gap:0;border-radius:18px;overflow:hidden;height:400px;box-shadow:0 8px 32px rgba(0,0,0,.12)}
+.domain-panel{position:relative;flex:1;cursor:pointer;overflow:hidden;transition:flex .55s cubic-bezier(.77,0,.18,1)}
+.domain-panel.active{flex:4.5}
+.domain-panel .dp-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .55s cubic-bezier(.77,0,.18,1)}
+.domain-panel:hover .dp-bg{transform:scale(1.04)}
+.domain-panel .dp-overlay{position:absolute;inset:0;transition:opacity .3s}
+.domain-panel:nth-child(1) .dp-bg{background:linear-gradient(160deg,#064e3b,#065f46 60%,#047857)}
+.domain-panel:nth-child(1) .dp-overlay{background:linear-gradient(to right,rgba(4,60,40,.78) 0%,rgba(4,60,40,.25) 100%)}
+.domain-panel:nth-child(2) .dp-bg{background:linear-gradient(160deg,#1e3a8a,#1d4ed8 60%,#2563eb)}
+.domain-panel:nth-child(2) .dp-overlay{background:linear-gradient(to right,rgba(15,30,100,.78) 0%,rgba(15,30,100,.25) 100%)}
+.domain-panel:nth-child(3) .dp-bg{background:linear-gradient(160deg,#92400e,#b45309 60%,#d97706)}
+.domain-panel:nth-child(3) .dp-overlay{background:linear-gradient(to right,rgba(100,40,10,.78) 0%,rgba(100,40,10,.25) 100%)}
+.domain-panel:nth-child(4) .dp-bg{background:linear-gradient(160deg,#4a1d96,#6d28d9 60%,#7c3aed)}
+.domain-panel:nth-child(4) .dp-overlay{background:linear-gradient(to right,rgba(50,15,100,.78) 0%,rgba(50,15,100,.25) 100%)}
+.domain-panel .dp-label{position:absolute;bottom:0;left:0;right:0;padding:20px 16px;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;transition:opacity .3s}
+.domain-panel.active .dp-label{opacity:0;pointer-events:none}
+.dp-label .dp-num{font-size:11px;font-weight:800;color:rgba(255,255,255,.5);letter-spacing:.15em;margin-bottom:8px}
+.dp-label .dp-title-v{writing-mode:vertical-rl;text-orientation:mixed;font-size:14px;font-weight:800;color:#fff;letter-spacing:.06em;line-height:1;white-space:nowrap}
+.domain-panel .dp-content{position:absolute;inset:0;padding:36px 36px 32px;z-index:2;opacity:0;transform:translateX(-16px);transition:opacity .35s .1s,transform .35s .1s;pointer-events:none;display:flex;flex-direction:column;justify-content:flex-end}
+.domain-panel.active .dp-content{opacity:1;transform:translateX(0);pointer-events:auto}
+.dp-content .dp-eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;color:rgba(255,255,255,.65);margin-bottom:10px;text-transform:uppercase}
+.dp-content h3{font-size:26px;font-weight:900;color:#fff;margin-bottom:12px;line-height:1.25;letter-spacing:-.4px}
+.dp-content p{font-size:13.5px;color:rgba(255,255,255,.78);line-height:1.7;max-width:480px;margin-bottom:20px}
+.dp-content ul{list-style:none;margin-bottom:22px;display:flex;flex-direction:column;gap:6px}
+.dp-content ul li{font-size:13px;color:rgba(255,255,255,.82);padding-left:18px;position:relative;line-height:1.5}
+.dp-content ul li::before{content:"✓";position:absolute;left:0;color:#6EE7B7;font-weight:800;font-size:11px;top:2px}
+.dp-cta{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);backdrop-filter:blur(4px);color:#fff;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:700;border:1.5px solid rgba(255,255,255,.3);cursor:pointer;transition:all .15s;font-family:inherit}
+.dp-cta:hover{background:rgba(255,255,255,.28);border-color:#fff}
+.domain-panel:not(:last-child){border-right:1px solid rgba(255,255,255,.08)}
+
+/* ══════════════════════ HOME GOALS ══════════════════════ */
+.goals-section{padding:56px 0}
+.goals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.goal-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;text-align:center;transition:all .15s}
+.goal-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.08);transform:translateY(-2px)}
+.goal-num{font-size:30px;font-weight:900;letter-spacing:-.5px;margin-bottom:6px}
+.goal-num.g{color:var(--green-d)}
+.goal-num.b{color:var(--blue)}
+.goal-num.p{color:var(--purple)}
+.goal-label{font-size:13px;color:var(--sub)}
+
+/* ══════════════════════ FOOTER ══════════════════════ */
+footer{background:#1A2332;color:rgba(255,255,255,.55)}
+.ft-inner{max-width:1200px;margin:0 auto;padding:0 32px}
+.ft-top{display:flex;align-items:center;justify-content:space-between;padding:40px 0 28px;gap:24px;border-bottom:1px solid rgba(255,255,255,.08)}
+.ft-brand{display:flex;align-items:center;gap:14px}
+.ft-logo{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--green),#22C55E);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:12px;flex-shrink:0}
+.ft-name strong{display:block;font-size:14px;font-weight:800;color:#fff;margin-bottom:2px}
+.ft-name span{font-size:11.5px;color:rgba(255,255,255,.4);letter-spacing:.03em}
+.ft-nav{display:flex;gap:0;flex-wrap:wrap}
+.ft-nav a{color:rgba(255,255,255,.45);text-decoration:none;font-size:12.5px;font-weight:600;padding:6px 14px;border-radius:6px;transition:color .12s,background .12s}
+.ft-nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.ft-divider{height:1px;background:rgba(255,255,255,.06)}
+.ft-bottom{display:flex;align-items:flex-start;justify-content:space-between;padding:24px 0 36px;gap:24px}
+.ft-info p{font-size:12px;color:rgba(255,255,255,.4);line-height:1.9}
+.ft-info strong{color:rgba(255,255,255,.65);font-weight:600}
+.ft-copy{text-align:right;flex-shrink:0}
+.ft-copy p{font-size:12px;color:rgba(255,255,255,.4);line-height:1.7}
+.ft-copy-sub{font-size:11px;color:rgba(255,255,255,.25)}
+@media(max-width:840px){
+  .ft-top{flex-direction:column;align-items:flex-start}
+  .ft-nav{gap:0}
+  .ft-bottom{flex-direction:column}
+  .ft-copy{text-align:left}
+}
+
+/* ══════════════════════ INNER PAGES (pkg/equip/etc) ══════════════════════ */
 .sect{margin-bottom:40px}
 .sect .sec-eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.16em;color:var(--green-d);margin-bottom:4px;text-transform:uppercase}
 .sect h2{font-size:22px;font-weight:800;letter-spacing:-.4px;margin-bottom:6px;color:var(--ink)}
@@ -91,30 +294,36 @@ main{max-width:1140px;margin:0 auto;padding:32px 24px 80px}
 .g2{grid-template-columns:repeat(2,1fr)}
 @media(max-width:840px){
   .g3,.g2{grid-template-columns:1fr}
-  .hero{padding:36px 28px}
-  .hwrap{height:auto;flex-wrap:wrap;padding:10px 16px;gap:6px}
-  .brand{gap:8px}
-  .brand .mark{width:30px;height:26px;font-size:10px}
-  .brand .t{font-size:13px;line-height:1.3}
-  .brand .t small{font-size:10px}
-  nav{width:100%;gap:3px;flex-wrap:wrap}
-  nav button{flex:1 1 auto;padding:7px 8px;font-size:12px;white-space:nowrap;text-align:center}
-  .cartbtn .cnt{top:-4px;right:2px}
+  .hero-wrap{grid-template-columns:1fr;max-height:none}
+  .hero-side{display:none}
+  .hero-main{min-height:60vw}
+  .hero-slide .inner{padding:32px 24px}
+  .hero-slide h1{font-size:22px}
+  .hero-ctrl{padding:16px 24px}
+  .hwrap{height:auto;flex-wrap:wrap;padding:10px 16px;gap:8px}
+  .gnb{width:100%;gap:2px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
+  .gnb button{flex-shrink:0;padding:8px 12px;font-size:12.5px}
+  .hutil{display:none}
+  .sc-grid{grid-template-columns:repeat(4,1fr)}
+  .prog-slider{grid-template-columns:1fr}
+  .news-section{grid-template-columns:1fr}
+  .info-section{grid-template-columns:1fr}
+  .goals-grid{grid-template-columns:1fr 1fr}
+  .cta-overlay{flex-direction:column;text-align:center}
+  .domain-panels{flex-direction:column;height:auto;border-radius:14px}
+  .domain-panel{flex:none!important;height:64px;transition:height .45s cubic-bezier(.77,0,.18,1)}
+  .domain-panel.active{height:320px}
+  .domain-panel .dp-label{flex-direction:row;align-items:center;padding:0 20px;height:64px;justify-content:flex-start;gap:12px}
+  .domain-panel .dp-label .dp-title-v{writing-mode:horizontal-tb;font-size:15px}
+  .domain-panel .dp-content{padding:20px 20px 24px;justify-content:flex-end}
+  .dp-content h3{font-size:20px}
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:12px;text-align:center}
+  .wrap,.home-wrap{padding:0 16px}
+  .sc-inner{padding:0 16px}
 }
 
-/* ── CARD ── */
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.card h3{font-size:16px;font-weight:700;margin-bottom:6px;color:var(--ink)}
-.card p{font-size:13.5px;color:var(--sub)}
-
-/* icon cards */
-.icard{display:flex;gap:14px;align-items:flex-start}
-.icard .iico{width:40px;height:40px;border-radius:10px;background:var(--green-soft);color:var(--green-d);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.icard .iico svg{width:20px;height:20px}
-.icard .ibody{min-width:0}
-.icard .ibody h3{margin-bottom:4px}
-
-/* connected flow (roadmap) */
+/* connected flow */
 .flow3{display:flex;gap:30px;align-items:stretch}
 .flow3 .fbox{flex:1;position:relative}
 .flow3 .fbox:not(:last-child)::after{content:"→";position:absolute;right:-26px;top:50%;transform:translateY(-50%);color:var(--green);font-size:20px;font-weight:800}
@@ -122,6 +331,16 @@ main{max-width:1140px;margin:0 auto;padding:32px 24px 80px}
   .flow3{flex-direction:column;gap:26px}
   .flow3 .fbox:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-22px;transform:translateX(-50%)}
 }
+
+/* ── CARD ── */
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.card h3{font-size:16px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.card p{font-size:13.5px;color:var(--sub)}
+.icard{display:flex;gap:14px;align-items:flex-start}
+.icard .iico{width:40px;height:40px;border-radius:10px;background:var(--green-soft);color:var(--green-d);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.icard .iico svg{width:20px;height:20px}
+.icard .ibody{min-width:0}
+.icard .ibody h3{margin-bottom:4px}
 
 /* ── PACKAGES ── */
 .pkg{display:flex;flex-direction:column;transition:border-color .15s,box-shadow .15s;cursor:pointer}
@@ -147,8 +366,6 @@ main{max-width:1140px;margin:0 auto;padding:32px 24px 80px}
 .pkg.soon li::before{background:#CBD5E1}
 .pkg.soon .tag{background:#F1F5F9;border-color:#CBD5E1;color:var(--sub2)}
 .pkg.soon .apply{border-color:#CBD5E1;background:#F1F5F9;color:var(--sub2);cursor:default}
-
-/* package modal examples */
 .exh{font-size:14px;font-weight:700;margin:18px 0 8px;color:var(--green-d)}
 .exh small{font-weight:500;color:var(--sub);font-size:12px;margin-left:6px}
 .exlist{display:flex;flex-direction:column;gap:7px}
@@ -206,7 +423,7 @@ main{max-width:1140px;margin:0 auto;padding:32px 24px 80px}
 .spequip{margin-top:8px}
 
 /* ── MODAL ── */
-.mback{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto;backdrop-filter:blur(3px)}
+.mback{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto;backdrop-filter:blur(3px)}
 .mback.on{display:flex}
 .modal{background:#fff;border:1px solid var(--line);border-radius:18px;max-width:640px;width:100%;padding:28px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.12)}
 .modal .x{position:absolute;top:16px;right:16px;border:none;background:var(--card2);border-radius:8px;width:32px;height:32px;font-size:15px;color:var(--sub);transition:background .12s}
@@ -276,379 +493,484 @@ main{max-width:1140px;margin:0 auto;padding:32px 24px 80px}
 .gthumb img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
 .gthumb .gcap{padding:10px 14px;font-size:13px;color:var(--sub)}
 .lightimg{width:100%;border-radius:12px;margin:12px 0;display:block;background:var(--card2)}
-
-/* ── FOOTER ── */
-footer{border-top:1px solid var(--line);background:#fff;padding:24px 20px;text-align:center;color:var(--sub);font-size:12.5px}
-
-/* ══════════════════════════════════════
-   HERO BANNER SLIDER (fullscreen)
-══════════════════════════════════════ */
-.hero-banner{position:relative;width:100%;height:calc(100vh - 64px);min-height:480px;max-height:760px;overflow:hidden;margin-bottom:0}
-.hero-slides{display:flex;width:100%;height:100%;transition:transform .7s cubic-bezier(.77,0,.18,1)}
-.hero-slide{flex:0 0 100%;height:100%;position:relative;display:flex;align-items:center}
-.hero-slide .bg{position:absolute;inset:0;background-size:cover;background-position:center}
-.hero-slide .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(10,30,15,.68) 0%,rgba(10,30,15,.30) 60%,transparent 100%)}
-/* 각 슬라이드 배경 그라디언트 (이미지 없는 경우) */
-.hero-slide:nth-child(1) .bg{background:linear-gradient(135deg,#064e3b 0%,#065f46 40%,#0d9488 100%)}
-.hero-slide:nth-child(2) .bg{background:linear-gradient(135deg,#1e3a8a 0%,#1d4ed8 50%,#0284c7 100%)}
-.hero-slide:nth-child(3) .bg{background:linear-gradient(135deg,#4a1d96 0%,#6d28d9 50%,#7c3aed 100%)}
-.hero-slide:nth-child(4) .bg{background:linear-gradient(135deg,#7c2d12 0%,#c2410c 50%,#ea580c 100%)}
-.hero-slide .inner{position:relative;z-index:2;max-width:1140px;margin:0 auto;padding:0 48px;width:100%}
-.hero-slide .slide-eyebrow{font-size:12px;font-weight:700;letter-spacing:.2em;color:rgba(255,255,255,.7);margin-bottom:16px;text-transform:uppercase;display:flex;align-items:center;gap:8px}
-.hero-slide .slide-eyebrow::before{content:"";width:32px;height:2px;background:rgba(255,255,255,.6);display:block}
-.hero-slide h2{font-size:clamp(26px,3.5vw,46px);font-weight:800;color:#fff;line-height:1.25;letter-spacing:-.5px;margin-bottom:18px}
-.hero-slide h2 em{font-style:normal;color:#6EE7B7}
-.hero-slide p{font-size:15px;color:rgba(255,255,255,.78);max-width:560px;line-height:1.7;margin-bottom:28px}
-.hero-slide .slide-btns{display:flex;gap:12px;flex-wrap:wrap}
-.hero-slide .slide-btns a,.hero-slide .slide-btns button{text-decoration:none;border-radius:10px;padding:12px 26px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .15s;border:none}
-.hero-slide .slide-btns .btn-p{background:#fff;color:var(--green-d)}
-.hero-slide .slide-btns .btn-p:hover{background:#DCFCE7}
-.hero-slide .slide-btns .btn-s{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.55)}
-.hero-slide .slide-btns .btn-s:hover{background:rgba(255,255,255,.12);border-color:#fff}
-
-/* slide controls */
-.hero-dots{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10}
-.hero-dot{width:8px;height:8px;border-radius:99px;background:rgba(255,255,255,.35);border:none;cursor:pointer;padding:0;transition:all .3s}
-.hero-dot.on,.hero-dot.active{width:28px;background:#fff}
-.hero-arr{position:absolute;top:50%;transform:translateY(-50%);z-index:10;border:none;background:rgba(255,255,255,.18);backdrop-filter:blur(4px);color:#fff;width:44px;height:44px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
-.hero-arr:hover{background:rgba(255,255,255,.32)}
-.hero-arr.prev{left:20px}
-.hero-arr.next{right:20px}
-/* progress bar */
-.hero-progress{position:absolute;bottom:0;left:0;height:3px;background:var(--green);z-index:10;transition:width .1s linear}
-/* slide counter */
-.hero-counter{position:absolute;bottom:32px;right:32px;color:rgba(255,255,255,.7);font-size:13px;font-weight:700;z-index:10;letter-spacing:.05em}
-.hero-counter strong{color:#fff;font-size:16px}
-@media(max-width:640px){
-  .hero-banner{height:60vw;min-height:320px}
-  .hero-slide .inner{padding:0 24px}
-  .hero-slide h2{font-size:22px}
-  .hero-arr{display:none}
-  .hero-counter{display:none}
-}
-
-/* ══════════════════════════════════════
-   SUPPORT DOMAIN ACCORDION (kaia style)
-══════════════════════════════════════ */
-.domain-section{margin-bottom:40px}
-.domain-section .sec-eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.16em;color:var(--green-d);margin-bottom:4px;text-transform:uppercase}
-.domain-section h2{font-size:22px;font-weight:800;letter-spacing:-.4px;margin-bottom:6px;color:var(--ink)}
-.domain-section .desc{color:var(--sub);font-size:14px;margin-bottom:24px}
-
-.domain-panels{display:flex;gap:0;border-radius:18px;overflow:hidden;height:380px;box-shadow:0 8px 32px rgba(0,0,0,.10)}
-.domain-panel{position:relative;flex:1;cursor:pointer;overflow:hidden;transition:flex .55s cubic-bezier(.77,0,.18,1)}
-.domain-panel.active{flex:4.5}
-.domain-panel .dp-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .55s cubic-bezier(.77,0,.18,1)}
-.domain-panel:hover .dp-bg{transform:scale(1.04)}
-.domain-panel .dp-overlay{position:absolute;inset:0;transition:opacity .3s}
-/* 각 패널 배경 */
-.domain-panel:nth-child(1) .dp-bg{background:linear-gradient(160deg,#064e3b,#065f46 60%,#047857)}
-.domain-panel:nth-child(1) .dp-overlay{background:linear-gradient(to right,rgba(4,60,40,.75) 0%,rgba(4,60,40,.30) 100%)}
-.domain-panel:nth-child(2) .dp-bg{background:linear-gradient(160deg,#1e3a8a,#1d4ed8 60%,#2563eb)}
-.domain-panel:nth-child(2) .dp-overlay{background:linear-gradient(to right,rgba(15,30,100,.75) 0%,rgba(15,30,100,.30) 100%)}
-.domain-panel:nth-child(3) .dp-bg{background:linear-gradient(160deg,#92400e,#b45309 60%,#d97706)}
-.domain-panel:nth-child(3) .dp-overlay{background:linear-gradient(to right,rgba(100,40,10,.75) 0%,rgba(100,40,10,.30) 100%)}
-.domain-panel:nth-child(4) .dp-bg{background:linear-gradient(160deg,#4a1d96,#6d28d9 60%,#7c3aed)}
-.domain-panel:nth-child(4) .dp-overlay{background:linear-gradient(to right,rgba(50,15,100,.75) 0%,rgba(50,15,100,.30) 100%)}
-
-/* collapsed label (세로 텍스트) */
-.domain-panel .dp-label{position:absolute;bottom:0;left:0;right:0;padding:20px 16px;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;transition:opacity .3s}
-.domain-panel.active .dp-label{opacity:0;pointer-events:none}
-.dp-label .dp-num{font-size:11px;font-weight:800;color:rgba(255,255,255,.5);letter-spacing:.15em;margin-bottom:8px}
-.dp-label .dp-title-v{writing-mode:vertical-rl;text-orientation:mixed;font-size:14px;font-weight:800;color:#fff;letter-spacing:.06em;line-height:1;white-space:nowrap}
-
-/* expanded content */
-.domain-panel .dp-content{position:absolute;inset:0;padding:36px 36px 32px;z-index:2;opacity:0;transform:translateX(-16px);transition:opacity .35s .1s,transform .35s .1s;pointer-events:none;display:flex;flex-direction:column;justify-content:flex-end}
-.domain-panel.active .dp-content{opacity:1;transform:translateX(0);pointer-events:auto}
-.dp-content .dp-eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;color:rgba(255,255,255,.65);margin-bottom:10px;text-transform:uppercase}
-.dp-content h3{font-size:24px;font-weight:800;color:#fff;margin-bottom:12px;line-height:1.3;letter-spacing:-.3px}
-.dp-content p{font-size:13.5px;color:rgba(255,255,255,.78);line-height:1.7;max-width:480px;margin-bottom:20px}
-.dp-content ul{list-style:none;margin-bottom:22px;display:flex;flex-direction:column;gap:6px}
-.dp-content ul li{font-size:13px;color:rgba(255,255,255,.8);padding-left:18px;position:relative;line-height:1.5}
-.dp-content ul li::before{content:"✓";position:absolute;left:0;color:#6EE7B7;font-weight:800;font-size:11px;top:2px}
-.dp-content .dp-cta{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);backdrop-filter:blur(4px);color:#fff;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:700;border:1.5px solid rgba(255,255,255,.3);cursor:pointer;text-decoration:none;transition:all .15s;font-family:inherit}
-.dp-content .dp-cta:hover{background:rgba(255,255,255,.28);border-color:#fff}
-.dp-content .dp-cta svg{width:14px;height:14px;transition:transform .15s}
-.dp-content .dp-cta:hover svg{transform:translateX(3px)}
-
-/* narrow panel divider line */
-.domain-panel:not(:last-child){border-right:1px solid rgba(255,255,255,.08)}
-
-@media(max-width:840px){
-  .domain-panels{flex-direction:column;height:auto;border-radius:14px}
-  .domain-panel{flex:none!important;height:64px;transition:height .45s cubic-bezier(.77,0,.18,1)}
-  .domain-panel.active{height:320px}
-  .domain-panel .dp-label{flex-direction:row;align-items:center;padding:0 20px;height:64px;justify-content:flex-start;gap:12px}
-  .domain-panel .dp-label .dp-title-v{writing-mode:horizontal-tb;font-size:15px}
-  .domain-panel .dp-content{padding:20px 20px 24px;justify-content:flex-end}
-  .dp-content h3{font-size:20px}
-}
 </style>
 </head>
 <body>
 
+<!-- ══════════════════════ HEADER ══════════════════════ -->
 <header>
   <div class="hwrap">
-    <div class="brand">
-      <div class="mark">GFT</div>
-      <div class="t">과천시 푸드테크 연구지원센터<small>기업 신청 페이지</small></div>
-    </div>
-    <nav>
-      <button data-page="home" class="on"><span class="navlabel">센터 소개</span></button>
-      <button data-page="pkg"><span class="navlabel">실증 패키지</span></button>
-      <button data-page="equip"><span class="navlabel">장비 신청</span></button>
-      <button data-page="notice"><span class="navlabel">공지사항</span></button>
-      <button data-page="guide"><span class="navlabel">이용안내</span></button>
-      <button data-page="gallery"><span class="navlabel">갤러리</span></button>
-      <button data-page="apply" class="cartbtn">신청서<span class="cnt" id="cartCnt">0</span></button>
+    <a class="brand" onclick="go('home');return false;" href="#">
+      <div class="brand-logo">GFT</div>
+      <div class="brand-text">과천시 푸드테크 연구지원센터<small>개인맞춤형식품 연구·사업화 지원</small></div>
+    </a>
+    <nav class="gnb">
+      <button data-page="home" class="on">센터 소개</button>
+      <button data-page="pkg">실증 패키지</button>
+      <button data-page="equip">장비 신청</button>
+      <button data-page="notice">공지사항</button>
+      <button data-page="guide">이용안내</button>
+      <button data-page="gallery">갤러리</button>
     </nav>
+    <div class="hutil">
+      <button class="hutil-link" onclick="go('notice')">공지사항</button>
+      <button class="cartbtn" data-page="apply" onclick="go('apply')">신청서<span class="cnt" id="cartCnt">0</span></button>
+    </div>
   </div>
 </header>
 
-<main>
-
-<!-- ============ HERO BANNER SLIDER ============ -->
-<div class="hero-banner" id="heroBanner">
-  <div class="hero-slides" id="heroSlides">
-
-    <!-- Slide 1: 원스톱 지원 -->
-    <div class="hero-slide">
-      <div class="bg"></div>
-      <div class="inner">
-        <div class="slide-eyebrow">GWACHEON FOODTECH RESEARCH SUPPORT CENTER</div>
-        <h2>데이터부터 인증까지,<br><em>개인맞춤형식품 사업화</em>의<br>전 과정을 원스톱 지원</h2>
-        <p>과천시가 지정하고 서울대학교 산학협력단이 위탁 운영하는<br>개인맞춤형식품 분야 통합 지원 플랫폼입니다.</p>
-        <div class="slide-btns">
-          <button class="btn-p" onclick="go('pkg')">실증 패키지 신청</button>
-          <button class="btn-s" onclick="go('equip')">장비 둘러보기</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide 2: 알고리즘 설계 -->
-    <div class="hero-slide">
-      <div class="bg"></div>
-      <div class="inner">
-        <div class="slide-eyebrow">ALGORITHM &amp; AI DESIGN</div>
-        <h2>AI 기반 <em>맞춤식이 알고리즘</em><br>개발·고도화 지원</h2>
-        <p>서울대 보유 7종 알고리즘 제공 및 커스터마이징,<br>GPU 서버·워크스테이션 등 고성능 컴퓨팅 환경을 지원합니다.</p>
-        <div class="slide-btns">
-          <button class="btn-p" onclick="go('pkg')">알고리즘 패키지 보기</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide 3: 제품 실증 -->
-    <div class="hero-slide">
-      <div class="bg"></div>
-      <div class="inner">
-        <div class="slide-eyebrow">PRODUCT &amp; SERVICE VALIDATION</div>
-        <h2>스마트 조리·분석 장비로<br><em>제품·서비스 실증</em> 지원</h2>
-        <p>조리 로봇, 3D 푸드프린터, 성분 분석 장비 등<br>전문 실증 인프라를 통해 시제품 개발을 지원합니다.</p>
-        <div class="slide-btns">
-          <button class="btn-p" onclick="go('equip')">장비 신청하기</button>
-          <button class="btn-s" onclick="go('pkg')">실증 패키지 보기</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide 4: 인증 지원 -->
-    <div class="hero-slide">
-      <div class="bg"></div>
-      <div class="inner">
-        <div class="slide-eyebrow">CERTIFICATION &amp; COMMERCIALIZATION</div>
-        <h2>KTR·KOTITI 연계<br><em>인증 획득</em> 패스트트랙 지원</h2>
-        <p>협력 인증기관 직접 연계로 신속한 인허가를 지원하며<br>사업화 전 주기를 함께합니다.</p>
-        <div class="slide-btns">
-          <button class="btn-p" onclick="go('apply')">신청서 작성하기</button>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /hero-slides -->
-
-  <!-- controls -->
-  <button class="hero-arr prev" id="heroPrev" aria-label="이전">&#8592;</button>
-  <button class="hero-arr next" id="heroNext" aria-label="다음">&#8594;</button>
-  <div class="hero-dots" id="heroDots"></div>
-  <div class="hero-counter" id="heroCounter"><strong>1</strong> / 4</div>
-  <div class="hero-progress" id="heroProgress" style="width:0%"></div>
-</div>
-
-<main>
-
-<!-- ============ HOME ============ -->
+<!-- ══════════════════════ HOME PAGE ══════════════════════ -->
 <section class="page on" id="page-home">
 
-  <div class="sect" style="margin-top:8px">
-    <div class="sec-eyebrow">OVERVIEW</div>
-    <h2>센터 개요</h2>
-    <p class="desc">「과천시 푸드테크 산업 육성 및 지원 조례」에 근거해, 과천시·춘천시 2025년도 푸드테크 연구지원센터 공모사업 "개인맞춤형식품" 분야에 선정되어 설립되었습니다.</p>
-    <div class="grid g2">
-      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 21v-4h6v4M8 7h1M8 11h1M8 15h1M15 7h1M15 11h1M15 15h1"/></svg></div><div class="ibody"><h3>운영 기관</h3><p>서울대학교 산학협력단(소관: 식품바이오융합연구소) · 민간 위탁 운영</p></div></div>
-      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><div class="ibody"><h3>위탁 기간</h3><p>2026.03.01 ~ 2029.02.28 (3년)</p></div></div>
-      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".6" fill="currentColor"/></svg></div><div class="ibody"><h3>선정 분야</h3><p>과천시·춘천시 공동 공모사업 "개인맞춤형식품" 분야 (2025.03.05. 선정)</p></div></div>
-      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s7-7.4 7-12.5A7 7 0 0 0 5 9.5C5 14.6 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.4"/></svg></div><div class="ibody"><h3>위치</h3><p>경기도 과천시 지식정보타운 일대 (프리즘스퀘어·케이사인 사옥·진성에프엠 3개 건물)</p></div></div>
+<!-- ── 히어로 배너 + 우측 퀵 패널 ── -->
+<div class="hero-wrap">
+  <!-- 좌측: 슬라이드 배너 -->
+  <div class="hero-main" id="heroBanner">
+    <div class="hero-slides" id="heroSlides">
+
+      <div class="hero-slide">
+        <div class="bg"></div>
+        <div class="inner">
+          <div class="slide-tag">🌱 GWACHEON FOODTECH CENTER</div>
+          <h1>데이터부터 인증까지,<br><em>개인맞춤형식품 사업화</em>의<br>전 과정을 원스톱 지원</h1>
+          <p class="lead">과천시가 지정하고 서울대학교 산학협력단이 위탁 운영하는<br>개인맞춤형식품 분야 통합 지원 플랫폼입니다.</p>
+          <div class="hero-btns">
+            <button class="btn-white" onclick="go('pkg')">실증 패키지 신청</button>
+            <button class="btn-ghost" onclick="go('equip')">장비 둘러보기</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-slide">
+        <div class="bg"></div>
+        <div class="inner">
+          <div class="slide-tag">🤖 ALGORITHM &amp; AI DESIGN</div>
+          <h1>AI 기반 <em>맞춤식이 알고리즘</em><br>개발·고도화 지원</h1>
+          <p class="lead">서울대 보유 7종 알고리즘 제공 및 커스터마이징,<br>GPU 서버·워크스테이션 등 고성능 컴퓨팅 환경을 지원합니다.</p>
+          <div class="hero-btns">
+            <button class="btn-white" onclick="go('pkg')">알고리즘 패키지 보기</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-slide">
+        <div class="bg"></div>
+        <div class="inner">
+          <div class="slide-tag">🔬 PRODUCT VALIDATION</div>
+          <h1>스마트 조리·분석 장비로<br><em>제품·서비스 실증</em> 지원</h1>
+          <p class="lead">조리 로봇, 3D 푸드프린터, 성분 분석 장비 등<br>전문 실증 인프라를 통해 시제품 개발을 지원합니다.</p>
+          <div class="hero-btns">
+            <button class="btn-white" onclick="go('equip')">장비 신청하기</button>
+            <button class="btn-ghost" onclick="go('pkg')">실증 패키지 보기</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-slide">
+        <div class="bg"></div>
+        <div class="inner">
+          <div class="slide-tag">✅ CERTIFICATION SUPPORT</div>
+          <h1>KTR·KOTITI 연계<br><em>인증 획득</em> 패스트트랙 지원</h1>
+          <p class="lead">협력 인증기관 직접 연계로 신속한 인허가를 지원하며<br>사업화 전 주기를 함께합니다.</p>
+          <div class="hero-btns">
+            <button class="btn-white" onclick="go('apply')">신청서 작성하기</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /hero-slides -->
+
+    <div class="hero-ctrl">
+      <div class="hero-dots" id="heroDots"></div>
+      <span class="hero-counter" id="heroCounter"><strong>1</strong> / 4</span>
+      <button class="hero-arr" id="heroPrev" aria-label="이전">&#8592;</button>
+      <button class="hero-arr" id="heroNext" aria-label="다음">&#8594;</button>
+    </div>
+    <div class="hero-progress" id="heroProgress" style="width:0%"></div>
+  </div><!-- /hero-main -->
+
+  <!-- 우측: 퀵 액세스 패널 -->
+  <div class="hero-side">
+    <div class="hs-top">
+      <div class="hs-badge">📢 모집 중</div>
+      <h3>2026년 참여기업<br>모집 안내</h3>
+      <p>과천시 푸드테크 연구지원센터의 실증·장비·알고리즘 지원 패키지를 신청하세요.</p>
+      <button class="hs-cta" onclick="go('apply')">신청서 작성하기 →</button>
+    </div>
+    <div class="hs-quick">
+      <div class="hs-quick-title">바로가기</div>
+      <div class="qs-item" onclick="go('pkg')">
+        <div class="qs-icon g">📦</div>
+        <div class="qs-body">
+          <div class="qs-name">실증 패키지 신청</div>
+          <div class="qs-desc">데이터·알고리즘·실증·인증 모듈 선택</div>
+        </div>
+        <span class="qs-arr">›</span>
+      </div>
+      <div class="qs-item" onclick="go('equip')">
+        <div class="qs-icon b">🔬</div>
+        <div class="qs-body">
+          <div class="qs-name">장비 · 공간 신청</div>
+          <div class="qs-desc">실증실·미디어실 장비 이용 예약</div>
+        </div>
+        <span class="qs-arr">›</span>
+      </div>
+      <div class="qs-item" onclick="go('notice')">
+        <div class="qs-icon p">📋</div>
+        <div class="qs-body">
+          <div class="qs-name">공지사항</div>
+          <div class="qs-desc">모집 공고·운영 안내 확인</div>
+        </div>
+        <span class="qs-arr">›</span>
+      </div>
+      <div class="qs-item" onclick="go('guide')">
+        <div class="qs-icon o">❓</div>
+        <div class="qs-body">
+          <div class="qs-name">이용안내 · FAQ</div>
+          <div class="qs-desc">신청 절차와 자주 묻는 질문</div>
+        </div>
+        <span class="qs-arr">›</span>
+      </div>
+    </div>
+    <div class="hs-bottom">
+      <div class="hs-bottom-item" onclick="go('equip')">
+        <div class="hbi-ico">🏢</div>
+        <div class="hbi-lbl">공간 이용</div>
+      </div>
+      <div class="hs-bottom-item" onclick="go('gallery')">
+        <div class="hbi-ico">📸</div>
+        <div class="hbi-lbl">갤러리</div>
+      </div>
+    </div>
+  </div><!-- /hero-side -->
+</div><!-- /hero-wrap -->
+
+<!-- ── 바로가기 아이콘 그리드 ── -->
+<div class="sc-section">
+  <div class="sc-inner">
+    <div class="sc-intro">
+      <h2>푸드테크 사업화를 지원하고, 미래 식품산업을 함께 만듭니다.</h2>
+      <p>과천시 푸드테크 연구지원센터와 함께 개인맞춤형식품 분야의 사업화를 시작하세요.</p>
+    </div>
+    <div class="sc-grid">
+      <div class="sc-item" onclick="go('pkg')">
+        <div class="sc-icon" style="background:#DCFCE7">📦</div>
+        <div class="sc-lbl">패키지<br>신청</div>
+      </div>
+      <div class="sc-item" onclick="go('equip')">
+        <div class="sc-icon" style="background:#DBEAFE">🔬</div>
+        <div class="sc-lbl">장비<br>신청</div>
+      </div>
+      <div class="sc-item" onclick="go('equip')">
+        <div class="sc-icon" style="background:#FEF9C3">🏢</div>
+        <div class="sc-lbl">공간<br>예약</div>
+      </div>
+      <div class="sc-item" onclick="go('pkg')">
+        <div class="sc-icon" style="background:#EDE9FE">🤖</div>
+        <div class="sc-lbl">알고리즘<br>설계</div>
+      </div>
+      <div class="sc-item" onclick="go('pkg')">
+        <div class="sc-icon" style="background:#FFEDD5">🧪</div>
+        <div class="sc-lbl">제품<br>실증</div>
+      </div>
+      <div class="sc-item" onclick="go('pkg')">
+        <div class="sc-icon" style="background:#FCE7F3">✅</div>
+        <div class="sc-lbl">인증<br>지원</div>
+      </div>
+      <div class="sc-item" onclick="go('notice')">
+        <div class="sc-icon" style="background:#D1FAE5">📢</div>
+        <div class="sc-lbl">공지<br>사항</div>
+      </div>
+      <div class="sc-item" onclick="go('apply')">
+        <div class="sc-icon" style="background:#FEE2E2">📝</div>
+        <div class="sc-lbl">신청서<br>작성</div>
+      </div>
     </div>
   </div>
+</div>
 
-  <!-- ── CORE SUPPORT: accordion panels ── -->
-  <div class="domain-section">
-    <div class="sec-eyebrow">CORE SUPPORT</div>
-    <h2>센터가 제공하는 핵심 지원</h2>
-    <p class="desc">분야를 클릭하면 세부 지원 내용을 확인할 수 있습니다. 서울대 기술 자산과 센터 인프라를 결합하여 기업의 밸류체인 전 과정을 지원합니다.</p>
+<!-- ── 홈 본문 ── -->
+<div class="home-wrap">
 
+  <!-- 핵심 지원 도메인 (accordion) -->
+  <div class="domain-wrap">
+    <div class="sec-head">
+      <div class="sec-head-text">
+        <div class="sec-eyebrow">CORE SUPPORT</div>
+        <h2>센터가 제공하는 핵심 지원</h2>
+        <p>분야를 클릭하면 세부 지원 내용을 확인할 수 있습니다.</p>
+      </div>
+    </div>
     <div class="domain-panels" id="domainPanels">
 
-      <!-- Panel 1: 데이터 -->
       <div class="domain-panel active" data-idx="0">
-        <div class="dp-bg"></div>
-        <div class="dp-overlay"></div>
-        <!-- collapsed label -->
-        <div class="dp-label">
-          <div class="dp-num">01</div>
-          <div class="dp-title-v">데이터</div>
-        </div>
-        <!-- expanded content -->
+        <div class="dp-bg"></div><div class="dp-overlay"></div>
+        <div class="dp-label"><div class="dp-num">01</div><div class="dp-title-v">데이터</div></div>
         <div class="dp-content">
           <div class="dp-eyebrow">01 · DATA</div>
           <h3>기반 데이터 확보</h3>
-          <p>맞춤형 식이설계 플랫폼 기반 개인맞춤형 식이 DB를 제공하고, 웰니스 측정 시스템을 통한 헬스케어 데이터와 조리·분석 장비를 통한 레시피 특성 데이터 수집을 지원합니다.</p>
+          <p>레시피·영양성분·식재료 통합 DB와 웰니스 측정 장비를 활용해 개인맞춤형식품 개발에 필요한 데이터 기반을 구축합니다.</p>
           <ul>
             <li>레시피·영양성분·식재료 통합 DB 제공</li>
-            <li>웰니스 장비 기반 헬스케어 데이터 수집</li>
-            <li>조리·분석 장비 기반 레시피 특성 데이터 수집</li>
-            <li>서비스 형태별 데이터 수집 프로토콜 설계</li>
+            <li>웨어러블·체성분·혈당 측정 데이터 수집</li>
+            <li>식단 및 소비자 섭취 패턴 분석 지원</li>
           </ul>
-          <button class="dp-cta" onclick="go('pkg')">데이터 패키지 신청 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          <button class="dp-cta" onclick="go('pkg')">데이터 패키지 신청 →</button>
         </div>
       </div>
 
-      <!-- Panel 2: 알고리즘 설계 -->
       <div class="domain-panel" data-idx="1">
-        <div class="dp-bg"></div>
-        <div class="dp-overlay"></div>
-        <div class="dp-label">
-          <div class="dp-num">02</div>
-          <div class="dp-title-v">알고리즘</div>
-        </div>
+        <div class="dp-bg"></div><div class="dp-overlay"></div>
+        <div class="dp-label"><div class="dp-num">02</div><div class="dp-title-v">알고리즘</div></div>
         <div class="dp-content">
-          <div class="dp-eyebrow">02 · ALGORITHM &amp; AI</div>
-          <h3>맞춤식이 알고리즘 개발</h3>
-          <p>기보유 AI 알고리즘 7종 제공 및 커스터마이징, 고성능 컴퓨팅 인프라 지원, 실증 데이터 기반 알고리즘 반복 개선 사이클 운영을 지원합니다.</p>
+          <div class="dp-eyebrow">02 · ALGORITHM</div>
+          <h3>AI 맞춤 알고리즘 설계</h3>
+          <p>서울대 보유 7종 알고리즘을 기업 요건에 맞게 제공·커스터마이징하며, GPU 서버·워크스테이션 등 고성능 컴퓨팅 인프라를 지원합니다.</p>
           <ul>
-            <li>식습관 군집분석 · 다중목적 식단 최적화</li>
-            <li>그래프 신경망 기반 음식 추천 (특허출원)</li>
-            <li>채식 유형 필터링 · 질환 특화 RAG 챗봇</li>
-            <li>GPU 서버·워크스테이션 AI 개발 환경 제공</li>
+            <li>7종 맞춤식이 알고리즘 커스터마이징</li>
+            <li>GPU 서버·워크스테이션 컴퓨팅 지원</li>
+            <li>AI 모델 학습 및 검증 지원</li>
           </ul>
-          <button class="dp-cta" onclick="go('pkg')">알고리즘 패키지 신청 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          <button class="dp-cta" onclick="go('pkg')">알고리즘 패키지 신청 →</button>
         </div>
       </div>
 
-      <!-- Panel 3: 실증 -->
       <div class="domain-panel" data-idx="2">
-        <div class="dp-bg"></div>
-        <div class="dp-overlay"></div>
-        <div class="dp-label">
-          <div class="dp-num">03</div>
-          <div class="dp-title-v">실증</div>
-        </div>
+        <div class="dp-bg"></div><div class="dp-overlay"></div>
+        <div class="dp-label"><div class="dp-num">03</div><div class="dp-title-v">실증</div></div>
         <div class="dp-content">
           <div class="dp-eyebrow">03 · VALIDATION</div>
-          <h3>제조·서비스 실증 지원</h3>
-          <p>맞춤형 레시피 시범 조리·표준화, 실시간 성분·물성 분석, VR·스마트 모니터링 기반 서비스 테스트베드(외식·가정식 통합 검증)를 지원합니다.</p>
+          <h3>제품·서비스 실증</h3>
+          <p>조리 로봇, 3D 푸드프린터, 성분 분석 장비 등 전문 실증 인프라를 통해 시제품 개발부터 패키징·시음까지 지원합니다.</p>
           <ul>
-            <li>조리 로봇·3D 푸드프린터 활용 시제품 제작</li>
-            <li>성분·물성 분석 장비 기반 조리 조건 데이터 축적</li>
-            <li>VR 기반 매장 환경 시뮬레이션 서비스</li>
-            <li>외식·가정식·급식 통합 테스트베드 운영</li>
+            <li>스마트 조리 로봇·3D 프린터 활용 시제품 제작</li>
+            <li>영양성분 분석·패키징·미디어 촬영 지원</li>
+            <li>소비자 시음 및 피드백 수집 공간 제공</li>
           </ul>
-          <button class="dp-cta" onclick="go('equip')">장비·공간 신청 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          <button class="dp-cta" onclick="go('equip')">장비·공간 신청 →</button>
         </div>
       </div>
 
-      <!-- Panel 4: 인증 -->
       <div class="domain-panel" data-idx="3">
-        <div class="dp-bg"></div>
-        <div class="dp-overlay"></div>
-        <div class="dp-label">
-          <div class="dp-num">04</div>
-          <div class="dp-title-v">인증</div>
-        </div>
+        <div class="dp-bg"></div><div class="dp-overlay"></div>
+        <div class="dp-label"><div class="dp-num">04</div><div class="dp-title-v">인증</div></div>
         <div class="dp-content">
           <div class="dp-eyebrow">04 · CERTIFICATION</div>
-          <h3>제품·서비스 인증 지원</h3>
-          <p>KTR·KOTITI 등 협력 인증기관 연계 신속 인허가 지원, 수요 기반 신규 인증 제도 개발, 인증 획득 기업 대상 실질적 혜택을 지원합니다.</p>
+          <h3>인증 획득 패스트트랙</h3>
+          <p>KTR·KOTITI 협력 인증기관과 직접 연계해 건강기능식품·개인맞춤형식품 인증 취득 전 과정을 신속하게 지원합니다.</p>
           <ul>
-            <li>협력 인증기관 직접 연계 패스트트랙</li>
-            <li>비의료 건강관리서비스·SW 품질 인증 지원</li>
-            <li>데이터 보안 인증 컨설팅</li>
-            <li>센터 자체 인증 제도 연계 (개발 예정)</li>
+            <li>건강기능식품·맞춤형식품 인증 컨설팅</li>
+            <li>KTR·KOTITI 직접 연계 패스트트랙 지원</li>
+            <li>사업화·투자유치 연계 지원</li>
           </ul>
-          <button class="dp-cta" onclick="go('apply')">인증 지원 신청 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          <button class="dp-cta" onclick="go('apply')">인증 지원 신청 →</button>
         </div>
       </div>
 
     </div><!-- /domain-panels -->
-  </div><!-- /domain-section -->
+  </div><!-- /domain-wrap -->
 
-  <div class="sect">
-    <div class="sec-eyebrow">FACILITIES</div>
-    <h2>공간 안내</h2>
-    <p class="desc">과천 지식정보타운 내 3개 거점이 데이터 수집-맞춤 설계-실증-인증 밸류체인 단계에 따라 연계 운영됩니다. 카드를 클릭하면 거점별 세부 공간과 역할을 확인할 수 있습니다.</p>
-    <div class="grid g3" id="facilityGrid"></div>
-  </div>
-
-  <div class="sect">
-    <div class="sec-eyebrow">2026 ROADMAP</div>
-    <h2>2026년 추진 방향</h2>
-    <p class="desc">2026년은 센터의 시설·장비 인프라를 구축하고 운영 체계를 확립하는 '구축 및 안정화' 원년으로, 데이터·설계 지원을 중심으로 기업 지원 서비스를 시범 운영합니다.</p>
-    <div class="flow3">
-      <div class="card fbox"><h3>① 데이터 분석실 중심 운영</h3><p>케이사인 사옥 공유오피스·기술지원실을 통해 데이터·알고리즘 지원 서비스를 우선 시범 운영합니다.</p></div>
-      <div class="card fbox"><h3>② 진성에프엠 구축 완료</h3><p>제품 실증실 준공 후 장비 반입·설치(10~11월)를 완료해 2026년 12월부터 실증실·미디어실을 시범 운영합니다.</p></div>
-      <div class="card fbox"><h3>③ 2027년 전면 운영 준비</h3><p>2026년 구축·시범 운영을 기반으로 2027년 전체 공간·장비의 전면 운영 체계로 확장합니다.</p></div>
+  <!-- 프로그램 안내 -->
+  <div class="prog-section">
+    <div class="sec-head">
+      <div class="sec-head-text">
+        <div class="sec-eyebrow">PROGRAMS</div>
+        <h2>프로그램 안내</h2>
+        <p>센터가 운영하는 다양한 지원 프로그램을 확인하세요.</p>
+      </div>
+      <button class="see-all" onclick="go('pkg')">전체보기 →</button>
+    </div>
+    <div class="prog-slider">
+      <div class="prog-card" onclick="go('pkg')">
+        <div class="prog-card-thumb">
+          <div class="tc-bg" style="background:linear-gradient(135deg,#064e3b,#047857)">🗄️</div>
+          <span class="tc-badge">모집 중</span>
+        </div>
+        <div class="prog-card-body">
+          <h3>데이터 · 레시피 DB 구축 지원</h3>
+          <div class="prog-card-meta">
+            <span><b>기간</b> 협의 후 확정 (4주~12주)</span>
+            <span><b>대상</b> 개인맞춤형식품 개발 기업</span>
+            <span><b>내용</b> 레시피 DB 제공, 영양 데이터 분석, 섭취 패턴 조사</span>
+          </div>
+        </div>
+        <div class="prog-card-foot">
+          <span class="prog-card-status open">모집 중</span>
+          <button class="detail-btn">자세히보기 →</button>
+        </div>
+      </div>
+      <div class="prog-card" onclick="go('pkg')">
+        <div class="prog-card-thumb">
+          <div class="tc-bg" style="background:linear-gradient(135deg,#1e3a8a,#2563eb)">🤖</div>
+          <span class="tc-badge">모집 중</span>
+        </div>
+        <div class="prog-card-body">
+          <h3>AI 맞춤식이 알고리즘 개발 지원</h3>
+          <div class="prog-card-meta">
+            <span><b>기간</b> 협의 후 확정 (8주~16주)</span>
+            <span><b>대상</b> 알고리즘 기반 식품 솔루션 기업</span>
+            <span><b>내용</b> 서울대 7종 알고리즘 라이선스 + 커스터마이징 + GPU 컴퓨팅</span>
+          </div>
+        </div>
+        <div class="prog-card-foot">
+          <span class="prog-card-status open">모집 중</span>
+          <button class="detail-btn">자세히보기 →</button>
+        </div>
+      </div>
+      <div class="prog-card" onclick="go('equip')">
+        <div class="prog-card-thumb">
+          <div class="tc-bg" style="background:linear-gradient(135deg,#92400e,#d97706)">🧪</div>
+          <span class="tc-badge" style="background:#2563EB">2026.12 예정</span>
+        </div>
+        <div class="prog-card-body">
+          <h3>제품 실증 · 시제품 개발 지원</h3>
+          <div class="prog-card-meta">
+            <span><b>기간</b> 2026년 12월~ (시범 운영)</span>
+            <span><b>대상</b> 시제품 제작·실증이 필요한 기업</span>
+            <span><b>내용</b> 조리 로봇·3D 프린터 활용 시제품 제작, 패키징·분석 지원</span>
+          </div>
+        </div>
+        <div class="prog-card-foot">
+          <span class="prog-card-status soon">오픈 예정</span>
+          <button class="detail-btn">자세히보기 →</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="sect">
-    <div class="sec-eyebrow">GOALS</div>
-    <h2>2026~2028년 핵심 성과 목표</h2>
-    <p class="desc">개인맞춤형식품 분야 국내 최대 규모의 데이터·설계·실증·인증 통합 지원 체계 확립을 목표로 합니다. (3개년 누적 목표)</p>
-    <div class="grid g3">
-      <div class="card" style="border-top:3px solid var(--green)"><h3 style="font-size:26px;color:var(--green-d);margin-bottom:4px">35개</h3><p>참여기업 수 — 장비 활용·연구·실증·인증 지원·네트워킹 참여 기업</p></div>
-      <div class="card" style="border-top:3px solid var(--green)"><h3 style="font-size:26px;color:var(--green-d);margin-bottom:4px">19명</h3><p>참여기업 연계 신규 고용 창출</p></div>
-      <div class="card" style="border-top:3px solid var(--blue)"><h3 style="font-size:26px;color:var(--blue);margin-bottom:4px">35억 원</h3><p>연구지원센터·참여기업 매출액 총액</p></div>
-      <div class="card" style="border-top:3px solid var(--blue)"><h3 style="font-size:26px;color:var(--blue);margin-bottom:4px">60억 원</h3><p>참여기업 투자유치 총액</p></div>
-      <div class="card" style="border-top:3px solid var(--green)"><h3 style="font-size:26px;color:var(--green-d);margin-bottom:4px">300건</h3><p>맞춤형 레시피·식단 개발 지원</p></div>
-      <div class="card" style="border-top:3px solid var(--green)"><h3 style="font-size:26px;color:var(--green-d);margin-bottom:4px">14건</h3><p>센터 장비 활용 시제품 제작 지원</p></div>
+  <!-- 소식 + 하이라이트 -->
+  <div class="news-section">
+    <div class="news-left">
+      <h2>센터 소식을 전합니다.</h2>
+      <div class="news-list" id="homeNoticeList">
+        <div class="news-item">
+          <span class="news-pin">공지</span>
+          <div class="news-body">
+            <div class="news-title">2026년 참여기업 모집 공고 — 개인맞춤형식품 분야</div>
+            <div class="news-date">2026.03.01</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-body">
+            <div class="news-title">과천시 푸드테크 연구지원센터 공식 운영 개시 안내</div>
+            <div class="news-date">2026.03.01</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-body">
+            <div class="news-title">케이사인 사옥·공유오피스·기술지원실 3월 이용 신청 안내</div>
+            <div class="news-date">2026.02.20</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-body">
+            <div class="news-title">진성에프엠 실증실 장비 반입 및 구축 일정 안내 (예정)</div>
+            <div class="news-date">2026.02.15</div>
+          </div>
+        </div>
+      </div>
+      <button class="news-more" onclick="go('notice')">공지사항 더 보기 →</button>
+    </div>
+
+    <div class="news-highlight">
+      <div class="nh-img">🍽️</div>
+      <div class="nh-body">
+        <span class="nh-tag">센터 소개</span>
+        <div class="nh-title">과천시 푸드테크 연구지원센터의 개인맞춤형식품 지원 체계가 마련되었습니다</div>
+        <div class="nh-desc">데이터 확보부터 알고리즘 설계, 제품 실증, 인증 획득까지 전 과정을 원스톱으로 지원하는 통합 인프라를 갖추었습니다.</div>
+        <button class="nh-cta" onclick="go('pkg')">지원 패키지 보기 →</button>
+      </div>
     </div>
   </div>
 
-  <div class="sect">
-    <div class="sec-eyebrow">NETWORK</div>
-    <h2>협력 네트워크</h2>
-    <p class="desc">산업계·정부기관·학계 협력 네트워크를 조성하고, 전국 푸드테크 연구지원센터 및 글로벌 네트워크와 연계합니다.</p>
-    <div class="grid g2">
-      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 15l6-6"/><path d="M11 6l1-1a4 4 0 0 1 5.7 5.7l-1.4 1.4"/><path d="M13 18l-1 1A4 4 0 0 1 6.3 13.3l1.4-1.4"/></svg></div><div class="ibody"><h3>국내 협력</h3><p>전국 푸드테크 연구지원센터(식물기반식품-익산, 식품업사이클링-나주, 식품로봇-포항, 간편식품-제주, 스마트 제조-구미)와 정기 협력 체계를 구축하고, 식약처·농림축산식품부·KTR·KOTITI 등 인증기관과 연계합니다. 춘천시 연구지원센터와는 지역 농산물 공급 체계로 협력합니다.</p></div></div>
-      <div class="card icard"><div class="iico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9z"/></svg></div><div class="ibody"><h3>글로벌 네트워크</h3><p>월드푸드테크협의회를 중심으로 글로벌 네트워크를 확대하고, 해외 우수 기관·기업 협력 채널을 확보하며, 국제 푸드테크 컨퍼런스 유치 및 해외 실증·인증 지원 체계를 마련합니다.</p></div></div>
+</div><!-- /home-wrap -->
+
+<!-- CTA 배너 -->
+<div class="cta-banner">
+  <div class="cta-bg"></div>
+  <div class="cta-overlay">
+    <div class="cta-text">
+      <h2>개인맞춤형식품의 가능성을<br>연결하는 공간</h2>
+      <p>과천 지식정보타운 3개 거점에서 데이터·설계·실증·인증을 한 번에 지원합니다.</p>
+    </div>
+    <button class="cta-btn" onclick="go('equip')">공간 소개 바로가기 →</button>
+  </div>
+</div>
+
+<!-- 이용문의 + 공간 소개 -->
+<div class="home-wrap">
+  <div class="info-section">
+    <div class="contact-box">
+      <h3>이용 문의</h3>
+      <div class="contact-phone">02-880-XXXX</div>
+      <div class="contact-hours">운영시간 : 평일 09:00 ~ 18:00<br>점심시간 : 12:00 ~ 13:00 (공휴일 제외)</div>
+      <div class="contact-menu">
+        <div class="cm-item" onclick="go('apply')">
+          <div class="cm-ico">📝</div>
+          <div class="cm-lbl">1:1 신청</div>
+        </div>
+        <div class="cm-item" onclick="go('guide')">
+          <div class="cm-ico">❓</div>
+          <div class="cm-lbl">FAQ</div>
+        </div>
+        <div class="cm-item">
+          <div class="cm-ico">📍</div>
+          <div class="cm-lbl">오시는길</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-box">
+      <h2>공간 소개</h2>
+      <div class="space-cards">
+        <div class="space-card" onclick="go('equip')">
+          <div class="space-thumb">🏢</div>
+          <div class="space-info">
+            <h4>공유오피스 · 기술지원실</h4>
+            <p>케이사인 사옥 — 데이터 분석·알고리즘 설계·웰니스 측정 전용 공간</p>
+            <span class="space-tag">2026 운영 중</span>
+          </div>
+        </div>
+        <div class="space-card" onclick="go('equip')">
+          <div class="space-thumb">🧪</div>
+          <div class="space-info">
+            <h4>실증실 1·2 · 미디어실</h4>
+            <p>진성에프엠 — 조리 로봇·3D 프린터·분석 장비 갖춘 실증 전용 공간</p>
+            <span class="space-tag" style="background:#DBEAFE;color:#1D4ED8">2026.12 오픈 예정</span>
+          </div>
+        </div>
+        <div class="space-card" onclick="go('equip')">
+          <div class="space-thumb">🎨</div>
+          <div class="space-info">
+            <h4>디자인실 · 인증 컨설팅실</h4>
+            <p>프리즘스퀘어 — 서비스 기획·인증 컨설팅 전용 사무 공간</p>
+            <span class="space-tag" style="background:#FFEDD5;color:#C2410C">2027 운영 예정</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</section>
+</div>
+
+</section><!-- /page-home -->
+
+<main>
 
 <!-- ============ PACKAGES ============ -->
 <section class="page" id="page-pkg">
+  <div class="page-inner">
   <div class="sect">
     <div class="sec-eyebrow">PACKAGES</div>
     <h2>실증 패키지 신청</h2>
     <p class="desc">패키지를 선택하면 상세 지원 내용과 예시를 확인할 수 있습니다. 모듈별 신청 또는 전주기 원스톱 신청이 가능하며, 세부 범위와 기간은 신청 후 센터와 협의하여 확정합니다.</p>
     <div class="grid g3" id="pkgGrid"></div>
   </div>
-
+  </div>
 </section>
 
 <!-- ============ EQUIPMENT ============ -->
 <section class="page" id="page-equip">
+  <div class="page-inner">
   <div class="sect">
     <div class="sec-eyebrow">SPACE BOOKING</div>
     <h2>공간 예약</h2>
@@ -657,10 +979,12 @@ footer{border-top:1px solid var(--line);background:#fff;padding:24px 20px;text-a
     <div class="grid g3" id="spaceGrid"></div>
     <div class="empty" id="spaceEmpty" style="display:none">선택한 건물에 등록된 공간이 없습니다.</div>
   </div>
+  </div>
 </section>
 
 <!-- ============ NOTICE ============ -->
 <section class="page" id="page-notice">
+  <div class="page-inner">
   <div class="sect">
     <div class="sec-eyebrow">NOTICE</div>
     <h2>공지사항</h2>
@@ -668,20 +992,24 @@ footer{border-top:1px solid var(--line);background:#fff;padding:24px 20px;text-a
     <div class="grid g2" id="noticeGrid"></div>
     <div class="empty" id="noticeEmpty" style="display:none">등록된 공지사항이 없습니다.</div>
   </div>
+  </div>
 </section>
 
 <!-- ============ GUIDE / FAQ ============ -->
 <section class="page" id="page-guide">
+  <div class="page-inner">
   <div class="sect">
     <div class="sec-eyebrow">GUIDE</div>
     <h2>이용안내 · FAQ</h2>
     <p class="desc">신청 절차와 자주 묻는 질문을 안내합니다.</p>
     <div id="faqList"></div>
   </div>
+  </div>
 </section>
 
 <!-- ============ GALLERY ============ -->
 <section class="page" id="page-gallery">
+  <div class="page-inner">
   <div class="sect">
     <div class="sec-eyebrow">GALLERY</div>
     <h2>갤러리</h2>
@@ -689,10 +1017,12 @@ footer{border-top:1px solid var(--line);background:#fff;padding:24px 20px;text-a
     <div class="grid g3" id="galleryGrid"></div>
     <div class="empty" id="galleryEmpty" style="display:none">준비 중입니다.</div>
   </div>
+  </div>
 </section>
 
 <!-- ============ APPLY ============ -->
 <section class="page" id="page-apply">
+  <div class="page-inner">
   <div class="sect">
     <div class="sec-eyebrow">APPLICATION</div>
     <h2>이용 신청서 작성</h2>
@@ -773,6 +1103,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:24px 20px;text-a
       <p class="notice">제출 시 신청 내용이 센터에 접수되고 담당자 이메일로 전달됩니다. 접수 후 담당자가 3영업일 이내 연락드립니다.</p>
     </div>
   </div>
+  </div>
 </section>
 
 </main>
@@ -783,8 +1114,37 @@ footer{border-top:1px solid var(--line);background:#fff;padding:24px 20px;text-a
 </div>
 
 <footer>
-  과천시 푸드테크 연구지원센터 · 농림축산식품부 지정 · 서울대학교 산학협력단 운영<br>
-  경기도 과천시 지식정보타운 (프리즘스퀘어 · 케이사인 사옥 · 진성에프엠)
+  <div class="ft-inner">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <div class="ft-logo">GFT</div>
+        <div class="ft-name">
+          <strong>과천시 푸드테크 연구지원센터</strong>
+          <span>Gwacheon FoodTech Research Support Center</span>
+        </div>
+      </div>
+      <nav class="ft-nav">
+        <a onclick="go('home');return false;" href="#">센터 소개</a>
+        <a onclick="go('pkg');return false;" href="#">실증 패키지</a>
+        <a onclick="go('equip');return false;" href="#">장비·공간</a>
+        <a onclick="go('notice');return false;" href="#">공지사항</a>
+        <a onclick="go('guide');return false;" href="#">이용안내</a>
+        <a onclick="go('apply');return false;" href="#">신청서</a>
+      </nav>
+    </div>
+    <div class="ft-divider"></div>
+    <div class="ft-bottom">
+      <div class="ft-info">
+        <p><strong>운영기관</strong> 서울대학교 산학협력단 (소관: 식품바이오융합연구소)</p>
+        <p><strong>위치</strong> 경기도 과천시 지식정보타운 일대 (프리즘스퀘어 · 케이사인 사옥 · 진성에프엠)</p>
+        <p><strong>이메일</strong> snupfm@gmail.com &nbsp;|&nbsp; <strong>지정기관</strong> 농림축산식품부</p>
+      </div>
+      <div class="ft-copy">
+        <p>© 2026 과천시 푸드테크 연구지원센터. All rights reserved.</p>
+        <p class="ft-copy-sub">본 센터는 농림축산식품부 지정, 과천시·춘천시 공모사업 "개인맞춤형식품" 분야 선정 기관입니다.</p>
+      </div>
+    </div>
+  </div>
 </footer>
 
 <script>
