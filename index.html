@@ -1000,7 +1000,33 @@ footer{background:#1A2332;color:rgba(255,255,255,.55)}
 <!-- ============ EQUIPMENT ============ -->
 <section class="page" id="page-equip">
   <div class="page-inner">
+
+  <!-- 장비 목록 -->
   <div class="sect">
+    <div class="sec-eyebrow">EQUIPMENT</div>
+    <h2>장비 신청</h2>
+    <p class="desc">건물·카테고리별로 장비를 검색하고 이용 신청을 할 수 있습니다. 장비 카드를 클릭하면 규격·사용법을 확인할 수 있습니다.</p>
+    <div class="fbar">
+      <input type="text" id="eSearch" placeholder="장비명 검색…" oninput="renderEquipList()">
+      <select id="eBld" onchange="renderEquipList()">
+        <option value="">전체 건물</option>
+        <option value="케이사인 사옥">케이사인 사옥</option>
+        <option value="진성 FM">진성 FM</option>
+        <option value="프리즘스퀘어">프리즘스퀘어</option>
+      </select>
+      <select id="eYear" onchange="renderEquipList()">
+        <option value="">전체 연도</option>
+        <option value="2026">2026 도입</option>
+        <option value="2027">2027 도입 예정</option>
+      </select>
+    </div>
+    <div class="chiprow" id="eCatChips"></div>
+    <div class="egrid" id="eGrid"></div>
+    <div class="empty" id="eEmpty" style="display:none">검색 결과가 없습니다.</div>
+  </div>
+
+  <!-- 공간 예약 -->
+  <div class="sect" style="margin-top:56px;padding-top:40px;border-top:1px solid var(--line)">
     <div class="sec-eyebrow">SPACE BOOKING</div>
     <h2>공간 예약</h2>
     <p class="desc">건물을 먼저 선택하면 해당 건물의 공간이 표시됩니다. 공간을 선택하면 30분 단위로 날짜·시간과 이용 자리 수를 지정할 수 있고, 예약 후에는 해당 공간에서 사용 가능한 장비 목록과 사용법·규격을 바로 확인할 수 있습니다. 한 공간은 최대 3자리까지 나누어 이용할 수 있으며, 3자리를 모두 선택하면 공간 전체를 단독으로 이용하는 예약이 됩니다.</p>
@@ -1008,6 +1034,7 @@ footer{background:#1A2332;color:rgba(255,255,255,.55)}
     <div class="grid g3" id="spaceGrid"></div>
     <div class="empty" id="spaceEmpty" style="display:none">선택한 건물에 등록된 공간이 없습니다.</div>
   </div>
+
   </div>
 </section>
 
@@ -1602,6 +1629,49 @@ function openCaseDetail(i){
 /* equipment */
 function eid(e){return e.name+"|"+e.building_s+"|"+e.space_s+"|"+e.purpose;}
 
+/* ── Equipment List ── */
+let _equipCat = "";
+function initEquipCatChips(){
+  const el = document.getElementById("eCatChips"); if(!el) return;
+  const cats = [...new Set(EQUIP.map(e=>e.cat))].sort();
+  el.innerHTML = `<button class="chip on" data-c="">전체 카테고리</button>` +
+    cats.map(c=>`<button class="chip" data-c="${c}">${c}</button>`).join("");
+  el.querySelectorAll(".chip").forEach(ch => ch.onclick = () => {
+    _equipCat = ch.dataset.c;
+    el.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on", x===ch));
+    renderEquipList();
+  });
+}
+function renderEquipList(){
+  const el = document.getElementById("eGrid"); if(!el) return;
+  const emEl = document.getElementById("eEmpty");
+  const q = (document.getElementById("eSearch")||{}).value||"";
+  const bld = (document.getElementById("eBld")||{}).value||"";
+  const yr = (document.getElementById("eYear")||{}).value||"";
+  const list = EQUIP.filter(e=>{
+    if(bld && e.building_s !== bld) return false;
+    if(yr && String(e.year) !== yr) return false;
+    if(_equipCat && e.cat !== _equipCat) return false;
+    if(q && !e.name.includes(q) && !e.cat.includes(q) && !e.space_s.includes(q)) return false;
+    return true;
+  });
+  if(emEl) emEl.style.display = list.length ? "none" : "block";
+  el.innerHTML = list.map(e=>`
+    <div class="ecard" onclick="openEquipDetail('${encodeURIComponent(eid(e))}')">
+      ${imgTag(equipImgBase(e), e.name, "thumb")}
+      <div class="badges">
+        <span class="bdg ${e.cat==="기반 설비"?"infra":"cat"}">${e.cat}</span>
+        ${e.year==="2027"?'<span class="bdg y27">2027 도입 예정</span>':""}
+      </div>
+      <div class="nm">${e.name}</div>
+      <div class="loc">${e.building_s} · ${e.space_s}</div>
+      <div class="loc" style="margin-top:2px">수량: ${e.qty}대</div>
+    </div>`).join("");
+}
+function openEquipDetail(eidEnc){
+  openModal(eidEnc, "");
+}
+
 /* space booking */
 function renderBldChips(){
   const el=document.getElementById("bldChips"); if(!el) return;
@@ -2042,6 +2112,8 @@ async function loadSheetContent(){
 
 try { renderPkgs(); } catch(e) { console.warn('renderPkgs', e); }
 try { renderFacilities(); } catch(e) { console.warn('renderFacilities', e); }
+try { initEquipCatChips(); } catch(e) { console.warn('initEquipCatChips', e); }
+try { renderEquipList(); } catch(e) { console.warn('renderEquipList', e); }
 try { renderBldChips(); } catch(e) { console.warn('renderBldChips', e); }
 try { renderSpaces(); } catch(e) { console.warn('renderSpaces', e); }
 try { renderNotices(); } catch(e) { console.warn('renderNotices', e); }
