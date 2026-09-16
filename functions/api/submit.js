@@ -53,7 +53,8 @@ export async function onRequestPost({ request, env }) {
     return json({ error: "db insert failed", detail: t }, 500);
   }
 
-  // 2) Resend 이메일 알림
+  // 2) Resend 이메일 알림 (실패해도 접수는 성공 처리, 사유는 Functions 로그에 기록)
+  //    FROM_EMAIL 미설정 시 onboarding@resend.dev → Resend 가입 계정 메일로만 발송 가능
   if (env.RESEND_API_KEY && env.NOTIFY_EMAIL) {
     await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -68,7 +69,11 @@ export async function onRequestPost({ request, env }) {
         subject: `[이용신청] ${record.company}`,
         text: s(data.summary) || JSON.stringify(record, null, 2),
       }),
-    }).catch(() => {}); // 메일 실패해도 접수 자체는 성공 처리
+    })
+      .then(async (r) => {
+        if (!r.ok) console.error("resend failed", r.status, await r.text());
+      })
+      .catch((e) => console.error("resend error", e));
   }
 
   return json({ ok: true });
