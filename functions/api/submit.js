@@ -32,24 +32,25 @@ export async function onRequestPost({ request, env }) {
     equipment: data.equipment || [],
     spaces: data.spaces || [],
     description: s(data.description),
+    details: data.details || {}, // 대표자·사업자번호·주소 등 상세 항목
   };
 
-  // 1) Supabase 저장
-  if (env.SUPABASE_URL && env.SUPABASE_SERVICE_KEY) {
-    const res = await fetch(`${env.SUPABASE_URL}/rest/v1/applications`, {
-      method: "POST",
-      headers: {
-        apikey: env.SUPABASE_SERVICE_KEY,
-        Authorization: `Bearer ${env.SUPABASE_SERVICE_KEY}`,
-        "Content-Type": "application/json",
-        Prefer: "return=minimal",
-      },
-      body: JSON.stringify(record),
-    });
-    if (!res.ok) {
-      const t = await res.text();
-      return json({ error: "db insert failed", detail: t }, 500);
-    }
+  // 1) Supabase 저장 (환경 변수 미설정이면 실패 처리 → 페이지가 mailto로 대체 동작)
+  if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_KEY)
+    return json({ error: "server not configured" }, 500);
+  const res = await fetch(`${env.SUPABASE_URL}/rest/v1/applications`, {
+    method: "POST",
+    headers: {
+      apikey: env.SUPABASE_SERVICE_KEY,
+      Authorization: `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+      "Content-Type": "application/json",
+      Prefer: "return=minimal",
+    },
+    body: JSON.stringify(record),
+  });
+  if (!res.ok) {
+    const t = await res.text();
+    return json({ error: "db insert failed", detail: t }, 500);
   }
 
   // 2) Resend 이메일 알림

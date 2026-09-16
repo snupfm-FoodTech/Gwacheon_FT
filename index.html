@@ -1268,7 +1268,8 @@ function getSpaces(){
   });
   return [...map.values()];
 }
-const API_URL = "https://gwacheon-apply-api.snupfm.workers.dev";
+// 신청 접수 API — 같은 Pages 프로젝트의 functions/api/submit.js (Supabase 저장 + Resend 알림)
+const API_URL = "/api/submit";
 // 구글 시트 '웹에 게시' CSV 링크 목록. 각 링크의 머리글을 보고 장비/실증예시 탭을 자동 판별.
 const SHEET_CSV_URLS = [
  "https://docs.google.com/spreadsheets/d/e/2PACX-1vS09WsQ4wSlgGLmrWQdtJfbsygyJgLIqJn4greBzs4-61eLYrrAK3lyOXgStBxgKQ/pub?gid=613778283&single=true&output=csv",

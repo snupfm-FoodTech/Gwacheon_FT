@@ -91,6 +91,10 @@ alter table public.gallery enable row level security;
 - Supabase > Table Editor > applications에 행 생성 확인
 - NOTIFY_EMAIL로 알림 메일 수신 확인
 
+## 운영 참고
+- Supabase **Free 플랜은 7일간 DB 접근이 없으면 프로젝트가 자동 일시정지**됩니다. 정지 중에는 접수가 mailto로 대체되고 공지/FAQ/갤러리는 내장 기본 문구만 표시됩니다. Supabase 대시보드에서 **Resume project**로 재가동하거나, 정지를 막으려면 Pro 플랜으로 전환합니다.
+- 장비 목록·실증 예시·이용 가이드·공간 단가는 `index.html`의 `SHEET_CSV_URLS`에 적힌 구글 시트(웹에 게시 CSV)에서 페이지를 열 때마다 불러옵니다. 시트 첫 행의 헤더 이름으로 용도를 판별하므로 헤더명은 바꾸지 않습니다.
+
 ## 보안 참고
 - service_role 키와 API 키는 반드시 Cloudflare 환경 변수에만 넣고, HTML/코드에 넣지 않습니다.
 - 채팅 등 외부에 노출된 키·비밀번호는 재발급/변경을 권장합니다.
