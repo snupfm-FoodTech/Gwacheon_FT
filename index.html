@@ -1817,10 +1817,8 @@ function openModal(key,backSpaceKey){
   const inCart=state.cart.has(k);
   const specs=[
     ["설치 위치",`${e.building_s} · ${e.space_s}`],["수량",e.qty+"대"],
-    ["규격(가로×세로×높이)",dim],["전압",e.volt&&e.volt!=="0"?e.volt+"V":"-"],
-    ["급수",e.water||"-"],["배수 / 배기",`${e.drain||"-"} / ${e.vent||"-"}`],
-    ["이용 가능 시기",e.year==="2026"?"2026년 구축 (12월 운영 개시)":"2027년 도입 예정 (사전 협의)"],
-    ["구분",e.purpose||"-"]
+    ["규격(가로×세로×높이)",dim],
+    ["이용 가능 시기",e.year==="2026"?"2026년 구축 (12월 운영 개시)":"2027년 도입 예정 (사전 협의)"]
   ];
   const backBtn=backSpaceKey?`<button class="back" onclick="openSpace('${backSpaceKey}')">← ${e.space_s}(으)로 돌아가기</button>`:"";
   document.getElementById("modalBody").innerHTML=`
@@ -1831,6 +1829,7 @@ function openModal(key,backSpaceKey){
     ${imgTag(equipImgBase(e),e.name,"mspaceimg")}
     <div class="spec">${specs.map(s=>`<div><b>${s[0]}</b>${s[1]}</div>`).join("")}</div>
     <div class="usage">
+      ${e.desc?`<h4>제품 설명</h4><p class="note">${e.desc}</p>`:""}
       <h4>용도</h4><p class="note">${g["용도"]}</p>
       <h4>기본 사용 절차</h4>
       <ol>${g["절차"].map(s=>`<li>${s}</li>`).join("")}</ol>
@@ -2069,10 +2068,10 @@ async function loadSheetContent(){
     if(heads.includes("장비명")){
       const objs=rowsToObjs(rows).filter(o=>o["장비명"]);
       if(!objs.length) return;
+      // 시트 열: 장비명, 건물, 공간, 카테고리, 연도, 수량, 가로(mm), 세로(mm), 높이(mm), 제품설명
       const mapped=objs.map(o=>({name:o["장비명"],building_s:o["건물"],space_s:o["공간"],purpose:o["구분"]||"",
         cat:o["카테고리"]||"기반 설비",year:o["연도"]||"2026",qty:parseInt(o["수량"]||"1")||1,price:"",
-        w:o["가로(mm)"]||"",dp:o["세로(mm)"]||"",h:o["높이(mm)"]||"",power:"",volt:o["전압(V)"]||"",
-        water:o["급수"]||"",drain:o["배수"]||"",vent:o["배기"]||""}));
+        w:o["가로(mm)"]||"",dp:o["세로(mm)"]||"",h:o["높이(mm)"]||"",desc:o["제품설명"]||""}));
       EQUIP.length=0; mapped.forEach(x=>EQUIP.push(x));
     }else if(heads.includes("카테고리")&&heads.includes("용도")){
       const objs=rowsToObjs(rows).filter(o=>o["카테고리"]);
