@@ -2017,6 +2017,7 @@ async function submitForm(mail){
   const d=collect();
   const missing=[["title","실증 과제명"],["company","기업명"],["ceo","대표자명"],["bizno","사업자등록번호"],["addr","소재지"],["bizdesc","업종 및 주요 제품·서비스"],["name","담당자명"],["phone","연락처"],["email","이메일"],["desc","기술·서비스 개요"],["goal","실증 목표 및 기대 성과"]].filter(([k])=>!d[k]);
   if(missing.length){alert("다음 필수 항목을 입력하여 주십시오:\n- "+missing.map(m=>m[1]).join("\n- "));return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)){alert("이메일 주소 형식이 올바르지 않습니다. (예: name@company.co.kr)");document.getElementById("fEmail").focus();return;}
   if(mail&&!d.agree){alert("개인정보 수집·이용에 동의하셔야 제출이 가능합니다.");return;}
   lastDoc=d;
   const body=summaryText(d);

@@ -65,7 +65,8 @@ export async function onRequestPost({ request, env }) {
       body: JSON.stringify({
         from: env.FROM_EMAIL || "onboarding@resend.dev",
         to: [env.NOTIFY_EMAIL],
-        reply_to: record.email,
+        // 신청자 이메일이 형식에 맞을 때만 답장 주소로 지정 (아니면 Resend가 422로 거부)
+        ...(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(record.email) ? { reply_to: record.email } : {}),
         subject: `[이용신청] ${record.company}`,
         text: s(data.summary) || JSON.stringify(record, null, 2),
       }),
