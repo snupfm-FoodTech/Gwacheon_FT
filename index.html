@@ -1834,9 +1834,8 @@ function openModal(key,backSpaceKey){
     <div class="spec">${specs.map(s=>`<div><b>${s[0]}</b>${s[1]}</div>`).join("")}</div>
     <div class="usage">
       ${e.desc?`<h4>제품 설명</h4><p class="note">${e.desc}</p>`:""}
-      <h4>용도</h4><p class="note">${g["용도"]}</p>
       <h4>기본 사용 절차</h4>
-      <ol>${g["절차"].map(s=>`<li>${s}</li>`).join("")}</ol>
+      <ol>${(e.steps&&e.steps.length?e.steps:g["절차"]).map(s=>`<li>${s}</li>`).join("")}</ol>
       <div class="warn">${g["주의"]}</div>
     </div>
     <div class="mact">
@@ -2042,6 +2041,13 @@ async function submitForm(mail){
   }finally{btns.forEach(b=>b.disabled=false);}
 }
 
+// "1. 가\n2. 나" / "가\n나" / "1. 가 2. 나" 형태의 절차 문자열을 단계 배열로 변환
+function splitSteps(text){
+  const NL=String.fromCharCode(10);
+  let parts=String(text).split(NL).map(x=>x.trim()).filter(x=>x);
+  if(parts.length===1&&/\s\d+[.)]\s/.test(parts[0])) parts=parts[0].split(/\s(?=\d+[.)]\s)/);
+  return parts.map(x=>x.replace(/^\d+[.)]\s*/,"").trim()).filter(x=>x);
+}
 function parseCSV(text){
   const NL=String.fromCharCode(10), CR=String.fromCharCode(13), Q=String.fromCharCode(34);
   const rows=[]; let row=[], cell="", inQ=false;
@@ -2072,10 +2078,12 @@ async function loadSheetContent(){
     if(heads.includes("장비명")){
       const objs=rowsToObjs(rows).filter(o=>o["장비명"]);
       if(!objs.length) return;
-      // 시트 열: 장비명, 건물, 공간, 카테고리, 연도, 수량, 가로(mm), 세로(mm), 높이(mm), 제품설명
+      // 시트 열: 장비명, 건물, 공간, 카테고리, 연도, 수량, 가로(mm), 세로(mm), 높이(mm), 제품설명, 기본 사용 절차
+      // (기본 사용 절차는 한 셀에 줄바꿈 또는 "1. 2. 3." 번호로 단계를 구분)
       const mapped=objs.map(o=>({name:o["장비명"],building_s:o["건물"],space_s:o["공간"],purpose:o["구분"]||"",
         cat:o["카테고리"]||"기반 설비",year:o["연도"]||"2026",qty:parseInt(o["수량"]||"1")||1,price:"",
-        w:o["가로(mm)"]||"",dp:o["세로(mm)"]||"",h:o["높이(mm)"]||"",desc:o["제품설명"]||""}));
+        w:o["가로(mm)"]||"",dp:o["세로(mm)"]||"",h:o["높이(mm)"]||"",desc:o["제품설명"]||"",
+        steps:splitSteps(o["기본 사용 절차"]||o["기본사용절차"]||o["사용 절차"]||"")}));
       EQUIP.length=0; mapped.forEach(x=>EQUIP.push(x));
     }else if(heads.includes("카테고리")&&heads.includes("용도")){
       const objs=rowsToObjs(rows).filter(o=>o["카테고리"]);
