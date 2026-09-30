@@ -2037,7 +2037,17 @@ async function submitForm(mail){
     if(!res.ok) throw new Error();
     r.textContent="신청이 접수되었습니다. 담당자가 3영업일 이내 연락드립니다. 아래 신청서 다운로드 버튼으로 제출 문서를 보관하실 수 있습니다.\n\n"+body;
   }catch(err){
-    location.href=`mailto:${CENTER_EMAIL}?subject=${encodeURIComponent("[이용신청] "+d.company)}&body=${encodeURIComponent(body)}`;
+    // 접수 서버 장애 시: 메일 앱을 자동으로 열지 않고, 안내 문구와 수동 발송 버튼만 표시
+    r.innerHTML="";
+    const msg=document.createElement("div");
+    msg.innerHTML="<b>접수 서버에 일시적으로 연결할 수 없습니다.</b> 잠시 후 다시 제출해 주시거나, 아래 버튼으로 담당자에게 메일로 보내주십시오.";
+    const a=document.createElement("a");
+    a.className="addbtn";
+    a.style.cssText="display:inline-block;margin:12px 0;text-decoration:none";
+    a.textContent="메일로 신청서 보내기";
+    a.href=`mailto:${CENTER_EMAIL}?subject=${encodeURIComponent("[이용신청] "+d.company)}&body=${encodeURIComponent(body)}`;
+    r.appendChild(msg); r.appendChild(a);
+    r.appendChild(document.createTextNode(String.fromCharCode(10)+body));
   }finally{btns.forEach(b=>b.disabled=false);}
 }
 
